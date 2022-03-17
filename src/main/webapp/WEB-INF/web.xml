@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <module-name>account</module-name>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>All Access</web-resource-name>
+            <url-pattern>/index</url-pattern>
+            <url-pattern>/updateUser</url-pattern>
+            <url-pattern>/userInfo</url-pattern>
+            <url-pattern>/forbidden_domain</url-pattern>
+            <url-pattern>/verifylink</url-pattern>
+            <url-pattern>/applicationStatus</url-pattern>
+            <url-pattern>/suggestApp</url-pattern>
+            <!--<url-pattern>/updateUserEmail</url-pattern>-->
+            <url-pattern>/getEmailUpdateStatus</url-pattern>
+            <url-pattern>/verify</url-pattern>
+            <url-pattern>/home</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>non-member</role-name>
+            <role-name>member</role-name>
+            <role-name>CCP</role-name>
+        </auth-constraint>
+
+    </security-constraint>
+
+    <login-config>
+        <auth-method>KEYCLOAK</auth-method>
+        <realm-name>uft</realm-name>
+    </login-config>
+    <security-role>
+        <role-name>member</role-name>
+    </security-role>
+    <security-role>
+        <role-name>non-member</role-name>
+    </security-role>
+    <security-role>
+        <role-name>CCP</role-name>
+    </security-role>
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>org.uftwf.account.config.AppConfig</param-value>
+    </context-param>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>org.uftwf.account.util.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>account</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+        </init-param>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>org.uftwf.account.config.WebConfig</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>account</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <location>/WEB-INF/resources/layout/error.html</location>
+    </error-page>
+
+</web-app>
