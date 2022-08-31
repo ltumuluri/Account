@@ -36,7 +36,7 @@ public class SalesforceService {
             String postParameter = "{\"mbsid\":\""+memberId+"\"}";
             HttpEntity<String> entity = new HttpEntity<String>(postParameter,headers);
             InitialContext ctx = new InitialContext();
-            String url=(String)ctx.lookup("java:global/uft/host");
+            String url=System.getProperty("systemEnvironment");
             String apiUrl = url+"/salesforceAPI/rest/email_opt_out_status";
             ResponseEntity responseEntity = template.exchange(apiUrl,HttpMethod.POST,entity,String.class);
             if(responseEntity.getStatusCode() == HttpStatus.OK){
@@ -64,7 +64,7 @@ public class SalesforceService {
             String postParameter = new ObjectMapper().writeValueAsString(emailflag);
             HttpEntity<String> entity = new HttpEntity<String>(postParameter,headers);
             InitialContext ctx = new InitialContext();
-            String url=(String)ctx.lookup("java:global/uft/host");
+            String url=System.getProperty("systemEnvironment");
             String apiUrl = url+"/salesforceAPI/rest/update_email_opt_out_status";
             ResponseEntity responseEntity = template.exchange(apiUrl,HttpMethod.POST,entity,String.class);
             if(responseEntity.getStatusCode() == HttpStatus.OK){
@@ -84,7 +84,7 @@ public class SalesforceService {
         String password = System.getProperty("salesforceApiPassword");
 
         InitialContext ctx = new InitialContext();
-        String url=(String)ctx.lookup("java:global/uft/host");
+        String url=System.getProperty("systemEnvironment");
         String apiUrl = url+"/salesforceAPI/authenticate";
         ApiUser user = new ApiUser(username,password);
         RestTemplate restTemplate = new RestTemplate();
