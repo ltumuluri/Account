@@ -6,7 +6,7 @@
 
     <groupId>org.uft.account</groupId>
     <artifactId>account</artifactId>
-    <version>java-11-1.0.0</version>
+    <version>java-11-1.0.2</version>
     <packaging>war</packaging>
     <name>UFT Account</name>
     <description>UFT Account APP</description>
@@ -88,7 +88,12 @@
         <dependency>
             <groupId>org.uftwf</groupId>
             <artifactId>uft-sso-client</artifactId>
-            <version>java-11-normal-1.0.1</version>
+            <version>java-11-normal-1.0.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
