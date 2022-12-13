@@ -1,8 +1,18 @@
 <jboss-deployment-structure>
     <deployment>
+        <exclusions>
+            <module name="org.apache.common.logging"/>
+            <module name="org.apache.log4j"/>
+            <module name="org.jboss.log4j"/>
+            <module name="org.jboss.log4j.logmanager"/>
+            <module name="org.jboss.logging"/>
+
+        </exclusions>
         <dependencies>
             <module name="org.keycloak.keycloak-adapter-spi" />
             <module name="jdk.unsupported"/>
+            <module name="org.slf4j.slf4j-api"/>
+            <module name="org.springframework"/>
         </dependencies>
     </deployment>
 </jboss-deployment-structure>
