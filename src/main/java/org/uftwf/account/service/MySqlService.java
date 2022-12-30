@@ -7,7 +7,6 @@ import org.uft.plunkit.Member;
 import org.uftwf.account.model.*;
 import org.uftwf.account.util.MySqlConnectionFactory;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -53,7 +52,7 @@ public class MySqlService {
                     output.add(domain);
                 }
             } catch (Exception e) {
-                //e.printStackTrace();
+                // e.printStackTrace();
 
             } finally {
                 if (connection != null) {
@@ -69,7 +68,7 @@ public class MySqlService {
         return output;
     }
 
-    public ObjectDB optInNumber(String memberId){
+    public ObjectDB optInNumber(String memberId) {
         Connection connection = null;
         ObjectDB output = new ObjectDB();
         if (MySqlConnectionFactory.canConnect()) {
@@ -78,7 +77,7 @@ public class MySqlService {
                 connection = MySqlConnectionFactory.getConnection();
                 String query = "select opt_in from member_ext where member_id=?";
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1,memberId);
+                statement.setString(1, memberId);
                 ResultSet result = statement.executeQuery();
                 if (result.next()) {
                     output.setDbObject(result.getString("opt_in"));
@@ -86,7 +85,7 @@ public class MySqlService {
                 return output;
             } catch (Exception e) {
                 e.printStackTrace();
-                return  output;
+                return output;
             } finally {
                 if (connection != null) {
                     try {
@@ -97,13 +96,13 @@ public class MySqlService {
                     }
                 }
             }
-        }
-        else{
+        } else {
             output.setDbStatus(false);
         }
         return output;
     }
-    public ObjectDB uftId(String memberId){
+
+    public ObjectDB uftId(String memberId) {
         Connection connection = null;
         ObjectDB output = new ObjectDB();
         if (MySqlConnectionFactory.canConnect()) {
@@ -112,7 +111,7 @@ public class MySqlService {
                 connection = MySqlConnectionFactory.getConnection();
                 String query = "select uft_id from member_ext where member_id=?";
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1,memberId);
+                statement.setString(1, memberId);
                 ResultSet result = statement.executeQuery();
                 if (result.next()) {
                     output.setDbObject(result.getString("uft_id"));
@@ -120,7 +119,7 @@ public class MySqlService {
                 return output;
             } catch (Exception e) {
                 e.printStackTrace();
-                return  output;
+                return output;
             } finally {
                 if (connection != null) {
                     try {
@@ -131,8 +130,7 @@ public class MySqlService {
                     }
                 }
             }
-        }
-        else{
+        } else {
             output.setDbStatus(false);
         }
         return output;
@@ -157,7 +155,7 @@ public class MySqlService {
                 statement.setString(5, option);
                 statement.execute();
             } catch (Exception e) {
-                //e.printStackTrace();
+                // e.printStackTrace();
 
             } finally {
                 if (connection != null) {
@@ -171,30 +169,29 @@ public class MySqlService {
             }
         }
 
-
     }
-    public boolean isBatchRunning(){
+
+    public boolean isBatchRunning() {
         Connection connection = null;
         boolean status = false;
-        if(MySqlConnectionFactory.canConnect()){
-            try{
+        if (MySqlConnectionFactory.canConnect()) {
+            try {
                 String query = "select value from status where name='mbs-sso-batch'";
                 connection = MySqlConnectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query);
                 ResultSet resultSet = statement.executeQuery();
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     LOGGER.info("mbs-sso-batch is running" + "\r\n");
                     status = true;
                 }
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 return status;
-            }
-            finally {
-                if(connection!=null){
-                    try{
+            } finally {
+                if (connection != null) {
+                    try {
                         connection.close();
-                    }catch (Exception exception){
+                    } catch (Exception exception) {
 
                     }
                     return status;
@@ -203,6 +200,7 @@ public class MySqlService {
         }
         return status;
     }
+
     public boolean insertEmailIntoTempTable(String emailAddress, String memberId) {
         LOGGER.info("insertEmailIntoTempTable(): put the updated email into Temp table" + "\r\n");
         Connection connection = null;
@@ -218,7 +216,7 @@ public class MySqlService {
                 statement.execute();
                 insert = true;
             } catch (Exception e) {
-                //e.printStackTrace();
+                // e.printStackTrace();
 
             } finally {
                 if (connection != null) {
@@ -233,24 +231,25 @@ public class MySqlService {
         }
         return insert;
     }
-    public String getDescriptionOfUnionEnrollmentStatus(String statusId){
-        Connection connection=null;
-        String description=null;
-        if(MySqlConnectionFactory.canConnect()){
-            try{
+
+    public String getDescriptionOfUnionEnrollmentStatus(String statusId) {
+        Connection connection = null;
+        String description = null;
+        if (MySqlConnectionFactory.canConnect()) {
+            try {
                 String query = "select description from enrollment_status where enrollment_status_id = ?";
                 connection = MySqlConnectionFactory.getConnection();
-                PreparedStatement statement=connection.prepareStatement(query);
-                statement.setString(1,statusId);
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, statusId);
                 ResultSet resultSet = statement.executeQuery();
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     description = resultSet.getString("description");
                 }
-                return  description;
-            }catch (Exception e){
+                return description;
+            } catch (Exception e) {
                 e.printStackTrace();
                 return description;
-            }finally {
+            } finally {
                 try {
                     connection.close();
                     return description;
@@ -261,106 +260,109 @@ public class MySqlService {
         }
         return null;
     }
-    public RecordStatus existingWelfare(String memberId){
-        Connection connection=null;
-        RecordStatus existing=new RecordStatus();
-        if(MySqlConnectionFactory.canConnect()){
+
+    public RecordStatus existingWelfare(String memberId) {
+        Connection connection = null;
+        RecordStatus existing = new RecordStatus();
+        if (MySqlConnectionFactory.canConnect()) {
             existing.setDbStatus(true);
-            try{
+            try {
                 connection = MySqlConnectionFactory.getConnection();
-                String query ="select welfare_status_id from welfare where member_id=?";
-                PreparedStatement statement=connection.prepareStatement(query);
-                statement.setString(1,memberId);
-                ResultSet resultset=statement.executeQuery();
-                if(resultset.next()){
-                    String status=resultset.getString("welfare_status_id");
+                String query = "select welfare_status_id from welfare where member_id=?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, memberId);
+                ResultSet resultset = statement.executeQuery();
+                if (resultset.next()) {
+                    String status = resultset.getString("welfare_status_id");
                     existing.setRecordStatus(status);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 existing.setDbStatus(false);
-            }finally {
+            } finally {
                 try {
                     if (connection != null) {
                         connection.close();
                     }
                     return existing;
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
-        }
-        else{
+        } else {
             existing.setDbStatus(false);
             return existing;
         }
         return existing;
     }
-    public RecordStatus existingUnion(String memberId){
-        Connection connection=null;
-        RecordStatus existing=new RecordStatus();
-        if(MySqlConnectionFactory.canConnect()){
+
+    public RecordStatus existingUnion(String memberId) {
+        Connection connection = null;
+        RecordStatus existing = new RecordStatus();
+        if (MySqlConnectionFactory.canConnect()) {
 
             existing.setDbStatus(true);
-            try{
-                connection=MySqlConnectionFactory.getConnection();
-                String query ="select current_status from enrollment where member_id=? and DATE(`last_update`) = CURDATE()";
-                PreparedStatement statement=connection.prepareStatement(query);
-                statement.setString(1,memberId);
-                ResultSet resultset=statement.executeQuery();
-                if(resultset.next()){
-                    String status=resultset.getString("current_status");
+            try {
+                connection = MySqlConnectionFactory.getConnection();
+                String query = "select current_status from enrollment where member_id=? and DATE(`last_update`) = CURDATE()";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, memberId);
+                ResultSet resultset = statement.executeQuery();
+                if (resultset.next()) {
+                    String status = resultset.getString("current_status");
                     existing.setRecordStatus(status);
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 existing.setDbStatus(false);
-            }finally {
+            } finally {
                 try {
                     if (connection != null) {
                         connection.close();
                     }
                     return existing;
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
             }
-        }
-        else{
+        } else {
             existing.setDbStatus(false);
             return existing;
         }
         return existing;
     }
-    public MemberExtData getMemberExtData(String memberId){
-        Connection connection=null;
-        MemberExtData memberData=null;
-        if(MySqlConnectionFactory.canConnect()){
-            try{
-                String query="select member_group memberGroup, last_name lastName, first_name firstName, ssn,zip,country,wf_covered,nonmember,enrollment_date enrollment_date,wf_enrollment_date wf_date,union_eligible union_eligible, certificate_eligible certificate_eligible from member_ext where member_id =?";
+
+    public MemberExtData getMemberExtData(String memberId) {
+        Connection connection = null;
+        MemberExtData memberData = null;
+        if (MySqlConnectionFactory.canConnect()) {
+            try {
+                String query = "select member_group memberGroup, last_name lastName, first_name firstName, ssn,zip,country,wf_covered,nonmember,enrollment_date enrollment_date,wf_enrollment_date wf_date,union_eligible union_eligible, certificate_eligible certificate_eligible from member_ext where member_id =?";
                 connection = MySqlConnectionFactory.getConnection();
-                PreparedStatement statement=connection.prepareStatement(query);
-                statement.setString(1,memberId);
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, memberId);
                 ResultSet resultSet = statement.executeQuery();
-                if(resultSet.next()){
-                    String memberGroup = resultSet.getString("memberGroup")!=null?resultSet.getString("memberGroup"):"";
+                if (resultSet.next()) {
+                    String memberGroup = resultSet.getString("memberGroup") != null ? resultSet.getString("memberGroup")
+                            : "";
                     String lastName = resultSet.getString("lastName");
                     String firstName = resultSet.getString("firstName");
                     String ssn = resultSet.getString("ssn");
                     ssn = BlowfishEncryption.decrypt(ssn);
-                    String zip=resultSet.getString("zip")!=null?resultSet.getString("zip"):"";
-                    String country = resultSet.getString("country")!=null?resultSet.getString("country"):"";
-                    String wfCovered=resultSet.getString("wf_covered");
-                    String nonmember=resultSet.getString("nonmember");
-                    String union_eligible=resultSet.getString("union_eligible");
-                    String certificate_eligible=resultSet.getString("certificate_eligible");
-                    String wf_date=resultSet.getString("wf_date");
-                    String enrollment_date=resultSet.getString("enrollment_date");
-                    memberData=new MemberExtData(memberGroup,lastName,firstName,ssn,country,zip,wfCovered,nonmember,union_eligible,certificate_eligible,wf_date,enrollment_date);
+                    String zip = resultSet.getString("zip") != null ? resultSet.getString("zip") : "";
+                    String country = resultSet.getString("country") != null ? resultSet.getString("country") : "";
+                    String wfCovered = resultSet.getString("wf_covered");
+                    String nonmember = resultSet.getString("nonmember");
+                    String union_eligible = resultSet.getString("union_eligible");
+                    String certificate_eligible = resultSet.getString("certificate_eligible");
+                    String wf_date = resultSet.getString("wf_date");
+                    String enrollment_date = resultSet.getString("enrollment_date");
+                    memberData = new MemberExtData(memberGroup, lastName, firstName, ssn, country, zip, wfCovered,
+                            nonmember, union_eligible, certificate_eligible, wf_date, enrollment_date);
                 }
                 return memberData;
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 return memberData;
-            }finally {
+            } finally {
                 try {
                     connection.close();
                     return memberData;
@@ -371,31 +373,30 @@ public class MySqlService {
         }
         return null;
     }
-    public Boolean coveredByWelfare(String memberId){
-        Connection connection=null;
-        Boolean coverd=false;
-        if(MySqlConnectionFactory.canConnect()){
+
+    public Boolean coveredByWelfare(String memberId) {
+        Connection connection = null;
+        Boolean coverd = false;
+        if (MySqlConnectionFactory.canConnect()) {
             try {
                 String query = "select wf_covered from member_ext where member_id=?";
                 connection = MySqlConnectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query);
-                statement.setString(1,memberId);
+                statement.setString(1, memberId);
                 ResultSet resultSet = statement.executeQuery();
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     String coveredByWelfare = resultSet.getString("wf_covered");
-                    if(coveredByWelfare!=null){
-                        if(coveredByWelfare.equalsIgnoreCase("Y")){
-                            coverd=true;
-                        }
-                        else{
-                            coverd=false;
+                    if (coveredByWelfare != null) {
+                        if (coveredByWelfare.equalsIgnoreCase("Y")) {
+                            coverd = true;
+                        } else {
+                            coverd = false;
                         }
                     }
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 try {
                     connection.close();
                     return coverd;
@@ -404,7 +405,7 @@ public class MySqlService {
                 }
             }
         }
-        return  false;
+        return false;
     }
 
     public boolean insertOptinIntoMemberExt(String phone, String memberId) {
@@ -421,7 +422,7 @@ public class MySqlService {
                 statement.execute();
                 insert = true;
             } catch (Exception e) {
-                //e.printStackTrace();
+                // e.printStackTrace();
 
             } finally {
                 if (connection != null) {
@@ -436,7 +437,8 @@ public class MySqlService {
         }
         return insert;
     }
-    public boolean getCommunityFlag(String memberId){
+
+    public boolean getCommunityFlag(String memberId) {
         LOGGER.info("insertEmailIntoTempTable(): put the updated email into Temp table" + "\r\n");
         Connection connection = null;
         boolean allowFlag = false;
@@ -446,7 +448,7 @@ public class MySqlService {
                 connection = MySqlConnectionFactory.getConnection();
                 PreparedStatement statement = connection.prepareStatement(query);
                 ResultSet resultSet = statement.executeQuery();
-                if(resultSet.next()) {
+                if (resultSet.next()) {
                     String conditionQuery = resultSet.getString("query");
                     PreparedStatement conditionStatement = connection.prepareStatement(conditionQuery);
                     conditionStatement.setString(1, memberId);
@@ -493,7 +495,7 @@ public class MySqlService {
             }
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            // e.printStackTrace();
 
         } finally {
             if (connection != null) {
@@ -529,7 +531,8 @@ public class MySqlService {
             }
         }
     }
-    public String getMemberIdBySSOId(String ssoId){
+
+    public String getMemberIdBySSOId(String ssoId) {
         LOGGER.info("existingMember(): check if the user existing in the temp table" + "\r\n");
         Connection connection = null;
         String memberId = null;
@@ -559,5 +562,29 @@ public class MySqlService {
 
     }
 
+    // fetch active status from member extension
+    public ObjectDB getActiveStatus(String memberId) {
+        ObjectDB output = new ObjectDB();
+
+        if (MySqlConnectionFactory.canConnect()) {
+            output.setDbStatus(true);
+            try (Connection connection = MySqlConnectionFactory.getConnection()) {
+                String query = "select active_status from member_ext where member_id = ?";
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setString(1, memberId);
+                    ResultSet resultSet = statement.executeQuery();
+                    if (resultSet.next()) {
+                        output.setDbObject(resultSet.getString("active_status"));
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return output;
+        } else {
+            output.setDbStatus(false);
+        }
+        return output;
+    }
 
 }

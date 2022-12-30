@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23.18 26.23">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #124ec2;
+      }
+
+      .cls-2 {
+        isolation: isolate;
+      }
+    </style>
+  </defs>
+  <g id="Log_Out" data-name="Log Out" class="cls-2">
+    <g id="Log_Out-2" data-name="Log Out">
+      <path class="cls-1" d="M15.53,3.73c0,1.37,.03,2.58,.03,2.58,.18,.03,5.27,2.43,5.27,8.08s-4.07,9.46-9.19,9.46S2.4,20.09,2.4,14.4,7.54,6.42,7.54,6.42c0,0-.02-2.08,0-2.61C5.34,4.54,0,8.13,0,14.39,0,22.25,6.76,26.23,11.72,26.23s11.46-3.86,11.46-11.83c0-6.1-4.85-9.48-7.65-10.67ZM13.68,0h-4.16V15.2h4.16V0Z"/>
+    </g>
+  </g>
+</svg>

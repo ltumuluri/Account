@@ -23,7 +23,7 @@ var app = angular.module("uftApp", []);
     });
 })();
 (function () {
-    app.controller("accountFormController", ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
+    app.controller("accountFormController", ['$scope', '$http', '$window', '$location','$rootScope', function ($scope, $http, $window, $location,$rootScope) {
         $scope.showPhone = false;
         $scope.isMember = false;
         $scope.updateMessage="Save";
@@ -41,6 +41,7 @@ var app = angular.module("uftApp", []);
                     $scope.showBanner = true;
                     $scope.communitylink=response.data;
                 }
+                $rootScope.chapterleadercommunity = $scope.showBanner;
             });
         }
         showCommunityBanner();
@@ -52,12 +53,15 @@ var app = angular.module("uftApp", []);
                method: "GET"
            }).then(function (response) {
                if(response.data!=null&&response.data['dbStatus']){
-                   var personInfo = response.data['dbObject']['user'];
-                   var memberId= response.data['dbObject']['memberId'];
+                   let personInfo = response.data['dbObject']['user'];
+                   let memberId= response.data['dbObject']['memberId'];
                    var optin=response.data['dbObject']['optin'];
                    var optInNumber=response.data['dbObject']['optInNumber'];
                    var isMember=response.data['dbObject']['member'];
                    var unSubscribe = response.data['dbObject']['emailOptOut'];
+                   $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
+                   $rootScope.firstname=personInfo['firstname'];
+                   $rootScope.lastname=personInfo['lastname'];
                    $scope.personInfo=personInfo;
                    $scope.isMember=isMember;
                    $scope.isCCP=response.data['dbObject']['ccp'];
@@ -300,11 +304,36 @@ var app = angular.module("uftApp", []);
     });
 })();
 (function(){
-    app.controller("logoutController",['$scope','$http','$window',function($scope,$http,$window){
+    app.controller("logoutController",['$scope','$http','$window','$rootScope',function($scope,$http,$window,$rootScope){
         $scope.logout=function(){
             sessionStorage.clear();
             $window.location.href = 'logout';
         };
+        $scope.toggleDropdown = function($event){
+            if (document.getElementById("menuDropdown").classList.contains("show")){
+                document.getElementById("menuDropdown").classList.remove("show");
+            }else{
+                document.getElementById("menuDropdown").classList.toggle("show");
+            }
+        }
+        $scope.firstname = $rootScope.firstname;
+        $scope.lastname = $rootScope.lastname;
+        $scope.activeStatus = $rootScope.activeStatus;
+        $scope.chapterleadercommunity = $rootScope.chapterleadercommunity;
+        $window.onclick = function(event){
+            console.log(event.target);
+            if(!event.target.matches('.showmenutag')){
+                let dropdowns = document.getElementsByClassName("dropdown-menu");
+                let i;
+                for(i=0;i<dropdowns.length;i++){
+                    let openDropdown = dropdowns[i];
+                    if(openDropdown.classList.contains("show")){
+                        openDropdown.classList.remove("show")
+                    }
+                }
+            }
+        }
+
     }]);
 })();
 (function () {

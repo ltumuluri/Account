@@ -13,6 +13,15 @@ public class UserInfo {
     private boolean isMember;
     private boolean isCCP;
     private boolean isEmailOptOut;
+    private String unionStatus;
+
+    public String getUnionStatus() {
+        return unionStatus;
+    }
+
+    public void setUnionStatus(String unionStatus) {
+        this.unionStatus = unionStatus;
+    }
 
     public boolean isEmailOptOut() {
         return isEmailOptOut;

@@ -16,12 +16,6 @@
         <version>2.6.6</version>
         <relativePath/>
     </parent>
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>uft-repo</id>-->
-<!--            <url>http://maven.uftwf.local/maven/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>

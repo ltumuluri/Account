@@ -1,8 +1,5 @@
 package org.uftwf.account.controller;
 
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.KeycloakSecurityContext;
-import org.keycloak.representations.IDToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +29,15 @@ public class ViewController {
     @Autowired
     UserService userService;
     KeycloakHttp keycloakHttp = new KeycloakHttp();
-    SSOClient client = new SSOClient("uft",true);
+    SSOClient client = new SSOClient("uft", true);
+
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getAccount(HttpServletRequest request) {
 
-        if(!MySqlConnectionFactory.canConnect()){
+        if (!MySqlConnectionFactory.canConnect()) {
             return "error";
-        }else {
-            if(MySqlService.getInstance().isBatchRunning()){
+        } else {
+            if (MySqlService.getInstance().isBatchRunning()) {
                 return "batchprocess";
             }
             LOGGER.info("getAccount(): return Account page" + "\r\n");
@@ -55,7 +53,7 @@ public class ViewController {
                     MySqlService.getInstance().updateEmailStatus(memberId);
                 }
             }
-          Boolean isCCP=  client.hasUserGroup(ssoId,"CCP_group");
+            Boolean isCCP = client.hasUserGroup(ssoId, "CCP_group");
             userService.setCCP(isCCP);
             return "index";
         }
@@ -76,24 +74,26 @@ public class ViewController {
             e.printStackTrace();
         }
     }
+
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error(HttpServletResponse response) {
         return "error";
     }
-    @RequestMapping(value="/logout")
-    public void logout(HttpServletRequest request,HttpServletResponse response){
+
+    @RequestMapping(value = "/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         try {
             userService.cleanUserService();
             String ssoId = keycloakHttp.getSSOId(request);
             client.logout(ssoId);
             InitialContext ctx = new InitialContext();
-            String url=(String)ctx.lookup("java:global/uft/url");
+            String url = (String) ctx.lookup("java:global/uft/url");
             HttpSession session = request.getSession(false);
 
             request.logout();
             response.sendRedirect(url);
             return;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -123,8 +123,6 @@ public class ViewController {
             e.printStackTrace();
         }
     }
-
-
 
     @RequestMapping(value = "/uftHeader")
     public String getUftHeader() {
