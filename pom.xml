@@ -6,7 +6,7 @@
 
     <groupId>org.uft.account</groupId>
     <artifactId>account</artifactId>
-    <version>java-11-1.0.2</version>
+    <version>java-8-hub-changes</version>
     <packaging>war</packaging>
     <name>UFT Account</name>
     <description>UFT Account APP</description>
@@ -18,9 +18,9 @@
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <java.version>11</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
         <spring.bom>5.3.19</spring.bom>
         <servlet.version>1.0.2.Final-redhat-1</servlet.version>
         <org.slf4j>1.7.32.redhat-00001</org.slf4j>
@@ -82,7 +82,7 @@
         <dependency>
             <groupId>org.uftwf</groupId>
             <artifactId>uft-sso-client</artifactId>
-            <version>java-11-normal-1.0.0</version>
+            <version>java-8-normal-hubchanges</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
         <dependency>
@@ -96,7 +96,7 @@
         <dependency>
             <groupId>org.uftwf</groupId>
             <artifactId>uft-as400</artifactId>
-            <version>java-11-1.0.0</version>
+            <version>java-8-hubchanges-as400</version>
         </dependency>
     </dependencies>
     <build>
