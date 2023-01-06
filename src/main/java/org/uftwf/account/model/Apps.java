@@ -26,7 +26,7 @@ public class Apps {
                 case WELFAREQUEUE:
                     return new SuggestMemberApp("Welfare Enrollment Admin Queue",host+"welfareAdmin",4,"",true,false);
                 case GRIEVANCE:
-                    return new SuggestMemberApp("File a Step 1 Grievance", host+"grievance",5,"Due to the COVID-19 pandemic, the online grievance process is suspended.  You are encouraged to attempt informal resolutions in the meantime. If you have any questions, please contact the UFT at 212-331-6311.",true,false);
+                    return new SuggestMemberApp("File a Step 1 Grievance", host+"grievance",5,"Use this form to assist members in filing a grievance regarding a contract violation.",true,false);
                 case GRIEVANCEQUEUE:
                     return new SuggestMemberApp("Grievance History",host+"grievance/admin",6,"See your school’s history of grievances",true,false);
                 case COS:
