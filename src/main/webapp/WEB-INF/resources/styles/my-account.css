@@ -58,7 +58,8 @@
 #asideEdit {
     opacity: 0;
     width: 0;
-    transition: width 0.4s;
+    height: 0;
+    transition: 0.4s;
 }
 
 #buttonOpen {

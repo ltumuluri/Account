@@ -478,9 +478,12 @@
     let buttonOpen = document.getElementById("buttonOpen").style;
     function openEdit() {
         editStyle.width = "100%";
+        editStyle.height = "100%";
         editStyle.opacity = "1";
         asideStyle.opacity = "0";
         mainStyle.opacity = "0";
+        mainStyle.display = "none";
+        asideStyle.display = "none";
 
         buttonClose.opacity = "1";
         buttonOpen.opacity = "0";
@@ -488,12 +491,16 @@
         buttonOpen.width = "0";
 
         wrapperAll.padding = "0 20%"
+
     }
     function closeEdit() {
         editStyle.width = "0";
+        editStyle.height = "0";
         editStyle.opacity = "0";
         asideStyle.opacity = "1";
         mainStyle.opacity = "1";
+        mainStyle.display = "block";
+        asideStyle.display = "block";
 
         buttonClose.opacity = "0";
         buttonOpen.opacity = "1";
