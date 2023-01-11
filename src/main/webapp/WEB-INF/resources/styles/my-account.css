@@ -8,7 +8,13 @@
     display: flex;
     flex-flow: row wrap;
     padding: 0 10%;
-    transition: 0.4s;
+    transition: 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 1367px) {
+    #wrapper {
+        padding: 0 5%;;
+    }
 }
 
 .wrapperBody {
@@ -42,42 +48,79 @@
     font-size: 1.2em !important;
 }
 
+.positionLayout {
+    position: relative;
+}
+/* col-sm to col-md*/
+@media screen and (max-width: 576px) {
+    body {
+        font-size: 1.8em !important;
+    }
+}
+
+.col-7 {
+    overflow-wrap: break-word;
+    padding-left: 0;
+}
+
 /* animation */
+#wrapperAccount {
+    flex: 1;
+    transition: 0.4s ease-in-out;
+}
+#asideEdit {
+    flex: 0;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    transition: 0.4s ease-in-out;
+
+}
+/* layout */
+#aside {
+    order: 1;
+    flex: 2;
+    min-width: 300px;
+    padding: 0 2% 0 0;
+}
+
 #main {
-    flex: 4;
+    flex: 5;
     order: 2;
     border-left: 1px solid rgba(0,0,0,0.1);
     padding-left: 3%;
 }
 
-#aside {
-    order: 1;
-    flex: 2;
-    padding: 0 2% 0 0;
+@media screen and (max-width: 733px) {
+    #main {
+        border: none;
+        padding-left: 0;
+    }
+
+    #aside {
+        margin-right: calc(3% + 1px);
+    }
 }
 
-#wrapperAccount {
-    flex: 1;
-    transition: 0.4s;
-}
-
-#asideEdit {
-    flex: 0;
-    opacity: 0;
-    height: 0;
-    transition: flex 0.4s, opacity 0.4s;
-    overflow: auto;
+@media screen and (max-width: 700px) {
+    #aside {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 /* aside */
 .textButton {
-    float: right;
     background-color: white;
     border: 1px #993398 solid;
     border-radius: 15px;
     color: #993398 !important;
     font-size: 0.9em !important;
     padding: 0 10px!important;
+
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .iconButton {
@@ -122,6 +165,7 @@ input:hover, input:focus{
 }
 
 /* aside info */
+
 .avatar {
     width: 85px;
     height: 85px;
@@ -178,19 +222,18 @@ input:hover, input:focus{
 }
 
 /* main */
-
 .rightWrapper {
     gap: 20px 2%;
 }
 
 .rightTile {
     position: relative;
-    width: 320px;
-    height: 190px;
+    width: 300px;
+    height: 220px;
     background: linear-gradient(180deg, rgba(153, 51, 152,0.2) 0%, rgba(153, 51, 152, 0.02) 100%);
     box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
-    padding: 5px 15px;
+    padding: 5px 10px;
     z-index: 1;
 }
 
@@ -238,6 +281,11 @@ a:hover {
     font-weight: 600;
     margin: 15px 0;
     padding: 3px;
+}
+
+.tileTitle {
+    width: 260px;
+    margin: auto;
 }
 
 .tileText {
