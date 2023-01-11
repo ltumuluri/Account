@@ -29,7 +29,7 @@
 </head>
 <body ng-app="uftApp">
 <uft-header></uft-header>
-<div class="container-fluid content" ng-controller="accountFormController">
+<div class="container-fluid content" ng-controller="accountFormController" id="container">
 <!--    <div class="row" ng-show="showBanner">-->
 <!--        <div class="col-12 text-center">-->
 <!--        <div class="alert alert-success" role="alert">-->
@@ -51,12 +51,14 @@
 <!--        </div>-->
 <!--    </div>-->
 
+
+
     <div id="wrapper">
         <div id="asideEdit" style="" >
             <div class="gapBetween">
                 <button id="buttonClose" class="textButton" onclick="closeEdit()">
                     <span class="material-symbols-outlined iconButton">arrow_back</span>
-                    Back to my account
+                    Back
                 </button>
                 <div class="title">Personal Info</div>
                 <div class="editSubColor gapBetweenS">Update your personal details here</div>
@@ -172,7 +174,7 @@
                                    id="subscrisbe" name="phoneoption" ng-checked="!unSubscribe" style="margin-left: 10px;"/>
                             Opt in for text messages from the UFT.
                         </label>
-
+<!--                        ng-show="isMember && hasPhone"-->
                         <div class="offset-2 col-md-8">
                             <label>Cell Phone Number</label>
                             <div class="row">
@@ -211,305 +213,286 @@
                     </div>
                 </div>
             </div>
+            <div class="wrapperBody buttonLayout gapBetween gapAround" >
+                <div>
+                    <button type="submit" class="editButton cancelButton"  ng-click="cancel()" onclick="closeEdit()">Cancel</button>
+                </div>
+                <div ng-init="update==false">
+                    <button type="submit" class="editButton saveButton" id="enableButton" ng-click="enableSave()" onclick="closeEdit()" ng-disabled="updating">{{updateMessage?updateMessage:'Save'}}</button>
+                </div>
+            </div>
         </div>
+        <div class="wrapperBody" id="wrapperAccount">
+            <div id="aside">
+                <button id="buttonOpen" class="textButton" onclick="openEdit()">
+                    <span class="material-symbols-outlined iconButton">edit</span>
+                    <span>Edit</span>
+                </button>
+                <div class="gapBetween">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 floatLeft" style="padding: 0">
+                            <div class="avatar">
+                                <span class="avatarInitial">{{personInfo.firstname[0].toUpperCase()+personInfo.lastname[0].toUpperCase()}}</span>
+                            </div>
+                        </div>
+                        <span class="usernameTitle title">Hi, {{personInfo.username[0].toUpperCase() + personInfo.username.slice(1)}}</span>
+                    </div>
 
-        <div id="aside">
-            <button id="buttonOpen" class="textButton" onclick="openEdit()">
-                <span class="material-symbols-outlined iconButton">edit</span>
-                <span>Edit</span>
-            </button>
-            <div class="gapBetween">
-                <div class="row">
-                    <div class="col-md-5 col-sm-12 floatLeft" style="padding: 0">
-                        <div class="avatar">
-                            <span class="avatarInitial">{{personInfo.firstname[0].toUpperCase()+personInfo.lastname[0].toUpperCase()}}</span>
+                </div>
+
+                <div class="gapAround" id="userInfo">
+                    <div class="row" ng-show="isMember">
+                        <div class="col-md-5 col-sm-12 floatLeft">UFT ID:</div>
+                        <div class="col-md-7 col-sm-12">
+                            <p class="floatLeft">{{memberId}}</p>
                         </div>
                     </div>
-                    <span class="usernameTitle title">Hi, {{personInfo.username[0].toUpperCase() + personInfo.username.slice(1)}}</span>
-                </div>
-
-            </div>
-
-            <div class="gapAround" id="userInfo">
-                <div class="row" ng-show="isMember">
-                    <div class="col-md-5 col-sm-12 floatLeft">UFT ID:</div>
-                    <div class="col-md-7 col-sm-12">
-                        <p class="floatLeft">{{memberId}}</p>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 floatLeft">First Name:</div>
+                        <div class="col-md-7 col-sm-12">
+                            <p class="floatLeft">{{personInfo.firstname}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 floatLeft">Last Name:</div>
+                        <div class="col-md-7 col-sm-12">
+                            <p class="floatLeft">{{personInfo.lastname}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 floatLeft">Email:</div>
+                        <div class="col-md-7 col-sm-12">
+                            <p class="floatLeft">{{personInfo.email}}</p>
+                        </div>
+                    </div>
+                    <div class="row" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
+                        <div class="col-md-5 col-sm-12 floatLeft">Zip Code:</div>
+                        <div class="col-md-7 col-sm-12">
+                            <p class="floatLeft">{{personInfo.userAttributes.zipCode[0]}}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-5 col-sm-12 floatLeft">First Name:</div>
-                    <div class="col-md-7 col-sm-12">
-                        <p class="floatLeft">{{personInfo.firstname}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 col-sm-12 floatLeft">Last Name:</div>
-                    <div class="col-md-7 col-sm-12">
-                        <p class="floatLeft">{{personInfo.lastname}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5 col-sm-12 floatLeft">Email:</div>
-                    <div class="col-md-7 col-sm-12">
-                        <p class="floatLeft">{{personInfo.email}}</p>
-                    </div>
-                </div>
-                <div class="row" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
-                    <div class="col-md-5 col-sm-12 floatLeft">Zip Code:</div>
-                    <div class="col-md-7 col-sm-12">
-                        <p class="floatLeft">{{personInfo.userAttributes.zipCode[0]}}</p>
-                    </div>
-                </div>
-            </div>
-            <hr class="gapBetween">
-
-        <div class="form-group row"  ng-show="isMember && !isEdit">
-            <label class="col-md-5 col-sm-12 col-form-label floatRight">TEXT MESSAGING PREFERENCE:</label>
-            <div class="col-md-5 col-sm-12">
-                <p class="col-form-label floatLeft" ng-show="optin=='yes'">{{optinNumber}}</p>
-                <p class="col-form-label floatLeft" ng-show="optin=='no'">N/A</p>
-            </div>
-
-        </div>
-        <div class="form-group row"  ng-show="isMember && !isEdit">
-            <label class="col-md-5 col-sm-12 col-form-label floatRight">EMAIL SUBSCRIPTION STATUS:</label>
-            <div class="col-md-5 col-sm-12">
-                <p class="col-form-label floatLeft">{{unSubscribe?'Unsubscribed':'Subscribed'}}</p>
-            </div>
-
-        </div>
-
-
-            <a href="" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween">
-                <span class="">Member Hub</span>
-                <span class="material-symbols-outlined">chevron_right</span>
-            </a>
-            <a href="" target="_blank" class="wrapperBody leftWrapper leftTile">
-                <span class="">Chapter Leader Hub</span>
-                <span class="material-symbols-outlined">chevron_right</span>
-            </a>
-
-<!--                <fieldset class="scheduler-border">-->
-<!--                    <legend class="scheduler-border">My Account</legend>-->
-<!--                    <form class="form-horizontal accountForm" name="accountForm" >-->
-<!--                        <div class="form-group" ng-show="isEdit&&isMember&&!isCCP">-->
-<!--                            <label class="text-center col-12">You may update your username, email address or password here.</label>-->
-<!--                        </div>-->
-<!--                        <div class="form-group" ng-show="errorField&&isEdit">-->
-<!--                            <label class="text-danger text-center" ng-repeat="error in errors">{{error}}</label>-->
-<!--                        </div>-->
-<!--                        <div class="form-group row" ng-show="!isEdit">-->
-<!--                            <div class="col-md-10 col-sm-12 smallButton button-right">-->
-<!--                                <div class="smallButton button-right">-->
-<!--                                    <button type="button" class="btn btn-primary" id="EditButton" ng-click="enableEdit()">Edit-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-
-
-
-<!--                                <div class="radioOption">-->
-<!--                                    <div class="radio-inline">-->
-<!--                                        <label class="col-12 text-left stripP">
-                                <input type="radio" name="phoneoption" value="yes" ng-model="optin" class="form-radio">Yes</label>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-group short-form row" ng-show="optin=='yes'">-->
-
-<!--                                    </div>-->
-<!--                                    <div class="radio-inline">-->
-<!--                                        <label class="col-12 text-left stripP">
-                                                <input type="radio" name="phoneoption" value="no" ng-model="optin"-->
-<!--                                               ng-click="hidePhoneField()" class="form-radio">
-                                                No
-                                            </label>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group row" ng-show="isMember && !isEdit && hasPhone">-->
-<!--                            <label class="col-sm-3 col-form-label">Phone:</label>-->
-<!--                            <div class="col-sm-9">-->
-<!--                                <p ng-show="!isEdit" class="col-form-label floatLeft">-->
-<!--                                    {{phoneField}}-{{phoneField2}}-{{phoneField3}}</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group row float-right" ng-show="isEdit">-->
-
-<!--                            <div class="smallButton dul-button">-->
-<!--                                <button type="submit" class="btn btn-danger button-left"  ng-click="cancel()">Cancel</button>-->
-<!--                            </div>-->
-<!--                            <div class="smallButton dul-button" ng-init="update==false">-->
-<!--                                <button type="submit" class="btn btn-primary button-right" id="enableButton" ng-click="enableSave()" ng-disabled="updating">{{updateMessage?updateMessage:'Save'}}</button>-->
-<!--                            </div>-->
-
-
-<!--                        </div>-->
-
-<!--                    </form>-->
-<!--                </fieldset>-->
-        </div>
-
-        <div class="main" id="main">
-            <div ng-show="!isEdit">
-                <h3 >My Account</h3>
                 <hr class="gapBetween">
+
+                <div class="form-group row"  ng-show="isMember && !isEdit">
+                    <label class="col-md-5 col-sm-12 col-form-label floatRight">TEXT MESSAGING PREFERENCE:</label>
+                    <div class="col-md-5 col-sm-12">
+                        <p class="col-form-label floatLeft" ng-show="optin=='yes'">{{optinNumber}}</p>
+                        <p class="col-form-label floatLeft" ng-show="optin=='no'">N/A</p>
+                    </div>
+
+                </div>
+                <div class="form-group row"  ng-show="isMember && !isEdit">
+                    <label class="col-md-5 col-sm-12 col-form-label floatRight">EMAIL SUBSCRIPTION STATUS:</label>
+                    <div class="col-md-5 col-sm-12">
+                        <p class="col-form-label floatLeft">{{unSubscribe?'Unsubscribed':'Subscribed'}}</p>
+                    </div>
+
+                </div>
+
+
+                <a href="" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween">
+                    <span class="">Member Hub</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </a>
+                <a href="" target="_blank" class="wrapperBody leftWrapper leftTile">
+                    <span class="">Chapter Leader Hub</span>
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </a>
+
+                <!--                <fieldset class="scheduler-border">-->
+                <!--                    <legend class="scheduler-border">My Account</legend>-->
+                <!--                    <form class="form-horizontal accountForm" name="accountForm" >-->
+                <!--                        <div class="form-group" ng-show="isEdit&&isMember&&!isCCP">-->
+                <!--                            <label class="text-center col-12">You may update your username, email address or password here.</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="form-group" ng-show="errorField&&isEdit">-->
+                <!--                            <label class="text-danger text-center" ng-repeat="error in errors">{{error}}</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="form-group row" ng-show="!isEdit">-->
+                <!--                            <div class="col-md-10 col-sm-12 smallButton button-right">-->
+                <!--                                <div class="smallButton button-right">-->
+                <!--                                    <button type="button" class="btn btn-primary" id="EditButton" ng-click="enableEdit()">Edit-->
+                <!--                                    </button>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+
+
+
+                <!--                                <div class="radioOption">-->
+                <!--                                    <div class="radio-inline">-->
+                <!--                                        <label class="col-12 text-left stripP">
+                                                <input type="radio" name="phoneoption" value="yes" ng-model="optin" class="form-radio">Yes</label>-->
+                <!--                                    </div>-->
+                <!--                                    <div class="form-group short-form row" ng-show="optin=='yes'">-->
+
+                <!--                                    </div>-->
+                <!--                                    <div class="radio-inline">-->
+                <!--                                        <label class="col-12 text-left stripP">
+                                                                <input type="radio" name="phoneoption" value="no" ng-model="optin"-->
+                <!--                                               ng-click="hidePhoneField()" class="form-radio">
+                                                                No
+                                                            </label>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                        <div class="form-group row" ng-show="isMember && !isEdit && hasPhone">-->
+                <!--                            <label class="col-sm-3 col-form-label">Phone:</label>-->
+                <!--                            <div class="col-sm-9">-->
+                <!--                                <p ng-show="!isEdit" class="col-form-label floatLeft">-->
+                <!--                                    {{phoneField}}-{{phoneField2}}-{{phoneField3}}</p>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+
+                <!--                    </form>-->
+
+                <!--                </fieldset>-->
             </div>
 
-            <div class="gapBetweenL" ng-show="!isEdit&&!isMember&&!isCCP">
-                <div class="title gapBetween">Online forms for new employees</div>
-                <div class="wrapperBody rightWrapper">
-                    <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
-                        <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
-                            <div class="tileButton">
-                                {{nonMemberApplicationList[$index].appName}}
-                            </div>
-                            <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
-                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                        </a>
+            <div class="main" id="main">
+                <div ng-show="!isEdit">
+                    <h3 >My Account</h3>
+                    <hr class="gapBetween">
+                </div>
 
-                    </div>
-                </div>
-            </div>
+                <div class="gapBetweenL" ng-show="!isEdit&&!isMember&&!isCCP">
+                    <div class="title gapBetween">Online forms for new employees</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
+                            <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
+                                <div class="tileButton">
+                                    {{nonMemberApplicationList[$index].appName}}
+                                </div>
+                                <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
 
-            <div class="gapBetweenL" ng-show="!isEdit&&accessApp&&!isCCP">
-                <div class="title gapBetween">Online forms to gain website access</div>
-                <div class="wrapperBody rightWrapper">
-                    <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
-                        <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
-                            <div class="tileButton">
-                                {{accessApplicationList[$index].appName}}
-                            </div>
-                            <div class="tileText">{{accessApplicationList[$index].description}}</div>
-                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                        </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="gapBetweenL" ng-show="!isEdit&&hasStaffSection">
-                <div class="title gapBetween">Welfare fund administrative queues</div>
-                <div class="wrapperBody rightWrapper">
-                    <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
-                        <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
-                            <div class="tileButton">
-                                {{welfareAdminApp[$index].appName}}
-                            </div>
-                            <div class="tileText">{{welfareAdminApp[$index].description}}</div>
-                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="gapBetweenL" ng-show="!isEdit&&isMember&&!isCCP">
-                <div class="title gapBetween">Online forms for members</div>
-                <div class="wrapperBody rightWrapper">
-                    <div ng-repeat ="app in appList|orderBy:'priority'">
-                        <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
-                            <div class="tileButton">
-                                {{appList[$index].appName}}
-                            </div>
-                            <div class="tileText">{{appList[$index].description}}</div>
-                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="gapBetweenL" ng-show="!isEdit&&hasChpaterLeaderSection">
-                <div class="title gapBetween">Online forms for chapter leaders</div>
-                <div class="wrapperBody rightWrapper">
-                    <div ng-repeat ="app in webList|orderBy:'priority'">
-                        <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !webList[$index].status}">
-                            <div class="tileButton">
-                                {{webList[$index].appName}}
-                            </div>
-                            <div class="tileText">{{webList[$index].description}}</div>
-                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                        </a>
+                <div class="gapBetweenL" ng-show="!isEdit&&accessApp&&!isCCP">
+                    <div class="title gapBetween">Online forms to gain website access</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
+                            <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
+                                <div class="tileButton">
+                                    {{accessApplicationList[$index].appName}}
+                                </div>
+                                <div class="tileText">{{accessApplicationList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="gapBetweenL" ng-show="!isEdit&&hasStaffSection">
+                    <div class="title gapBetween">Welfare fund administrative queues</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
+                            <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
+                                <div class="tileButton">
+                                    {{welfareAdminApp[$index].appName}}
+                                </div>
+                                <div class="tileText">{{welfareAdminApp[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="gapBetweenL" ng-show="!isEdit&&isMember&&!isCCP">
+                    <div class="title gapBetween">Online forms for members</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in appList|orderBy:'priority'">
+                            <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
+                                <div class="tileButton">
+                                    {{appList[$index].appName}}
+                                </div>
+                                <div class="tileText">{{appList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="gapBetweenL" ng-show="!isEdit&&hasHelpDeskSection">
-                <div class="title gapBetween">Member help desk</div>
-                <div class="wrapperBody rightWrapper">
-                    <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
-                        <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
-                            <div class="tileButton">
-                                {{helpDeskList[$index].appName}}
-                            </div>
-                            <div class="tileText">{{helpDeskList[$index].description}}</div>
-                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                        </a>
+                <div class="gapBetweenL" ng-show="!isEdit&&hasChpaterLeaderSection">
+                    <div class="title gapBetween">Online forms for chapter leaders</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in webList|orderBy:'priority'">
+                            <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !webList[$index].status}">
+                                <div class="tileButton">
+                                    {{webList[$index].appName}}
+                                </div>
+                                <div class="tileText">{{webList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gapBetweenL" ng-show="!isEdit&&hasHelpDeskSection">
+                    <div class="title gapBetween">Member help desk</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
+                            <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
+                                <div class="tileButton">
+                                    {{helpDeskList[$index].appName}}
+                                </div>
+                                <div class="tileText">{{helpDeskList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id="emailModal" class="modal">
-            <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12">
-                <p>Your email has been updated please check you new email inbox and click the action link. Please click the Log out button and you will be logout.</p>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary button-right col-xl-4 col-lg-6 col-sm-12" id="typeModalClose" ng-click="closeEmailModal()">Log out</button>
-                </div>
+
+<!--        <div id="subscribeModal" class="modal">-->
+<!--            <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12">-->
+<!--                <p>Are you <b>Sure</b> you want to unsubscribe, you will no longer received any emails from the UFT. </p>-->
+<!--                <div class="d-flex justify-content-between">-->
+<!--                    <button type="button" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 col-sm-6" id="subscribeModalCancel" ng-click="closeSubscribeModal()">Cancel</button>-->
+<!--                    <button type="button" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 col-sm-6" id="subscribelModalConfirm" ng-click="unsubscribeEmail()">Unsubscribe</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+    <div id="emailModal" class="modal">
+        <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12">
+            <p>Your email has been updated please check you new email inbox and click the action link. Please click the Log out button and you will be logout.</p>
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary button-right col-xl-4 col-lg-6 col-sm-12" id="typeModalClose" ng-click="closeEmailModal()">Log out</button>
             </div>
-        </div>
-        <div id="subscribeModal" class="modal">
-            <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12">
-                <p>Are you <b>Sure</b> you want to unsubscribe, you will no longer received any emails from the UFT. </p>
-                <div class="d-flex justify-content-between">
-                    <button type="button" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 col-sm-6" id="subscribeModalCancel" ng-click="closeSubscribeModal()">Cancel</button>
-                    <button type="button" class="btn btn-primary col-xl-2 col-lg-3 col-md-4 col-sm-6" id="subscribelModalConfirm" ng-click="unsubscribeEmail()">Unsubscribe</button>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
+</div>
 
 <uft-footer></uft-footer>
 
 <script>
-    let mainStyle = document.getElementById("main").style;
-    let asideStyle = document.getElementById("aside").style;
     let editStyle = document.getElementById("asideEdit").style;
-    let wrapperAll = document.getElementById("wrapper").style;
-    let buttonClose = document.getElementById("buttonClose").style;
-    let buttonOpen = document.getElementById("buttonOpen").style;
+    let wrapper = document.getElementById("wrapper").style;
+    let wrapperAccount = document.getElementById("wrapperAccount").style;
+
     function openEdit() {
-        editStyle.width = "100%";
-        editStyle.height = "100%";
+        editStyle.flex = "1";
         editStyle.opacity = "1";
-        asideStyle.opacity = "0";
-        mainStyle.opacity = "0";
-        mainStyle.display = "none";
-        asideStyle.display = "none";
+        editStyle.height = "100%";
+        wrapperAccount.display = "none"
 
-        buttonClose.opacity = "1";
-        buttonOpen.opacity = "0";
-        buttonClose.width = "auto";
-        buttonOpen.width = "0";
-
-        wrapperAll.padding = "0 20%"
+        wrapper.padding = "0 20%"
 
     }
     function closeEdit() {
-        editStyle.width = "0";
-        editStyle.height = "0";
+        editStyle.flex = "0";
         editStyle.opacity = "0";
-        asideStyle.opacity = "1";
-        mainStyle.opacity = "1";
-        mainStyle.display = "block";
-        asideStyle.display = "block";
+        editStyle.height = "0";
+        wrapperAccount.display = "flex"
 
-        buttonClose.opacity = "0";
-        buttonOpen.opacity = "1";
-        buttonClose.width = "0";
-        buttonOpen.width = "auto";
-
-        wrapperAll.padding = "0 10%"
+        wrapper.padding = "0 10%"
     }
-
 </script>
 
 </body>
