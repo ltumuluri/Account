@@ -54,176 +54,200 @@
 
 
     <div id="wrapper">
-        <div id="asideEdit" style="" >
-            <div class="gapBetween">
-                <div class="positionLayout">
-                    <button id="buttonClose" class="textButton" onclick="closeEdit()">
-                        <span class="material-symbols-outlined iconButton">arrow_back</span>
-                        Back
-                    </button>
-                    <div class="title">Personal Info</div>
-                    <div class="editSubColor gapBetweenS">Update your personal details here</div>
+        <form id="asideEdit" name="accountForm">
+            <div class="positionLayout">
+                <div ng-show="isMember&&!isCCP">
+                    <label class="col-12" style="padding: 0">You may update your username, email address or password here.</label>
                 </div>
-                <div class="editTile">
-                    <div class="gapBetweenS col-md-5">
-                        <label for="username">Username:</label>
-                        <input type="text" class="col-md-10" id="username" maxlength="25"
-                               name="username" ng-model="personInfo.username" placeholder="Username" required/>
+                <div ng-show="errorField" >
+                    <label class="text-danger" ng-repeat="error in errors" style="padding-left: 0">{{error}}</label>
+                </div>
+                <button id="buttonClose" class="textButton" onclick="closeEdit()">
+                    <span class="material-symbols-outlined iconButton">arrow_back</span>
+                    Back
+                </button>
+                <div class="gapBetween">
+                    <div class="positionLayout">
+                        <span class="title">Personal Info</span>
+                        <span class="text-danger requiredInfo">(required)</span>
+                        <div class="editSubColor gapBetweenS">Update your personal details here</div>
                     </div>
+                    <div class="editTile">
+                        <div class="gapBetweenS col-md-5">
+                            <label for="username">Username:</label>
+                            <input type="text" class="col-md-10" id="username" maxlength="25"
+                                   name="username" ng-model="personInfo.username" placeholder="Username" required/>
+                        </div>
 
-                    <div ng-show="isMember" class="gapBetweenS col-md-5">
-                        <label for="memberId">UFT ID:</label>
-                        <input type="text" class="inputBox col-md-10" id="memberId" maxlength="25"
-                               name="memberId" ng-model="memberId"  ng-disabled="isMember"
-                               ng-model-options="{ updateOn: 'blur' }"/>
-                    </div>
+                        <div ng-show="isMember" class="gapBetweenS col-md-5">
+                            <label for="memberId">UFT ID:</label>
+                            <input type="text" class="inputBox col-md-10" id="memberId" maxlength="25"
+                                   name="memberId" ng-model="memberId"  required ng-disabled="isMember"
+                                   ng-model-options="{ updateOn: 'blur' }"/>
+                        </div>
 
-                    <div class="gapBetweenS">
-                        <div class="col-md-5" style="display: inline-block;">
-                            <label for="firstname">First Name:</label>
-                            <input type="text" class="inputBox col-md-10" id="firstname" maxlength="15"
-                                   name="firstname" ng-model="personInfo.firstname" placeholder="First Name" required name-verify
+                        <div class="gapBetweenS">
+                            <div class="col-md-5" style="display: inline-block;">
+                                <label for="firstname">First Name:</label>
+                                <input type="text" class="inputBox col-md-10" id="firstname" maxlength="15"
+                                       name="firstname" ng-model="personInfo.firstname" placeholder="First Name" required name-verify
+                                       ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
+                                <div class="errorMessage">
+                                    <span class="invalid" ng-show="accountForm.firstname.$error.invalidName">Invalid format for first name.</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5" style="display: inline-block;">
+                                <label for="lastname">Last Name:</label>
+                                <input type="text" class="inputBox col-md-10" id="lastname" maxlength="15"
+                                       name="lastname" ng-model="personInfo.lastname" placeholder="Last Name" required name-verify
+                                       ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
+                                <div class="errorMessage">
+                                    <span class="invalid" id="lastNameErrorMessage"
+                                        ng-show="accountForm.lastname.$error.invalidName">Invalid format for last name.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gapBetweenS col-md-5" ng-show="isMember">
+                            <label for="email">Email:</label>
+                            <input type="text" class="inputBox col-md-10" id="email" maxlength="250" name="email"
+                                   ng-model="personInfo.email" placeholder="email" required email-verify
+                                   ng-model-options="{ updateOn: 'blur' }"/>
+                            <div class="errorMessage">
+                                <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email.</span>
+                            </div>
+                            <div class="errorMessage">
+                                <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
+                            <label for="zipCode">Zip Code:</label>
+                            <input type="text" class="inputBox col-md-10" id="zipCode" maxlength="5"
+                                   name="zipCode" ng-model="personInfo.userAttributes.zipCode[0]" placeholder="zipCode"  is-zip ng-required="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode"
                                    ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.firstname.$error.invalidName">Invalid format for first name.</span>
+                                <span class="invalid" ng-show="accountForm.zipCode.$error.invalidLength">Zip Code must contains 5 digits.</span>
+                            </div>
+                            <div class="errorMessage">
+                                <span class="invalid" ng-show="accountForm.zipCode.$error.invalidNumber">Zip Code must be a numeric value.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gapBetween">
+                    <div class="title">Password</div>
+                    <div class="editSubColor gapBetweenS">Update your password here</div>
+                    <div class="editTile">
+                        <div class="col-md-5" style="display: inline-block;">
+                            <label for="newpassword">Change Password:</label>
+                            <input type="password" class="inputBox col-md-10" id="newpassword"
+                                   maxlength="25" name="newpassword"
+                                   ng-model="newpassword" newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
+                            <div class="errorMessage">
+                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Invalid Password format. Password must be at least 8 characters follow by minimum one uppercase, one lowercase and one digit.</span>
                             </div>
                         </div>
 
                         <div class="col-md-5" style="display: inline-block;">
-                            <label for="lastname">Last Name:</label>
-                            <input type="text" class="inputBox col-md-10" id="lastname" maxlength="15"
-                                   name="lastname" ng-model="personInfo.lastname" placeholder="Last Name" required name-verify
-                                   ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
+                            <label for="confirmpassword">Confirm Password:</label>
+                            <input type="password" class="inputBox col-md-10" id="confirmpassword" maxlength="25"
+                                   name="confirmpassword" ng-model="confirmpassword" confirmpassword-valid
+                                   ng-model-options="{ updateOn: 'blur' }"/>
                             <div class="errorMessage">
-                                <span class="invalid" id="lastNameErrorMessage"
-                                    ng-show="accountForm.lastname.$error.invalidName">Invalid format for last name.</span>
+                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.newpasswordisEmpty">Change password field is empty.</span>
+                            </div>
+                            <div class="errorMessage">
+                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Confirm password not match.</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="gapBetweenS col-md-5">
-                        <label for="email">Email:</label>
-                        <input type="text" class="inputBox col-md-10" id="email" maxlength="250" name="email"
-                               ng-model="personInfo.email" placeholder="email" required email-verify
-                               ng-model-options="{ updateOn: 'blur' }"/>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email.</span>
-                        </div>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain.</span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-5" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
-                        <label for="zipCode">Zip Code:</label>
-                        <input type="text" class="inputBox col-md-10" id="zipCode" maxlength="5"
-                               name="zipCode" ng-model="personInfo.userAttributes.zipCode[0]" placeholder="zipCode"  is-zip ng-required="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode"
-                               ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.zipCode.$error.invalidLength">Zip Code must contains 5 digits.</span>
-                        </div>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.zipCode.$error.invalidNumber">Zip Code must be a numeric value.</span>
-                        </div>
-                    </div>
                 </div>
-            </div>
-            <div class="gapBetween">
-                <div class="title">Password</div>
-                <div class="editSubColor gapBetweenS">Update your password here</div>
-                <div class="editTile">
-                    <div class="col-md-5" style="display: inline-block;">
-                        <label for="newpassword">Change Password:</label>
-                        <input type="password" class="inputBox col-md-10" id="newpassword"
-                               maxlength="25" name="newpassword"
-                               ng-model="newpassword" newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Invalid Password format. Password must be at least 8 characters follow by minimum one uppercase, one lowercase and one digit.</span>
+    <!--            ng-show="isMember"-->
+                <div class="gapBetween">
+                    <div class="title">Subscription</div>
+                    <div class="editSubColor gapBetweenS">Manage your subscription here</div>
+                    <div class="editTile">
+                        <div class="gapBetweenS">
+                            <label class="col-md-3" style="display: inline-block">UFT email: </label>
+                            <label class="subscriptionPadding">
+                                <input type="checkbox" ng-model="emailSubscribe" class="form-radio"
+                                       id="subscribe" name="subscribe" ng-checked="!unSubscribe"/>
+                                Subscribe to UFT emails.
+                            </label>
                         </div>
-                    </div>
 
-                    <div class="col-md-5" style="display: inline-block;">
-                        <label for="confirmpassword">Confirm Password:</label>
-                        <input type="password" class="inputBox col-md-10" id="confirmpassword" maxlength="25"
-                               name="confirmpassword" ng-model="confirmpassword" confirmpassword-valid
-                               ng-model-options="{ updateOn: 'blur' }"/>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.confirmpassword.$error.newpasswordisEmpty">Change password field is empty.</span>
-                        </div>
-                        <div class="errorMessage">
-                            <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Confirm password not match.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<!--            ng-show="isMember"-->
-            <div class="gapBetween">
-                <div class="title">Subscription</div>
-                <div class="editSubColor gapBetweenS">Manage your subscription here</div>
-                <div class="editTile">
-                    <div class="gapBetweenS">
-                        <label class="col-md-2" style="display: inline-block">UFT email: </label>
-                        <label style="display: inline-block">
-                            <input type="checkbox" ng-model="emailSubscribe" class="form-radio"
-                                   id="subscribe" name="subscribe" ng-checked="!unSubscribe" style="margin-left: 10px;"/>
-                            Subscribe to UFT emails.
-                        </label>
-                    </div>
-                    <div class="gapBetweenS">
-                        <label class="col-md-2" style="display: inline-block">UFT text messages: </label>
-                        <label class="gapBetweenS" style="display: inline-block">
-                            <input type="checkbox" ng-model="optin" class="form-radio"
-                                   id="subscrisbe" name="phoneoption" ng-checked="!unSubscribe" style="margin-left: 10px;"/>
-                            Opt in for text messages from the UFT.
-                        </label>
-<!--                        ng-show="isMember && hasPhone"-->
-                        <div class="offset-2 col-md-8">
-                            <label>Cell Phone Number</label>
-                            <div class="row">
-                                <div class="col-2" id="phoneField">
-                                    <input name="phoneField" id="phone" class="form-control" size="3"
-                                           maxlength="3" placeholder="xxx" ng-model="phoneField" number-valid
-                                           ng-model-options="{ updateOn: 'blur' }" ng-required="optin=='yes'"
-                                           ng-keyup="phonefocus('phoneField',$event)"/>
-                                </div>
-                                <div class="col-2" id="phoneField2" style="padding-left: 0;">
-                                    <input name="phone2" id="phone2" class="form-control" size="3"
-                                           maxlength="3" placeholder="xxx" ng-model="phoneField2" number-valid
-                                           ng-model-options="{ updateOn: 'blur' }" ng-required="optin=='yes'"
-                                           ng-keyup="phonefocus('phoneField2',$event)"/>
-                                </div>
-                                <div class="col-2" style="padding-left: 0;">
-                                    <input name="phoneField3" id="phoneField3" class="form-control" size="4"
-                                           maxlength="4" placeholder="xxxx" ng-model="phoneField3" number-valid
-                                           ng-model-options="{ updateOn: 'blur' }" ng-required="optin=='yes'"
-                                           ng-keyup="phonefocus('phoneField3',$event)"/>
+                        <div class="gapBetweenS">
+                            <label class="col-md-3" style="display: inline-block">UFT text messages: </label>
+                            <div class="subscriptionPadding">
+                                Opt in for text messages from the UFT:
+                            </div>
+
+                            <div class="offset-md-3 col-md-8">
+                                <div class="radioOption">
+                                    <div class="radio-inline">
+                                        <label class="col-12 stripP">
+                                            <input type="radio" name="phoneoption" value="yes" ng-model="optin" class="form-radio">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="row gapBetweenS" ng-show="optin=='yes'" style="margin-left: 0">
+                                        <label>Cell Phone Number</label>
+                                        <div class="row col-12">
+                                            <div class="col-3 col-md-2" id="phoneField" style="padding-left: 0">
+                                                <input name="phoneField" id="phone" class="form-control" size="3"
+                                                       maxlength="3" placeholder="xxx" ng-model="phoneField" number-valid
+                                                       ng-model-options="{ updateOn: 'blur' }" ng-required="optin=='yes'"
+                                                       ng-keyup="phonefocus('phoneField',$event)"/>
+                                            </div>
+                                            <div class="col-3 col-md-2" id="phoneField2" style="padding-left: 0;">
+                                                <input name="phone2" id="phone2" class="form-control" size="3"
+                                                       maxlength="3" placeholder="xxx" ng-model="phoneField2" number-valid
+                                                       ng-model-options="{ updateOn: 'blur' }" ng-required="optin=='yes'"
+                                                       ng-keyup="phonefocus('phoneField2',$event)"/>
+                                            </div>
+                                            <div class="col-3 col-md-2" style="padding-left: 0;">
+                                                <input name="phoneField3" id="phoneField3" class="form-control" size="4"
+                                                       maxlength="4" placeholder="xxxx" ng-model="phoneField3" number-valid
+                                                       ng-model-options="{ updateOn: 'blur' }" ng-required="optin=='yes'"
+                                                       ng-keyup="phonefocus('phoneField3',$event)"/>
+                                            </div>
+                                        </div>
+                                        <div class="errorMessage">
+                                            <span class="invalid" ng-show="accountForm.phoneField.$error.invalidNumber">First phone field must be numeric.</span>
+                                        </div>
+                                        <div class="errorMessage">
+                                            <span class="invalid" ng-show="accountForm.phoneField2.$error.invalidNumber">Second phone field must be numeric.</span>
+                                        </div>
+                                        <div class="errorMessage">
+                                            <span class="invalid" ng-show="accountForm.phoneField3.$error.invalidNumber">Third phone field must be numeric.</span>
+                                        </div>
+                                        <div class="message">
+                                           * Msg & Data Rates May Apply. Text STOP to opt out. <a href="https://www.uft.org/uftorg-privacy-statement" class="text-primary" target="_blank">Privacy policy »</a>
+                                        </div>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label class="col-12 text-left stripP">
+                                            <input type="radio" name="phoneoption" value="no" ng-model="optin" ng-click="hidePhoneField()" class="form-radio">
+                                            No
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.phoneField.$error.invalidNumber">First phone field must be numeric.</span>
-                            </div>
-                            <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.phoneField2.$error.invalidNumber">Second phone field must be numeric.</span>
-                            </div>
-                            <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.phoneField3.$error.invalidNumber">Third phone field must be numeric.</span>
-                            </div>
-                            <div class="message">
-                               * Msg & Data Rates May Apply. Text STOP to opt out. <a href="https://www.uft.org/uftorg-privacy-statement" class="text-primary" target="_blank">Privacy policy »</a>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="wrapperBody buttonLayout gapBetween gapAround" >
-                <div>
-                    <button type="submit" class="editButton cancelButton"  ng-click="cancel()" onclick="closeEdit()">Cancel</button>
+                <div class="wrapperBody buttonLayout gapBetween gapAround">
+                    <div>
+                        <button type="submit" class="editButton cancelButton"  ng-click="cancel()" onclick="closeEdit()">Cancel</button>
+                    </div>
+                    <div ng-init="update==false">
+                        <button type="submit" class="editButton saveButton" id="enableButton" ng-click="enableSave()" onclick="closeEdit()" ng-disabled="updating">{{updateMessage?updateMessage:'Save'}}</button>
+                    </div>
                 </div>
-                <div ng-init="update==false">
-                    <button type="submit" class="editButton saveButton" id="enableButton" ng-click="enableSave()" onclick="closeEdit()" ng-disabled="updating">{{updateMessage?updateMessage:'Save'}}</button>
-                </div>
             </div>
-        </div>
+        </form>
         <div class="wrapperBody" id="wrapperAccount">
             <div id="aside">
                 <div class="positionLayout">

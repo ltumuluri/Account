@@ -8,6 +8,7 @@
     display: flex;
     flex-flow: row wrap;
     padding: 0 10%;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1367px) {
@@ -65,14 +66,16 @@
 /* animation */
 #wrapperAccount {
     flex: 1;
-    transition: 0.4s ease;
+    transition: 0.4s;
 }
 #asideEdit {
     flex: 0;
     opacity: 0;
     height: 0;
     width: 0;
-    transition: 0.4s ease-in;
+    transition: 0.4s;
+    padding: 0;
+    margin: 0;
 }
 /* layout */
 #aside {
@@ -119,6 +122,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 2;
 }
 
 .iconButton {
@@ -154,7 +158,11 @@ input:required, input{
 }
 
 input:hover, input:focus{
-    border: 1px solid #993398 !important;
+    border: 1px solid #124ec2 !important;
+}
+
+input:disabled:hover, input:disabled:focus{
+    border: 1px solid #ddd !important;
 }
 
 .message{
@@ -162,6 +170,21 @@ input:hover, input:focus{
     margin-top: 10px;
 }
 
+.requiredInfo {
+    font-size: 0.9em;
+    padding: 0
+}
+
+.subscriptionPadding {
+    display: inline-block;
+    padding-left: 10px
+}
+
+@media screen and (max-width: 767px) {
+    .subscriptionPadding {
+        padding-left: 15px
+    }
+}
 /* aside info */
 
 .avatar {
@@ -227,7 +250,7 @@ input:hover, input:focus{
 .rightTile {
     position: relative;
     width: 300px;
-    height: 220px;
+    height: 210px;
     background: linear-gradient(180deg, rgba(153, 51, 152,0.2) 0%, rgba(153, 51, 152, 0.02) 100%);
     box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
@@ -251,6 +274,12 @@ input:hover, input:focus{
 
 .rightTile:hover::before {
     opacity: 1;
+}
+
+@media screen and (max-width: 576px) {
+    .rightTile {
+        height: 200px;
+    }
 }
 
 .rightTileWrapper {
@@ -277,7 +306,7 @@ a:hover {
     display: block;
     color: #373737;
     font-weight: 600;
-    margin: 15px 0;
+    margin: 5px 0;
     padding: 3px;
 }
 
