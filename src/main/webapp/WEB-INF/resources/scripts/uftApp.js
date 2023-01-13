@@ -22,6 +22,7 @@ var app = angular.module("uftApp", []);
         return service;
     });
 })();
+
 (function () {
     app.controller("accountFormController", ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
         $scope.showPhone = false;
