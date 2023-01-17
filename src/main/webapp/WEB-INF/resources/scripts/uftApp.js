@@ -156,6 +156,9 @@ var app = angular.module("uftApp", []);
         $scope.cancel=function(){
             $scope.isEdit=false;
             $scope.errorField=false;
+            document.getElementById('wrapper').style.color = "yellow";
+            console.log('1');
+
             loadPersonInfo();
         };
         $scope.enableEdit = function () {
