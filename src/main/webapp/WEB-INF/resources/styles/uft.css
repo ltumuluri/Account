@@ -98,7 +98,7 @@ svg{
 }
 
 .invalid{
-    background-color: #FA787E;
+    background-color: #FA787E !important;
 }
 .footer{
     background-color:#032e82;

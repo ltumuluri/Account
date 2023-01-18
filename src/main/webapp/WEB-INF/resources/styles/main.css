@@ -73,6 +73,19 @@ h3 {
     margin-left: 0 !important;
 }
 
+.invalid {
+    position: absolute !important;
+    background-color: #FA787E !important;
+    border: none;
+    border-radius: 10px;
+    z-index: 5;
+}
+
+.invalid:before {
+    border: none;
+    background: #FA787E !important;
+}
+
 /* animation */
 #wrapperAccount {
     flex: 1;
@@ -157,6 +170,8 @@ button:focus, button:active {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     font-size: 0.9em !important;
+    display: block;
+    float: right;
 }
 
 .cancelButton {
@@ -178,8 +193,8 @@ button:focus, button:active {
     position: fixed;
     bottom: 50px;
     right: 50px;
-    display: block;
     z-index: 3;
+    float: right;
 }
 
 /* aside edit */
@@ -226,13 +241,13 @@ input:disabled:hover, input:disabled:focus{
 }
 
 .errorAlert {
-    background-color: #f6dfde;
-    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.1);
+    background-color: #Fa787e;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    border: 1px solid #ccc;
     width: 60%;
     margin: 0 auto 15px auto;
-    padding: 5px;
+    padding: 0.3em;
+    color: white !important;
 }
 
 /* header */
@@ -448,8 +463,8 @@ input:disabled:hover, input:disabled:focus{
         -webkit-line-clamp: 5;
     }
 
-    /* edit - first name */
-    .firstnameGap {
+    /* edit - inline block gap */
+    .inlineBlockGap {
         margin-bottom: 15px;
     }
     /* edit - error */
