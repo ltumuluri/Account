@@ -267,12 +267,9 @@ var app = angular.module("uftApp", []);
                                 document.getElementById("username").focus();
                             }
                         });
-
                     });
-
                 }
             }
-
         };
 
         $scope.phonefocus = function (fieldName, event) {
