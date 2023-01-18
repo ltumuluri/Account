@@ -38,6 +38,7 @@
 <body ng-app="uftApp">
 <uft-header></uft-header>
 <div class="container-fluid content" ng-controller="accountFormController" id="container">
+
 <!--    <div class="row" ng-show="showBanner">-->
 <!--        <div class="col-12 text-center">-->
 <!--        <div class="alert alert-success" role="alert">-->
@@ -60,6 +61,7 @@
 <!--    </div>-->
 
     <div id="wrapper">
+
         <form id="asideEdit" name="accountForm">
 
             <div class="" id="btnFixed">
@@ -351,7 +353,7 @@
                         <span class="">Member Hub</span>
                         <span class="material-symbols-outlined">chevron_right</span>
                     </a>
-                    <a href="" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween leaderTile" ng-show="hasChpaterLeaderSection">
+                    <a ng-href={{communitylink}} target="_blank" class="wrapperBody leftWrapper leftTile gapBetween leaderTile" ng-show="hasChpaterLeaderSection">
                         <span class="">Chapter Leader Hub</span>
                         <span class="material-symbols-outlined">chevron_right</span>
                     </a>
@@ -415,17 +417,20 @@
 
                 <div class="gapBetweenL" ng-show="!isMember&&!isCCP">
                     <div class="title gapBetween">Online forms for new employees</div>
-                    <div class="wrapperBody rightWrapper">
+                    <div class="wrapperBody rightWrapper" style="">
                         <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
                             <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
                                 <div class="tileButton">
-                                    <div class="tileTitle">{{nonMemberApplicationList[$index].appName}}</div>
+                                    <div>{{nonMemberApplicationList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                             </a>
-
                         </div>
+
+
+
+
                     </div>
                 </div>
 
@@ -435,7 +440,7 @@
                         <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
                             <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
                                 <div class="tileButton">
-                                    <div class="tileTitle">{{accessApplicationList[$index].appName}}</div>
+                                    <div>{{accessApplicationList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{accessApplicationList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -449,7 +454,7 @@
                         <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
                             <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
                                 <div class="tileButton">
-                                    <div class="tileTitle">{{welfareAdminApp[$index].appName}}</div>
+                                    <div>{{welfareAdminApp[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{welfareAdminApp[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -463,7 +468,7 @@
                         <div ng-repeat ="app in appList|orderBy:'priority'">
                             <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
                                 <div class="tileButton">
-                                    <div class="tileTitle">{{appList[$index].appName}}</div>
+                                    <div>{{appList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{appList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -478,7 +483,7 @@
                         <div ng-repeat ="app in webList|orderBy:'priority'">
                             <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !webList[$index].status}">
                                 <div class="tileButton">
-                                    <div class="tileTitle">{{webList[$index].appName}}</div>
+                                    <div>{{webList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{webList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -493,7 +498,7 @@
                         <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
                             <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
                                 <div class="tileButton">
-                                    <idv class="tileTitle">{{helpDeskList[$index].appName}}</idv>
+                                    <div>{{helpDeskList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{helpDeskList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -516,10 +521,10 @@
 <!--        </div>-->
     </div>
     <div id="emailModal" class="modal">
-        <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12">
-            <p>Your email has been updated please check you new email inbox and click the action link. Please click the Log out button and you will be logout.</p>
+        <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12" style="border-radius: 15px">
+            <p class="gapBetween">Your email has been updated please check you new email inbox and click the action link. Please click the Log out button and you will be logout.</p>
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary button-right col-xl-4 col-lg-6 col-sm-12" id="typeModalClose" ng-click="closeEmailModal()">Log out</button>
+                <button type="button" class="button-right col-xl-4 col-lg-6 col-sm-12" style="border-radius: 15px;" id="typeModalClose" ng-click="closeEmailModal()">Log out</button>
             </div>
         </div>
     </div>
@@ -553,7 +558,6 @@
         wrapperAccount.opacity = "1";
         wrapperAccount.height = "100%";
     }
-
 
     let fixedButton = document.getElementById("btnFixed");
 
