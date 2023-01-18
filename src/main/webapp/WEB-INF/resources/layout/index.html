@@ -62,30 +62,34 @@
 
 
     <div id="wrapper">
-
+        <!-- edit page-->
         <form id="asideEdit" name="accountForm">
-
-            <div class="" id="btnFixed">
+            <!-- floating save/cancel button -->
+            <div id="btnFixed">
                 <button type="submit" class="editButton cancelButton gapBetweenS" ng-click="cancel()">Cancel</button>
                 <div ng-init="update==false">
                     <button type="submit" class="editButton saveButton" ng-click="enableSave()" ng-disabled="updating">{{updateMessage?updateMessage:'Save'}}</button>
                 </div>
             </div>
+            <!-- error alert -->
             <div ng-show="errorField" >
                 <label class="wrapperBody errorAlert" ng-repeat="error in errors">
                     <span style="margin: auto">{{error}}</span>
                 </label>
             </div>
+
             <div class="positionLayout">
+                <!-- back button -->
                 <button id="buttonClose" class="textButton positionButton" onclick="closeEdit()">
                     <span class="material-symbols-outlined iconButton">arrow_back</span>
                     Back
                 </button>
+                <!-- edit instruction for member -->
                 <div ng-show="isMember&&!isCCP" style="margin-right: 100px;">
                     <label class="col-12" style="padding: 0">You may update your username, email address or password here.</label>
                 </div>
 
-
+                <!-- content -->
                 <div class="gapBetween">
                     <div class="positionLayout">
                         <span class="title">Personal Info</span>
@@ -94,20 +98,17 @@
                     </div>
 
                     <div class="editTile">
-
                         <div class="gapBetweenS col-md-5">
                             <label for="username" style="display: block">Username:</label>
                             <input type="text" class="col-md-10" id="username" maxlength="25"
                                    name="username" ng-model="personInfo.username" placeholder="Username" required/>
                         </div>
-
                         <div ng-show="isMember" class="gapBetweenS col-md-5">
                             <label for="memberId" style="display: block">UFT ID:</label>
                             <input type="text" class="inputBox col-md-10" id="memberId" maxlength="25"
                                    name="memberId" ng-model="memberId" ng-disabled="isMember"
                                    ng-model-options="{ updateOn: 'blur' }"/>
                         </div>
-
                         <div class="gapBetweenS">
                             <div class="col-md-5 firstnameGap" style="display: inline-block;">
                                 <label for="firstname" style="display: block">First Name:</label>
@@ -118,7 +119,6 @@
                                     <span class="invalid" ng-show="accountForm.firstname.$error.invalidName">Invalid format for first name.</span>
                                 </div>
                             </div>
-
                             <div class="col-md-5" style="display: inline-block;">
                                 <label for="lastname" style="display: block">Last Name:</label>
                                 <input type="text" class="inputBox col-md-10" id="lastname" maxlength="15"
@@ -130,7 +130,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="gapBetweenS col-md-5" ng-show="isMember">
                             <label for="email" style="display: block">Email:</label>
                             <input type="text" class="inputBox col-md-10" id="email" maxlength="250" name="email"
@@ -143,7 +142,6 @@
                                 <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain.</span>
                             </div>
                         </div>
-
                         <div class="col-md-5" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
                             <label for="zipCode" style="display: block">Zip Code:</label>
                             <input type="text" class="inputBox col-md-10" id="zipCode" maxlength="5"
@@ -171,7 +169,6 @@
                                 <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Invalid Password format. Password must be at least 8 characters follow by minimum one uppercase, one lowercase and one digit.</span>
                             </div>
                         </div>
-
                         <div class="col-md-5" style="display: inline-block;">
                             <label for="confirmpassword">Confirm Password:</label>
                             <input type="password" class="inputBox col-md-10" id="confirmpassword" maxlength="25"
@@ -198,13 +195,11 @@
                                 Subscribe to UFT emails.
                             </label>
                         </div>
-
                         <div class="gapBetweenS">
                             <label class="col-md-3" style="display: inline-block">UFT text messages: </label>
                             <div class="subscriptionPadding">
                                 Opt in for text messages from the UFT:
                             </div>
-
                             <div class="offset-md-3 col-md-8">
                                 <div class="radioOption">
                                     <div class="radio-inline">
@@ -259,6 +254,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- save/cancel button -->
                 <div class="wrapperBody buttonLayout gapBetween gapAround">
                     <div>
                         <button type="submit" class="editButton cancelButton"  ng-click="cancel()">Cancel</button>
@@ -267,17 +263,17 @@
                         <button type="submit" class="editButton saveButton" ng-click="enableSave()" ng-disabled="updating">{{updateMessage?updateMessage:'Save'}}</button>
                     </div>
                 </div>
-
-
             </div>
         </form>
 
-
+        <!-- my account page-->
         <div class="wrapperBody" id="wrapperAccount">
-
+            <!-- left info section -->
             <div id="aside">
                 <div class="positionLayout">
+                    <!-- title in left when in mobile -->
                     <h3 class="titleAside">My Account</h3>
+                    <!-- info header -->
                     <div class="row gapBetweenS">
                         <div class="col-4" style="padding: 0">
                             <div class="avatar">
@@ -285,14 +281,16 @@
                             </div>
                         </div>
                         <span class="col-6 usernameTitle title">Hi, {{personInfo.username[0].toUpperCase() + personInfo.username.slice(1)}}</span>
+                        <!-- dropdown button -->
                         <button class="dropdownButton col-2" type="button" data-toggle="collapse"
                                 data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        <span class="material-symbols-outlined">
-                            arrow_drop_down
-                        </span>
+                            <span class="material-symbols-outlined">
+                                arrow_drop_down
+                            </span>
                         </button>
                     </div>
 
+                    <!-- user info -->
                     <div class="collapse" id="collapseExample">
                         <div class="card card-body collapseCard" style="position: static !important;">
                             <div class="row" ng-show="isMember">
@@ -340,7 +338,7 @@
                                     <p>{{unSubscribe?'Unsubscribed':'Subscribed'}}</p>
                                 </div>
                             </div>
-
+                            <!-- edit button -->
                             <button class="textButton floatRight text-center" onclick="openEdit()"
                                     style="width: 5em; align-self: flex-end;">
                                 <span class="material-symbols-outlined iconButton">edit</span>
@@ -352,7 +350,7 @@
 
 
                 <hr class="gapBetween">
-
+                <!-- left button -->
                 <div class="leftTileLayout">
                     <a href="" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween memberTile" ng-show="isMember">
                         <span class="">Member Hub</span>
@@ -416,6 +414,7 @@
                 <!--                </fieldset>-->
             </div>
 
+            <!-- main -->
             <div class="main" id="main">
                 <h3 class="titleMain">My Account</h3>
                 <hr class="gapBetween titleMain">
@@ -432,10 +431,6 @@
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                             </a>
                         </div>
-
-
-
-
                     </div>
                 </div>
 
@@ -525,6 +520,8 @@
 <!--            </div>-->
 <!--        </div>-->
     </div>
+
+    <!-- email change popup -->
     <div id="emailModal" class="modal">
         <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12" style="border-radius: 15px">
             <p class="gapBetween">Your email has been updated please check you new email inbox and click the action link. Please click the Log out button and you will be logout.</p>
