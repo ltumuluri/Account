@@ -114,6 +114,7 @@ svg{
 input:required {
     box-shadow:none;
 }
+
 #warningMessage{
     text-align:left;
 }
