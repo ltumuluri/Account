@@ -288,13 +288,17 @@ input:disabled:hover, input:disabled:focus{
     letter-spacing: 0.05em;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-left: 30px;
 }
 
 .collapseCard {
     border-radius: 10px !important;
     background-color: rgba(0,0,0,.03) !important;
     border: none !important;
+    padding-left: 0 !important;
 }
+
+
 
 /* aside tile */
 .leftWrapper {
