@@ -519,12 +519,11 @@ var app = angular.module("uftApp", []);
                     if((value==null||value=="")&&(scope.confirmpassword==null||scope.confirmpassword=="")){
                         ctrl.$setValidity('invalidPasswordFormat', true);
                     }
-                    console.log(value);
-                    console.log(value!=null||value!=="");
-                    if(value!=null&&value!==""){
-                        console.log("10")
-                        ctrl.$setValidity('invalidPasswordFormat', false);
-                    }
+                    // if((value!=null&&value!="")&&(scope.confirmpassword==null||scope.confirmpassword=="")){
+                    //     console.log("10")
+                    //     ctrl.$setValidity('invalidPasswordMatch', false);
+                    // }
+
 
                     // }
                     // return value;

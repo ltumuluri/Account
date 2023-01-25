@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <script src="scripts/angular.min.js" type="text/javascript"></script>
-    <script src="scripts/uftAccount.js?version=12" type="text/javascript"></script>
+    <script src="scripts/uftApp.js?version=12" type="text/javascript"></script>
     <script src="scripts/svgxuse.min.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -98,10 +98,24 @@
                     </div>
 
                     <div class="editTile">
-                        <div class="gapBetweenS col-md-5">
-                            <label for="username" style="display: block">Username:</label>
-                            <input type="text" class="col-md-10" id="username" maxlength="25"
-                                   name="username" ng-model="personInfo.username" placeholder="Username" required/>
+                        <div class="gapBetweenS">
+                            <div class="col-md-5 inlineBlockGap" style="display: inline-block;">
+                                <label for="username" style="display: block">Username:</label>
+                                <input type="text" class="inputBox col-md-10" id="username" maxlength="25"
+                                       name="username" ng-model="personInfo.username" placeholder="username" required />
+                            </div>
+                            <div class="col-md-5" style="display: inline-block;">
+                                <label for="email" style="display: block">Email:</label>
+                                <input type="text" class="inputBox col-md-10" id="email" maxlength="250"
+                                       name="email" ng-model="personInfo.email" placeholder="Email" required name-verify
+                                       ng-model-options="{ updateOn: 'blur' }"/>
+                                <div class="errorMessage">
+                                    <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email.</span>
+                                </div>
+                                <div class="errorMessage">
+                                    <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain.</span>
+                                </div>
+                            </div>
                         </div>
                         <div ng-show="isMember" class="gapBetweenS col-md-5">
                             <label for="memberId" style="display: block">UFT ID:</label>
@@ -130,18 +144,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="gapBetweenS col-md-5" ng-show="isMember">
-                            <label for="email" style="display: block">Email:</label>
-                            <input type="text" class="inputBox col-md-10" id="email" maxlength="250" name="email"
-                                   ng-model="personInfo.email" placeholder="email" required email-verify
-                                   ng-model-options="{ updateOn: 'blur' }"/>
-                            <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email.</span>
-                            </div>
-                            <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain.</span>
-                            </div>
-                        </div>
                         <div class="col-md-5" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
                             <label for="zipCode" style="display: block">Zip Code:</label>
                             <input type="text" class="inputBox col-md-10" id="zipCode" maxlength="5"
@@ -167,6 +169,9 @@
                                    ng-model="newpassword" newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
                             <div class="errorMessage">
                                 <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Invalid Password format. Password must be at least 8 characters follow by minimum one uppercase, one lowercase and one digit.</span>
+                            </div>
+                            <div class="errorMessage">
+                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordMatch">Confirm password not match.</span>
                             </div>
                         </div>
                         <div class="col-md-5" style="display: inline-block;">
@@ -280,7 +285,7 @@
                                 <span class="avatarInitial">{{personInfo.firstname[0].toUpperCase()+personInfo.lastname[0].toUpperCase()}}</span>
                             </div>
                         </div>
-                        <span class="col-7 usernameTitle title">Hi, {{personInfo.username[0].toUpperCase() + personInfo.username.slice(1)}}</span>
+                        <span class="col-7 usernameTitle title">Hi, {{personInfo.firstname[0].toUpperCase() + personInfo.firstname.slice(1)}}</span>
                         <!-- dropdown button -->
                         <button class="dropdownButton col-2" type="button" data-toggle="collapse"
                                 data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -293,53 +298,62 @@
                     <!-- user info -->
                     <div class="collapse" id="collapseExample">
                         <div class="card card-body collapseCard" style="position: static !important;">
-                            <div class="row" ng-show="isMember">
-                                <div class="col-5">UFT ID:</div>
-                                <div class="col-7">
-                                    <p>{{memberId}}</p>
-                                </div>
-                            </div>
                             <div class="row">
-                                <div class="col-5">First Name:</div>
+                                <div class="col-5 boldText">First Name:</div>
                                 <div class="col-7">
                                     <p>{{personInfo.firstname}}</p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-5">Last Name:</div>
+                                <div class="col-5 boldText">Last Name:</div>
                                 <div class="col-7">
                                     <p>{{personInfo.lastname}}</p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-5">Email:</div>
+
+                            <div class="row" ng-show="isMember">
+                                <div class="col-5 boldText">UFT ID:</div>
                                 <div class="col-7">
+                                    <p>{{memberId}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 boldText">Username:</div>
+                                <div class="col-7">
+                                    <p>{{personInfo.username}}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 boldText">Email:</div>
+                                <div class="col-12">
                                     <p>{{personInfo.email}}</p>
                                 </div>
                             </div>
+
                             <div class="row" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
                                 <div class="col-5">Zip Code:</div>
                                 <div class="col-7">
                                     <p>{{personInfo.userAttributes.zipCode[0]}}</p>
                                 </div>
                             </div>
-                            <p style="margin-top: 10px; padding-left: 15px" ng-show="isMember">Subscription Status:</p>
+                            <p class="subscriptionInfo" ng-show="isMember">Subscription Status:</p>
                             <div class="row" ng-show="isMember">
-                                <div class="col-5">Phone:</div>
+                                <div class="col-5 boldText">Text:</div>
                                 <div class="col-7">
                                     <p ng-show="optin=='yes'">{{optinNumber}}</p>
-                                    <p ng-show="optin=='no'">N/A</p>
+                                    <p ng-show="optin=='no'">None</p>
                                 </div>
                             </div>
 
                             <div class="row gapBetweenS" ng-show="isMember">
-                                <div class="col-5">Email:</div>
+                                <div class="col-5 boldText">Email:</div>
                                 <div class="col-7">
                                     <p>{{unSubscribe?'Unsubscribed':'Subscribed'}}</p>
                                 </div>
                             </div>
                             <!-- edit button -->
-                            <button class="textButton floatRight text-center" onclick="openEdit()"
+                            <button class="textButton floatRight text-center" ng-click="openEdit()"
                                     style="width: 5em; align-self: flex-end;">
                                 <span class="material-symbols-outlined iconButton">edit</span>
                                 <span>Edit</span>
@@ -353,11 +367,11 @@
                 <!-- left button -->
                 <div class="leftTileLayout">
                     <a href="" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween memberTile" ng-show="isMember">
-                        <span class="">Member Hub</span>
+                        <span class="boldText">Member Hub</span>
                         <span class="material-symbols-outlined">chevron_right</span>
                     </a>
                     <a ng-href={{communitylink}} target="_blank" class="wrapperBody leftWrapper leftTile gapBetween leaderTile" ng-show="hasChpaterLeaderSection">
-                        <span class="">Chapter Leader Hub</span>
+                        <span class="boldText">Chapter Leader Hub</span>
                         <span class="material-symbols-outlined">chevron_right</span>
                     </a>
                 </div>
@@ -540,17 +554,6 @@
     let editStyle = document.getElementById("asideEdit").style;
     let wrapperAccount = document.getElementById("wrapperAccount").style;
 
-    function openEdit() {
-        editStyle.flex = "1";
-        editStyle.opacity = "1";
-        editStyle.height = "100%"
-        editStyle.width = "100%";
-
-        wrapperAccount.width = "0";
-        wrapperAccount.flex = "0";
-        wrapperAccount.opacity = "0";
-        wrapperAccount.height = "0";
-    }
     function closeEdit() {
         editStyle.flex = "0";
         editStyle.opacity = "0";
@@ -563,22 +566,6 @@
         wrapperAccount.height = "100%";
     }
 
-    let fixedButton = document.getElementById("btnFixed");
-
-    window.onscroll = function () {
-        scrollFunction();
-    };
-    function scrollFunction() {
-        let scrollBottom = $(document).height() - $(window).height() - $(window).scrollTop();
-        if (
-            scrollBottom > 260 ||
-            scrollBottom > 260
-        ) {
-            fixedButton.style.display = "block";
-        } else {
-            fixedButton.style.display = "none";
-        }
-    }
 </script>
 
 </body>
