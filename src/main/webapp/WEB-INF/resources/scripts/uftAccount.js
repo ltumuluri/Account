@@ -50,6 +50,10 @@ var app = angular.module("uftApp", []);
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
 
+        $scope.test = function() {
+            document.getElementById("wrapper").style.color = "yellow";
+        }
+
         $scope.openEdit = function(){
             editStyle.flex = "1";
             editStyle.opacity = "1";
@@ -180,6 +184,7 @@ var app = angular.module("uftApp", []);
             } else {
                 fixedButton.style.display = "none";
             }
+
         }
 
         $scope.isEdit = false;
@@ -518,16 +523,23 @@ var app = angular.module("uftApp", []);
                     }
                     if((value==null||value=="")&&(scope.confirmpassword==null||scope.confirmpassword=="")){
                         ctrl.$setValidity('invalidPasswordFormat', true);
-                    }
-                    console.log(value);
-                    console.log(value!=null||value!=="");
-                    if(value!=null&&value!==""){
-                        console.log("10")
-                        ctrl.$setValidity('invalidPasswordFormat', false);
+
                     }
 
+                    // if(scope.confirmpassword !== value) {
+                    //     ctrl.$setValidity('newpasswordisEmpty', false);
+                    // } else {
+                    //     ctrl.$setValidity('newpasswordisEmpty', true);
                     // }
-                    // return value;
+                    //
+                    // console.log(ctrl.$setValidity)
+                    //
+
+
+
+
+                    return value;
+
                 })
             }
         }
@@ -562,23 +574,21 @@ var app = angular.module("uftApp", []);
 
 
                     if(value == null || value === "") {
+                        var valid = true;
                         if(scope.newpassword != null && scope.newpassword !== '') {
-                            ctrl.$setValidity('newpasswordisEmpty', false);
-                            ctrl.$setValidity('invalidconfirmPassword', true);
-                        } else {
-                            ctrl.$setValidity('newpasswordisEmpty', true);
-                            ctrl.$setValidity('invalidconfirmPassword', true);
+                            valid = false;
                         }
+                        ctrl.$setValidity('newpasswordisEmpty', valid);
+                        ctrl.$setValidity('invalidconfirmPassword', true);
                     }
                     else if(value) {
-                        if(value !== scope.newpassword) {
-                            ctrl.$setValidity('invalidconfirmPassword', false);
-                            ctrl.$setValidity('newpasswordisEmpty', true);
-                        } else {
-                            ctrl.$setValidity('invalidconfirmPassword', true);
-                            ctrl.$setValidity('newpasswordisEmpty', true);
-                        }
+
+                        valid = value === scope.newpassword;
+                        ctrl.$setValidity('invalidconfirmPassword', valid);
+                        ctrl.$setValidity('newpasswordisEmpty', true);
                     }
+
+                    console.log(value);
 
                     return value;
                 })

@@ -9,14 +9,14 @@
     <link href="styles/bootstrap.css" rel="stylesheet"/>
     <link href="styles/uft-sm.css?v=3" rel="stylesheet"/>
     <link href="styles/forms-uftwf.css?v=3" rel="stylesheet"/>
-    <link href="styles/main.css" rel="stylesheet"/>
+    <link href="styles/my-account.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,300,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <script src="scripts/angular.min.js" type="text/javascript"></script>
-    <script src="scripts/uftApp.js?version=12" type="text/javascript"></script>
+    <script src="scripts/uftAccount.js?version=12" type="text/javascript"></script>
     <script src="scripts/svgxuse.min.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -170,9 +170,7 @@
                             <div class="errorMessage">
                                 <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Invalid Password format. Password must be at least 8 characters follow by minimum one uppercase, one lowercase and one digit.</span>
                             </div>
-                            <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordMatch">Confirm password not match.</span>
-                            </div>
+
                         </div>
                         <div class="col-md-5" style="display: inline-block;">
                             <label for="confirmpassword">Confirm Password:</label>
