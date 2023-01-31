@@ -15,7 +15,26 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-    <script src="scripts/uftwf-gtm-environment.js" type="text/javascript"></script>
+    <script>
+        if(window.location.hostname == "services.uft.org"){
+            <!-- Production -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=i91GxXrplktTDko6B98qsQ&gtm_preview=env-1&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-KFBLWL2');</script>
+        }
+        else
+        {
+        <!-- Dev -->
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=SBk6g4kpsJltp1SnmBQ_Fw&gtm_preview=env-3&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-KFBLWL2');</script>
+        }
+
+    </script>
     <script src="scripts/angular.min.js" type="text/javascript"></script>
     <script src="scripts/uftAccount.js?version=12" type="text/javascript"></script>
     <script src="scripts/svgxuse.min.js" type="text/javascript"></script>
@@ -39,6 +58,19 @@
 
 </head>
 <body ng-app="uftApp">
+<!-- Google Tag Manager (noscript) -->
+<!-- Production -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFBLWL2&gtm_auth=i91GxXrplktTDko6B98qsQ&gtm_preview=env-1&gtm_cookies_win=x"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<!-- Dev -->
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFBLWL2&gtm_auth=SBk6g4kpsJltp1SnmBQ_Fw&gtm_preview=env-3&gtm_cookies_win=x"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
 <uft-header></uft-header>
 <div class="container-fluid content" ng-controller="accountFormController" id="container">
 
