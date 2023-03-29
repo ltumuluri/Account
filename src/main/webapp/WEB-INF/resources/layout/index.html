@@ -18,20 +18,20 @@
     <script>
         if(window.location.hostname == "services.uft.org"){
             <!-- Production -->
-            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=i91GxXrplktTDko6B98qsQ&gtm_preview=env-1&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','GTM-KFBLWL2');</script>
+            })(window,document,'script','dataLayer','GTM-KFBLWL2');
         }
         else
         {
         <!-- Dev -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl+ '&gtm_auth=SBk6g4kpsJltp1SnmBQ_Fw&gtm_preview=env-3&gtm_cookies_win=x';f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-KFBLWL2');</script>
+        })(window,document,'script','dataLayer','GTM-KFBLWL2');
         }
 
     </script>
@@ -121,16 +121,16 @@
                     Back
                 </button>
                 <!-- edit instruction for member -->
-                <div ng-show="isMember&&!isCCP" style="margin-right: 100px;">
-                    <label class="col-12" style="padding: 0">You may update your username, email address or password here.</label>
-                </div>
+<!--                <div ng-show="isMember&&!isCCP" style="margin-right: 100px;">-->
+<!--                    <label class="col-12" style="padding: 0">You may update your username, email address or password here.</label>-->
+<!--                </div>-->
 
                 <!-- content -->
                 <div class="gapBetween">
                     <div class="positionLayout">
-                        <span class="title">Personal Info</span>
+                        <span class="title">Change username or email address</span>
                         <span class="text-danger requiredInfo">(required)</span>
-                        <div class="editSubColor gapBetweenS">Update your personal details here</div>
+                        <div class="editSubColor gapBetweenS">Enter new information below and click save</div>
                     </div>
 
                     <div class="editTile">
@@ -195,8 +195,8 @@
                     </div>
                 </div>
                 <div class="gapBetween">
-                    <div class="title">Password</div>
-                    <div class="editSubColor gapBetweenS">Update your password here</div>
+                    <div class="title">Change UFT password</div>
+                    <div class="editSubColor gapBetweenS">Passwords must have 8 characters and include at least one uppercase letter, one lowercase letter and one number</div>
                     <div class="editTile">
                         <div class="col-md-5 inlineBlockGap" style="display: inline-block;">
                             <label for="newpassword">Change Password:</label>
@@ -223,21 +223,21 @@
                     </div>
                 </div>
                 <div class="gapBetween" ng-show="isMember">
-                    <div class="title">Subscription</div>
-                    <div class="editSubColor gapBetweenS">Manage your subscription here</div>
+                    <div class="title">Manage UFT messages</div>
+                    <div class="editSubColor gapBetweenS">Sign up or change your preferences</div>
                     <div class="editTile">
                         <div class="gapBetweenS">
-                            <label class="col-md-3" style="display: inline-block">UFT email: </label>
+                            <label class="col-md-3" style="display: inline-block">UFT emails: </label>
                             <label class="subscriptionPadding">
                                 <input type="checkbox" ng-model="emailSubscribe" class="form-radio"
                                        id="subscribe" name="subscribe" ng-checked="!unSubscribe"/>
-                                Subscribe to UFT emails.
+                                Subscribe to receive UFT emails
                             </label>
                         </div>
                         <div class="gapBetweenS">
                             <label class="col-md-3" style="display: inline-block">UFT text messages: </label>
                             <div class="subscriptionPadding">
-                                Opt in for text messages from the UFT:
+                                Opt-in to receive UFT text messages
                             </div>
                             <div class="offset-md-3 col-md-8">
                                 <div class="radioOption">
@@ -366,7 +366,7 @@
                             </div>
 
                             <div class="row" ng-show="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode&&!isMember">
-                                <div class="col-5">Zip Code:</div>
+                                <div class="col-5 boldText">Zip Code:</div>
                                 <div class="col-7">
                                     <p>{{personInfo.userAttributes.zipCode[0]}}</p>
                                 </div>
@@ -399,15 +399,36 @@
 
                 <hr class="gapBetween">
                 <!-- left button -->
-                <div class="leftTileLayout">
-                    <a href="" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween memberTile" ng-show="isMember">
-                        <span class="boldText">Member Hub</span>
-                        <span class="material-symbols-outlined">chevron_right</span>
-                    </a>
-                    <a ng-href={{communitylink}} target="_blank" class="wrapperBody leftWrapper leftTile gapBetween leaderTile" ng-show="hasChpaterLeaderSection">
-                        <span class="boldText">Chapter Leader Hub</span>
-                        <span class="material-symbols-outlined">chevron_right</span>
-                    </a>
+
+                <div class="">
+                    <div class="leftTile gapBetween hubText tileSize" ng-show="isMember">
+                        <a href="https://hub.uft.org" target="_blank">
+                            <span class="boldText">Member Hub</span>
+                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                        </a>
+                    </div>
+                    <div class="leftTile gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
+                        <a href="" target="_blank">
+                            <span class="boldText">Chapter Leader Hub</span>
+                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                        </a>
+                    </div>
+                    <div class="leftTile gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
+                        <a href="https://hub.uft.org/uftselfservice/s/retiree-resources" target="_blank">
+                            <span class="boldText">Retiree resources</span>
+                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                        </a>
+                    </div>
+                    <div class="wrapperBody tileSize" style="justify-content: space-between">
+                        <a href="https://www.uft.org/your-rights/frequently-asked-questions" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile">
+                            <span class="boldText">FAQs</span>
+                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                        </a>
+                        <a href="https://www.uft.org/get-involved/events" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile">
+                            <span class="boldText">Events</span>
+                            <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                        </a>
+                    </div>
                 </div>
 
 
@@ -497,8 +518,18 @@
                     </div>
                 </div>
                 <div class="gapBetweenL" ng-show="hasStaffSection">
-                    <div class="title gapBetween">Welfare fund administrative queues</div>
+                    <div class="title gapBetween">Internal Administrative Queues</div>
                     <div class="wrapperBody rightWrapper">
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Union Enrollment Admin Queue</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText"></div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+
                         <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
                             <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
                                 <div class="tileButton">
@@ -510,8 +541,22 @@
                         </div>
                     </div>
                 </div>
+                <div class="gapBetweenL" ng-show="hasHelpDeskSection">
+                    <div class="title gapBetween">Member Dashboard</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
+                            <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
+                                <div class="tileButton">
+                                    <div>{{helpDeskList[$index].appName}}</div>
+                                </div>
+                                <div class="tileText">{{helpDeskList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="gapBetweenL" ng-show="isMember&&!isCCP">
-                    <div class="title gapBetween">Online forms for members</div>
+                    <div class="title gapBetween">Member Resources</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="app in appList|orderBy:'priority'">
                             <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
@@ -522,11 +567,112 @@
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                             </a>
                         </div>
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Discount</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">See member-only discounts on apparel, entertainment, school supplies and more.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+
+
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Join the UFT</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Receive rights and benefits exclusive to UFT members.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Enroll in the UFT Welfare Fund</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">The union provides an array of benefits to supplement your health plan coverage. Welfare Fund enrollment is separate from your NYC health plan enrollment.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Change of Status form</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Update your name, address, marital status or family profile.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Change of Address</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Change Union Information.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Ask the Union</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Submit a question or inquiry to UFT staff.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Ask the UFT Welfare Fund</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Submit a question about your supplemental health benefits.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Access Optical Benefits</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Request Optical Services.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Access Hearing Aid Benefits</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Request Hearing Aid Certificate.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>College and Career Counseling Program</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">See your appointment schedule.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Enroll in a course</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">View current UFT courses and register online.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
                     </div>
                 </div>
 
                 <div class="gapBetweenL" ng-show="hasChpaterLeaderSection">
-                    <div class="title gapBetween">Online forms for chapter leaders</div>
+                    <div class="title gapBetween">Chapter Leader Resources</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="app in webList|orderBy:'priority'">
                             <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !webList[$index].status}">
@@ -540,20 +686,6 @@
                     </div>
                 </div>
 
-                <div class="gapBetweenL" ng-show="hasHelpDeskSection">
-                    <div class="title gapBetween">Member help desk</div>
-                    <div class="wrapperBody rightWrapper">
-                        <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
-                            <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
-                                <div class="tileButton">
-                                    <div>{{helpDeskList[$index].appName}}</div>
-                                </div>
-                                <div class="tileText">{{helpDeskList[$index].description}}</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
