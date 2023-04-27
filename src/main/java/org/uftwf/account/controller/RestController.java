@@ -461,6 +461,24 @@ public class RestController {
         return resultArray;
 
     }
+
+    @RequestMapping(value="/hasRetireeSection",method=RequestMethod.GET)
+    public SuggestMemberApp[] hasRetireeSection(){
+        String memberId = userService.getMemberId();
+        SuggestMemberApp[] resultArray=null;
+        Set<SuggestMemberApp> appLists = new HashSet<SuggestMemberApp>();
+        String ssoId = userService.getUserId();
+        if (client.hasUserGroup(ssoId, "RETIREE_group")) {
+            appLists.add(Apps.getSuggestApp(Apps.App.GRIEVANCE));
+        }
+        if (appLists.size() > 0) {
+            UserHelper helper = new UserHelper();
+            resultArray = helper.ConvertSetToArray(appLists);
+        }
+        return resultArray;
+    }
+
+
     @RequestMapping(value="/rest/version",method = RequestMethod.GET)
     public ProjectVersion restVersion(){
         PropertiesHelper helper = new PropertiesHelper();

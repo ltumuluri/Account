@@ -30,6 +30,7 @@ var app = angular.module("uftApp", []);
         $scope.updateMessage="Save";
         $scope.showBanner = false;
         $scope.communitylink='';
+        console.log('43');
         function showCommunityBanner(){
             $http({
                 url:'showCommunityBanner',
@@ -76,6 +77,9 @@ var app = angular.module("uftApp", []);
                     var optin=response.data['dbObject']['optin'];
                     var optInNumber=response.data['dbObject']['optInNumber'];
                     var isMember=response.data['dbObject']['member'];
+
+                    console.log(response.data['dbObject']['member']);
+
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
                     $scope.personInfo=personInfo;
                     $scope.isMember=isMember;
@@ -144,6 +148,18 @@ var app = angular.module("uftApp", []);
                     if(response.data!=null&&response.data.length>0){
                         $scope.webList=response.data;
                         $scope.hasChpaterLeaderSection=true;
+                        console.log("chapterleader")
+                    }
+                });
+                $scope.hasRetireeSection=false;
+                $http({
+                    url: "hasRetireeSection",
+                    method: "GET"
+                }).then(function (response) {
+                    if(response.data!=null&&response.data.length>0){
+                        $scope.webList=response.data;
+                        $scope.hasRetireeSection=true;
+
                     }
                 });
                 $scope.hasHelpDeskSection=false;
@@ -215,6 +231,7 @@ var app = angular.module("uftApp", []);
             document.getElementById("subscribe").checked=false;
             subscribeModal.style.display ="none";
         };
+
         $scope.enableSave = function () {
             if($scope.accountForm.$valid) {
                 if (!$scope.updating) {
@@ -260,7 +277,7 @@ var app = angular.module("uftApp", []);
                         $scope.updating = true;
                         $scope.updateMessage = "Please Wait...";
                         if (response.data != null && response.data !== $scope.personInfo.email) {
-                            var updateEmail = confirm("You updated your email address, please confirm. If click OK, you will be logout from application after updated successfully. If click Cancel, all other information will be updated but the email will revert back to original email.");
+                            var updateEmail = confirm("You have updated your email address. Please click OK to confirm.  You will be logged out from the  application.  If you click Cancel, all other information will be updated, but the email will revert back to original email.");
                             if (updateEmail == false) {
                                 userInfo['email'] = response.data;
                                 $scope.personInfo.email = response.data;
@@ -302,13 +319,11 @@ var app = angular.module("uftApp", []);
                                 $scope.errorField = true;
                                 $scope.errors = errorArray;
                                 document.getElementById("username").focus();
+                                console.log("false")
                             }
                         });
                     });
-
-
                 }
-
             }
         };
 
@@ -582,13 +597,10 @@ var app = angular.module("uftApp", []);
                         ctrl.$setValidity('invalidconfirmPassword', true);
                     }
                     else if(value) {
-
                         valid = value === scope.newpassword;
                         ctrl.$setValidity('invalidconfirmPassword', valid);
                         ctrl.$setValidity('newpasswordisEmpty', true);
                     }
-
-                    console.log(value);
 
                     return value;
                 })

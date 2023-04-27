@@ -143,7 +143,7 @@
                             <div class="col-md-5" style="display: inline-block;">
                                 <label for="email" style="display: block">Email:</label>
                                 <input type="text" class="inputBox col-md-10" id="email" maxlength="250"
-                                       name="email" ng-model="personInfo.email" placeholder="Email" required name-verify
+                                       name="email" ng-model="personInfo.email" placeholder="Email" required email-verify
                                        ng-model-options="{ updateOn: 'blur' }"/>
                                 <div class="errorMessage">
                                     <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email.</span>
@@ -204,7 +204,7 @@
                                    maxlength="25" name="newpassword"
                                    ng-model="newpassword" newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Invalid Password format. Password must be at least 8 characters follow by minimum one uppercase, one lowercase and one digit.</span>
+                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Passwords must be at least 8 characters and contain a minimum of one uppercase, one lowercase and one digit.</span>
                             </div>
 
                         </div>
@@ -408,12 +408,12 @@
                         </a>
                     </div>
                     <div class="leftTile gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
-                        <a href="" target="_blank">
+                        <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page" target="_blank">
                             <span class="boldText">Chapter Leader Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
-                    <div class="leftTile gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
+                    <div class="leftTile gapBetween hubText tileSize" ng-show="hasRetireeSection">
                         <a href="https://hub.uft.org/uftselfservice/s/retiree-resources" target="_blank">
                             <span class="boldText">Retiree resources</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -488,38 +488,58 @@
                 <h3 class="titleMain">My Account</h3>
                 <hr class="gapBetween titleMain">
 
-                <div class="gapBetweenL" ng-show="!isMember&&!isCCP">
-                    <div class="title gapBetween">Online forms for new employees</div>
-                    <div class="wrapperBody rightWrapper" style="">
-                        <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
-                            <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
-                                <div class="tileButton">
-                                    <div>{{nonMemberApplicationList[$index].appName}}</div>
-                                </div>
-                                <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <div>
+<!--                <div class="gapBetweenL">-->
+<!--                    <div class="title gapBetween">Online forms for new employees</div>-->
+<!--                    <div class="wrapperBody rightWrapper" style="">-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Join the UFT</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Receive rights and benefits exclusive to UFT members.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Enroll in the UFT Welfare Fund</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">The union provides an array of benefits to supplement your health plan coverage. Welfare Fund enrollment is separate from your NYC health plan enrollment.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <div class="gapBetweenL" ng-show="accessApp&&!isCCP">
-                    <div class="title gapBetween">Online forms to gain website access</div>
-                    <div class="wrapperBody rightWrapper">
-                        <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
-                            <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
-                                <div class="tileButton">
-                                    <div>{{accessApplicationList[$index].appName}}</div>
-                                </div>
-                                <div class="tileText">{{accessApplicationList[$index].description}}</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="gapBetweenL" ng-show="hasStaffSection">
-                    <div class="title gapBetween">Internal Administrative Queues</div>
-                    <div class="wrapperBody rightWrapper">
+<!--                <div class="gapBetweenL">-->
+<!--                    <div class="title gapBetween">Online forms to gain website access</div>-->
+<!--                    <div class="wrapperBody rightWrapper">-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Verify Your Identity</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Verify your identity for enhanced access to the UFT website and to access the UFT mobile app.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Verify Child Care Provider</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">If you are a licensed UFT family child care provider, please verify your identity.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="gapBetweenL">-->
+<!--                    <div class="title gapBetween">Internal Administrative Queues</div>-->
+<!--                    <div class="wrapperBody rightWrapper">-->
 <!--                        <div>-->
 <!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
 <!--                                <div class="tileButton">-->
@@ -529,55 +549,45 @@
 <!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
 <!--                            </a>-->
 <!--                        </div>-->
-
-                        <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
-                            <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
-                                <div class="tileButton">
-                                    <div>{{welfareAdminApp[$index].appName}}</div>
-                                </div>
-                                <div class="tileText">{{welfareAdminApp[$index].description}}</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="gapBetweenL" ng-show="hasHelpDeskSection">
-                    <div class="title gapBetween">Member Dashboard</div>
-                    <div class="wrapperBody rightWrapper">
-                        <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
-                            <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
-                                <div class="tileButton">
-                                    <div>{{helpDeskList[$index].appName}}</div>
-                                </div>
-                                <div class="tileText">{{helpDeskList[$index].description}}</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="gapBetweenL" ng-show="isMember&&!isCCP">
-                    <div class="title gapBetween">Member Resources</div>
-                    <div class="wrapperBody rightWrapper">
-                        <div ng-repeat ="app in appList|orderBy:'priority'">
-                            <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
-                                <div class="tileButton">
-                                    <div>{{appList[$index].appName}}</div>
-                                </div>
-                                <div class="tileText">{{appList[$index].description}}</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
 <!--                        <div>-->
 <!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
 <!--                                <div class="tileButton">-->
-<!--                                    <div>Discount</div>-->
+<!--                                    <div>Welfare Enrollment Admin Queue</div>-->
 <!--                                </div>-->
-<!--                                <div class="tileText">See member-only discounts on apparel, entertainment, school supplies and more.</div>-->
+<!--                                <div class="tileText"></div>-->
 <!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
 <!--                            </a>-->
 <!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Change of Status Admin Queue</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText"></div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
+<!--                <div class="gapBetweenL">-->
+<!--                    <div class="title gapBetween">Member Dashboard</div>-->
+<!--                    <div class="wrapperBody rightWrapper">-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Verify Personal Information</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">View current records and preferences on file with the UFT.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
+<!--                <div class="gapBetweenL">-->
+<!--                    <div class="title gapBetween">Member Resources</div>-->
+<!--                    <div class="wrapperBody rightWrapper" style="">-->
 <!--                        <div>-->
 <!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
 <!--                                <div class="tileButton">-->
@@ -653,6 +663,15 @@
 <!--                        <div>-->
 <!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
 <!--                                <div class="tileButton">-->
+<!--                                    <div>Enroll in a course</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">View current UFT courses and register online.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
 <!--                                    <div>College and Career Counseling Program</div>-->
 <!--                                </div>-->
 <!--                                <div class="tileText">See your appointment schedule.</div>-->
@@ -662,12 +681,168 @@
 <!--                        <div>-->
 <!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
 <!--                                <div class="tileButton">-->
-<!--                                    <div>Enroll in a course</div>-->
+<!--                                    <div>Discount</div>-->
 <!--                                </div>-->
-<!--                                <div class="tileText">View current UFT courses and register online.</div>-->
+<!--                                <div class="tileText">See member-only discounts on apparel, entertainment, school supplies and more.</div>-->
 <!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
 <!--                            </a>-->
 <!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Buy movie tickets</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Buy discounted movie tickets from the UFT.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>UFT Forms & Documents</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">View or download important UFT and DOE materials.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="gapBetweenL" >-->
+<!--                    <div class="title gapBetween">Chapter Leader Resources</div>-->
+<!--                    <div class="wrapperBody rightWrapper">-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>File a Step 1 Grievance</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Submit grievances on behalf of your chapter members.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Grievance History</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">View current and past grievances filed from your chapter.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>Nonmember Report</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">See which staff members at your school have not joined the union.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>File an Operational Issue Report</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Report an operational issue at your school to the UFT.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div>-->
+<!--                            <a href="" class="rightTile wrapperBody rightTileWrapper">-->
+<!--                                <div class="tileButton">-->
+<!--                                    <div>File a Consultation Committee Report</div>-->
+<!--                                </div>-->
+<!--                                <div class="tileText">Record issues discussed during monthly meetings.</div>-->
+<!--                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+</div>
+
+
+                <div class="gapBetweenL" ng-show="!isMember&&!isCCP">
+                    <div class="title gapBetween">Online forms for new employees</div>
+                    <div class="wrapperBody rightWrapper" style="">
+                        <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
+                            <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
+                                <div class="tileButton">
+                                    <div>{{nonMemberApplicationList[$index].appName}}</div>
+                                </div>
+                                <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gapBetweenL" ng-show="accessApp&&!isCCP">
+                    <div class="title gapBetween">Online forms to gain website access</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
+                            <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
+                                <div class="tileButton">
+                                    <div>{{accessApplicationList[$index].appName}}</div>
+                                </div>
+                                <div class="tileText">{{accessApplicationList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gapBetweenL" ng-show="hasStaffSection">
+                    <div class="title gapBetween">Internal Administrative Queues</div>
+                    <div class="wrapperBody rightWrapper">
+
+                        <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
+                            <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
+                                <div class="tileButton">
+                                    <div>{{welfareAdminApp[$index].appName}}</div>
+                                </div>
+                                <div class="tileText">{{welfareAdminApp[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="gapBetweenL" ng-show="hasHelpDeskSection">
+                    <div class="title gapBetween">Member Dashboard</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
+                            <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
+                                <div class="tileButton">
+                                    <div>{{helpDeskList[$index].appName}}</div>
+                                </div>
+                                <div class="tileText">{{helpDeskList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="gapBetweenL" ng-show="isMember&&!isCCP">
+                    <div class="title gapBetween">Member Resources</div>
+                    <div class="wrapperBody rightWrapper">
+                        <div ng-repeat ="app in appList|orderBy:'priority'">
+                            <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
+                                <div class="tileButton">
+                                    <div>{{appList[$index].appName}}</div>
+                                </div>
+                                <div class="tileText">{{appList[$index].description}}</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
+
+                        <div>
+                            <a href="" class="rightTile wrapperBody rightTileWrapper">
+                                <div class="tileButton">
+                                    <div>UFT Forms & Documents</div>
+                                </div>
+                                <div class="tileText">View or download important UFT and DOE materials.</div>
+                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 

@@ -16,7 +16,7 @@ public class NonMemberApps {
                 case CCP:
                     return new NonMemberApplication("Verify Child Care Provider",host+"verify/ccp",4,"If you are a licensed UFT family child care provider, please verify your identity.");
                 case UNION:
-                    return new NonMemberApplication("Join the UFT",host+"enrollment",1,"Receive rights and benefits exclusive to UFT members.");
+                    return new NonMemberApplication("Join the UFT",host+"enrollment",1,"Receive rights and benefits exclusive to both active and retired UFT members.");
                     //return new NonMemberApplication("Enroll in the UFT",host+"enrollment",1,"Gain access to valuable benefits and have a voice in your professional life. ");
                 case WELFARE:
                     return new NonMemberApplication("Enroll in the UFT Welfare Fund",host+"welfare",2,"The union provides an array of benefits to supplement your health plan coverage. Welfare Fund enrollment is separate from your NYC health plan enrollment.");

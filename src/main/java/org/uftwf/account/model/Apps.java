@@ -28,7 +28,7 @@ public class Apps {
 
                 //Member
                 case UNION:
-                    return new SuggestMemberApp("Join the UFT",host+"enrollment",1,"Receive rights and benefits exclusive to UFT members.",true,false);
+                    return new SuggestMemberApp("Join the UFT",host+"enrollment",1,"Receive rights and benefits exclusive to both active and retired UFT members.",true,false);
                     //return new SuggestMemberApp("Enroll in the UFT",host+"enrollment",1,"Gain access to valuable benefits and have a voice in your professional life.",true,false);
                 case WELFARE:
                     return new SuggestMemberApp("Enroll in the UFT Welfare Fund",host+"welfare",2,"The union provides an array of benefits to supplement your health plan coverage. Welfare Fund enrollment is separate from your NYC health plan enrollment.",true,false);
@@ -90,7 +90,7 @@ public class Apps {
 
                 //MHD
                 case HELPDESKCONSOLE:
-                    return new SuggestMemberApp("Verify Personal Information",host+"memberSearch/",20,"View current records and preferences on file with the UFT",true,false);
+                    return new SuggestMemberApp("Verify Personal Information",host+"memberSearch/",20,"View current records and preferences on file with the UFT.",true,false);
                     //return new SuggestMemberApp("Member Dashboard",host+"memberSearch/",20,"A tool for determining a member’s sign up, verification and mobile app eligibility status.",true,false);
 
 
