@@ -7,8 +7,8 @@ import javax.naming.InitialContext;
  */
 public class Apps {
    public static enum App{
-        UNION,UNIONQUEUE,WELFARE,WELFAREQUEUE,GRIEVANCE,GRIEVANCEQUEUE,COS,COSQUEUE,UNIONQUIRY,WELFAREINQUIRY,CERTIFICATE,MOVIETICKET,NONMEMBERREPORT,CHAPTERSECTION,
-       NURSESECTION,PEERSECTION,DISCOUTSECTION,JUSTFORFUNSECTION,UNIONCOS, COURSES,PAPERFORMREDUCTION,CONSULATIONCOMMITTEE,HELPDESKCONSOLE,OPTICAL,SALESFORCECONSELORCOMMUNITY
+        UNION,UNIONQUEUE,WELFARE,WELFAREQUEUE,GRIEVANCE,GRIEVANCEQUEUE,COS,COSQUEUE,UNIONQUIRY,WELFAREINQUIRY,CERTIFICATE,MOVIETICKET,FORMSDOCUMENTS,NONMEMBERREPORT,CHAPTERSECTION,
+       NURSESECTION,PEERSECTION,DISCOUTSECTION,JUSTFORFUNSECTION,UNIONCOS, COURSES,PAPERFORMREDUCTION,CONSULATIONCOMMITTEE,HELPDESKCONSOLE,OPTICAL
     }
 
     public static SuggestMemberApp getSuggestApp(App app){
@@ -31,31 +31,38 @@ public class Apps {
                     return new SuggestMemberApp("Join the UFT",host+"enrollment",1,"Receive rights and benefits exclusive to both active and retired UFT members.",true,false);
                     //return new SuggestMemberApp("Enroll in the UFT",host+"enrollment",1,"Gain access to valuable benefits and have a voice in your professional life.",true,false);
                 case WELFARE:
-                    return new SuggestMemberApp("Enroll in the UFT Welfare Fund",host+"welfare",2,"The union provides an array of benefits to supplement your health plan coverage. Welfare Fund enrollment is separate from your NYC health plan enrollment.",true,false);
+                    return new SuggestMemberApp("Enroll in the UFT Welfare Fund",host+"welfare",2,"Gain a valuable array of benefits to supplement your city health coverage.",true,false);
+                    //return new SuggestMemberApp("Enroll in the UFT Welfare Fund",host+"welfare",2,"The union provides an array of benefits to supplement your health plan coverage. Welfare Fund enrollment is separate from your NYC health plan enrollment.",true,false);
                 case COS:
                     return new SuggestMemberApp("Change of Status form",host+"cos/",7,"Update your name, address, marital status or family profile.",true,false);
                 case UNIONCOS:
-                    return new SuggestMemberApp("Change of Address",host+"unioncoa",8,"Change Union Information.",true,false);
+                    return new SuggestMemberApp("Change of Address",host+"unioncoa",8,"Update your mailing address.",true,false);
                     //return new SuggestMemberApp("Address Change", host+"unioncoa",1,"Change Union Information.",true,false);
                 case UNIONQUIRY:
                     return new SuggestMemberApp("Ask the Union",host+"member-inquiry",8,"Submit a question or inquiry to UFT staff.",true,false);
                     //return new SuggestMemberApp("Ask the Union",host+"member-inquiry",8,"Submit a question to the UFT about your rights and benefits.",true,false);
                 case WELFAREINQUIRY:
-                    return new SuggestMemberApp("Ask the UFT Welfare Fund",host+"member-inquiry-welfare",9,"Submit a question about your supplemental health benefits.",true,false);
+                    return new SuggestMemberApp("Ask the UFT Welfare Fund",host+"member-inquiry-welfare",9,"Submit a question about your Welfare Fund health benefits.",true,false);
+                    //return new SuggestMemberApp("Ask the UFT Welfare Fund",host+"member-inquiry-welfare",9,"Submit a question about your supplemental health benefits.",true,false);
                 case OPTICAL:
-                    return new SuggestMemberApp("Access Optical Benefits", host+"opticalCertificate",10,"Request Optical Services.",true,false);
+                    return new SuggestMemberApp("Access Optical Benefits", host+"opticalCertificate",10,"Check your current eligibility for optical services.",true,false);
+                    //return new SuggestMemberApp("Access Optical Benefits", host+"opticalCertificate",10,"Request Optical Services.",true,false);
                 case CERTIFICATE:
-                    return new SuggestMemberApp("Access Hearing Aid Benefits",host+"certificate",11,"Request Hearing Aid Certificate.",true,false);
+                    return new SuggestMemberApp("Access Hearing Aid Benefits",host+"certificate",11,"Request a hearing aid certificate.",true,false);
+                    //return new SuggestMemberApp("Access Hearing Aid Benefits",host+"certificate",11,"Request Hearing Aid Certificate.",true,false);
                 case COURSES:
                     return new SuggestMemberApp("Enroll in a course",host+"courses/index?project=course",17,"View current UFT courses and register online.",true,false);
                     //return new SuggestMemberApp("Enroll in a course",host+"courses/index?project=course",17,"Register for a UFT-sponsored course.",true,false);
-                case SALESFORCECONSELORCOMMUNITY:
-                    return new SuggestMemberApp("College and Career Counseling Program","https://training-uftnew.cs191.force.com/login?so=00D7c000008sDpZ",17,"See your appointment schedule.",true,true);
+//                case SALESFORCECONSELORCOMMUNITY:
+//                    return new SuggestMemberApp("College and Career Counseling Program","https://training-uftnew.cs191.force.com/login?so=00D7c000008sDpZ",17,"See your appointment schedule.",true,true);
                 case DISCOUTSECTION:
-                    return new SuggestMemberApp("Discount", webhost+"your-benefits/discounts-and-promotions/uft-discounts/",18,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
+                    return new SuggestMemberApp("Discounts", webhost+"your-benefits/discounts-and-promotions/uft-discounts/",18,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
+                    //return new SuggestMemberApp("Discount", webhost+"your-benefits/discounts-and-promotions/uft-discounts/",18,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
                 case MOVIETICKET:
-                    return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Buy discounted movie tickets from the UFT.",true,false);
-
+                    return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Purchase discounted tickets to select movie theaters.",true,false);
+                    //return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Buy discounted movie tickets from the UFT.",true,false);
+                case FORMSDOCUMENTS:
+                    return new SuggestMemberApp("UFT Forms & Documents",host+"your-benefits/forms-and-documents/",19,"View or download important UFT and DOE materials.",true,false);
 
                 //comment out
                 case CHAPTERSECTION:

@@ -351,6 +351,7 @@ public class RestController {
         List<UnionEnrollmentData> enrollmentDatas =new ArrayList<UnionEnrollmentData>();
         List<WelfareData> welfareDatas = new ArrayList<WelfareData>();
         appLists.add(Apps.getSuggestApp(Apps.App.COURSES));
+        appLists.add(Apps.getSuggestApp(Apps.App.FORMSDOCUMENTS));
         if(!userService.isCCP()) {
             try {
 
@@ -414,12 +415,12 @@ public class RestController {
                     if(client.hasUserGroup(ssoId,"OCC_group")||client.hasUserGroup(ssoId,"BR_group")){
                         appLists.add(Apps.getSuggestApp(Apps.App.NONMEMBERREPORT));
                     }
-                    if(client.hasUserGroup(ssoId,"GCC_group")){
-                        String appUrl =System.getProperty("memberCommunity");
-                        SuggestMemberApp salesforceapp =Apps.getSuggestApp(Apps.App.SALESFORCECONSELORCOMMUNITY);
-                        salesforceapp.setAppUrl(appUrl);
-                        appLists.add(salesforceapp);
-                    }
+//                    if(client.hasUserGroup(ssoId,"GCC_group")){
+//                        String appUrl =System.getProperty("memberCommunity");
+//                        SuggestMemberApp salesforceapp =Apps.getSuggestApp(Apps.App.SALESFORCECONSELORCOMMUNITY);
+//                        salesforceapp.setAppUrl(appUrl);
+//                        appLists.add(salesforceapp);
+//                    }
 
                     //need to removed
 
@@ -469,6 +470,8 @@ public class RestController {
         Set<SuggestMemberApp> appLists = new HashSet<SuggestMemberApp>();
         String ssoId = userService.getUserId();
         if (client.hasUserGroup(ssoId, "RETIREE_group")) {
+            //for resultArray != null
+            //applists will not show in any case
             appLists.add(Apps.getSuggestApp(Apps.App.GRIEVANCE));
         }
         if (appLists.size() > 0) {

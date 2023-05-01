@@ -120,10 +120,6 @@
                     <span class="material-symbols-outlined iconButton">arrow_back</span>
                     Back
                 </button>
-                <!-- edit instruction for member -->
-<!--                <div ng-show="isMember&&!isCCP" style="margin-right: 100px;">-->
-<!--                    <label class="col-12" style="padding: 0">You may update your username, email address or password here.</label>-->
-<!--                </div>-->
 
                 <!-- content -->
                 <div class="gapBetween">
@@ -137,8 +133,8 @@
                         <div class="gapBetweenS">
                             <div class="col-md-5 inlineBlockGap" style="display: inline-block;">
                                 <label for="username" style="display: block">Username:</label>
-                                <input type="text" class="inputBox col-md-10" id="username" maxlength="25"
-                                       name="username" ng-model="personInfo.username" placeholder="username" required />
+                                <input type="text" class="inputBox col-md-10" id="username"
+                                       name="username" ng-model="personInfo.username" placeholder="Username" required/>
                             </div>
                             <div class="col-md-5" style="display: inline-block;">
                                 <label for="email" style="display: block">Email:</label>
@@ -217,7 +213,7 @@
                                 <span class="invalid" ng-show="accountForm.confirmpassword.$error.newpasswordisEmpty">Change password field is empty.</span>
                             </div>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Confirm password not match.</span>
+                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Password does not match.</span>
                             </div>
                         </div>
                     </div>
@@ -401,20 +397,20 @@
                 <!-- left button -->
 
                 <div class="">
-                    <div class="leftTile gapBetween hubText tileSize" ng-show="isMember">
-                        <a href="https://hub.uft.org" target="_blank">
+                    <div class="tileSize gapBetween hubText " ng-show="isMember">
+                        <a href="https://hub.uft.org" target="_blank" class="wrapperBody leftTile">
                             <span class="boldText">Member Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
-                    <div class="leftTile gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
-                        <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page" target="_blank">
+                    <div class="gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
+                        <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page" target="_blank" class="wrapperBody leftTile">
                             <span class="boldText">Chapter Leader Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
-                    <div class="leftTile gapBetween hubText tileSize" ng-show="hasRetireeSection">
-                        <a href="https://hub.uft.org/uftselfservice/s/retiree-resources" target="_blank">
+                    <div class="gapBetween hubText tileSize" ng-show="hasRetireeSection">
+                        <a href="https://hub.uft.org/uftselfservice/s/retiree-resources" target="_blank" class="wrapperBody leftTile">
                             <span class="boldText">Retiree resources</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
@@ -778,7 +774,7 @@
                 </div>
 
                 <div class="gapBetweenL" ng-show="accessApp&&!isCCP">
-                    <div class="title gapBetween">Online forms to gain website access</div>
+                    <div class="title gapBetween">Online forms to access the UFT website</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
                             <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
@@ -833,16 +829,6 @@
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                             </a>
                         </div>
-
-                        <div>
-                            <a href="" class="rightTile wrapperBody rightTileWrapper">
-                                <div class="tileButton">
-                                    <div>UFT Forms & Documents</div>
-                                </div>
-                                <div class="tileText">View or download important UFT and DOE materials.</div>
-                                <span class="material-symbols-outlined arrowPosition">chevron_right</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
 
@@ -879,7 +865,7 @@
     <!-- email change popup -->
     <div id="emailModal" class="modal">
         <div class="modal-content offset-xl-2 col-xl-8 offset-md-1 col-md-10 col-sm-12" style="border-radius: 15px">
-            <p class="gapBetween">Your email has been updated please check you new email inbox and click the action link. Please click the Log out button and you will be logout.</p>
+            <p class="gapBetween">Please check your inbox for the email we sent you to complete the email validation.</p>
             <div class="d-flex justify-content-center">
                 <button type="button" class="button-right col-xl-4 col-lg-6 col-sm-12" style="border-radius: 15px;" id="typeModalClose" ng-click="closeEmailModal()">Log out</button>
             </div>
