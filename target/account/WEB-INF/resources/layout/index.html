@@ -112,6 +112,7 @@
                 <label class="wrapperBody errorAlert" ng-repeat="error in errors">
                     <span style="margin: auto">{{error}}</span>
                 </label>
+                </label>
             </div>
 
             <div class="positionLayout">
@@ -133,10 +134,8 @@
                         <div class="gapBetweenS">
                             <div class="col-md-5 inlineBlockGap" style="display: inline-block;">
                                 <label for="username" style="display: block">Username:</label>
-
                                 <input type="text" class="inputBox col-md-10" id="username"
                                        name="username" ng-model="personInfo.username" placeholder="Username" required/>
-
                             </div>
                             <div class="col-md-5" style="display: inline-block;">
                                 <label for="email" style="display: block">Email:</label>
@@ -144,10 +143,10 @@
                                        name="email" ng-model="personInfo.email" placeholder="Email" required email-verify
                                        ng-model-options="{ updateOn: 'blur' }"/>
                                 <div class="errorMessage">
-                                    <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email.</span>
+                                    <span class="invalid" ng-show="accountForm.email.$error.invalidEmail">Invalid format for email</span>
                                 </div>
                                 <div class="errorMessage">
-                                    <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain.</span>
+                                    <span class="invalid" ng-show="accountForm.email.$error.invalidEmailDomain">Please provide an email address that is not from the {{invalidDomain}} domain</span>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +163,7 @@
                                        name="firstname" ng-model="personInfo.firstname" placeholder="First Name" required name-verify
                                        ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
                                 <div class="errorMessage">
-                                    <span class="invalid" ng-show="accountForm.firstname.$error.invalidName">Invalid format for first name.</span>
+                                    <span class="invalid" ng-show="accountForm.firstname.$error.invalidName">Invalid format for first name</span>
                                 </div>
                             </div>
                             <div class="col-md-5" style="display: inline-block;">
@@ -174,7 +173,7 @@
                                        ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
                                 <div class="errorMessage">
                                     <span class="invalid" id="lastNameErrorMessage"
-                                        ng-show="accountForm.lastname.$error.invalidName">Invalid format for last name.</span>
+                                        ng-show="accountForm.lastname.$error.invalidName">Invalid format for last name</span>
                                 </div>
                             </div>
                         </div>
@@ -184,10 +183,10 @@
                                    name="zipCode" ng-model="personInfo.userAttributes.zipCode[0]" placeholder="zipCode"  is-zip ng-required="personInfo.userAttributes!=null&&personInfo.userAttributes.zipCode"
                                    ng-model-options="{ updateOn: 'blur' }" ng-disabled="isMember"/>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.zipCode.$error.invalidLength">Zip Code must contains 5 digits.</span>
+                                <span class="invalid" ng-show="accountForm.zipCode.$error.invalidLength">Zip Code must contains 5 digits</span>
                             </div>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.zipCode.$error.invalidNumber">Zip Code must be a numeric value.</span>
+                                <span class="invalid" ng-show="accountForm.zipCode.$error.invalidNumber">Zip Code must be a numeric value</span>
                             </div>
                         </div>
                     </div>
@@ -202,7 +201,7 @@
                                    maxlength="25" name="newpassword"
                                    ng-model="newpassword" newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Passwords must be at least 8 characters and contain a minimum of one uppercase, one lowercase and one digit.</span>
+                                <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Passwords must be at least 8 characters and contain a minimum of one uppercase, one lowercase and one digit</span>
                             </div>
 
                         </div>
@@ -212,10 +211,10 @@
                                    name="confirmpassword" ng-model="confirmpassword" confirmpassword-valid
                                    ng-model-options="{ updateOn: 'blur' }"/>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.newpasswordisEmpty">Change password field is empty.</span>
+                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.newpasswordisEmpty">Change password field is empty</span>
                             </div>
                             <div class="errorMessage">
-                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Password does not match.</span>
+                                <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Password does not match</span>
                             </div>
                         </div>
                     </div>
