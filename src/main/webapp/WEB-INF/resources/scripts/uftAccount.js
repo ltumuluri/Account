@@ -270,10 +270,12 @@ var app = angular.module("uftApp", []);
                         $scope.updating = true;
                         $scope.updateMessage = "Please Wait...";
                         if (response.data != null && response.data !== $scope.personInfo.email) {
-                            var updateEmail = confirm("You have updated your email address. Please click OK to confirm.  You will be logged out from the  application.  If you click Cancel, all other information will be updated, but the email will revert back to original email.");
+                            var updateEmail = confirm("You have updated your email address. Please click OK to confirm. You will be logged out from the application. If you click Cancel, all other information will be updated, but the email will revert back to original email.");
                             if (updateEmail == false) {
                                 userInfo['email'] = response.data;
+
                                 $scope.personInfo.email = response.data;
+
                             }
                         }
                         $http({

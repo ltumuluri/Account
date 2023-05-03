@@ -409,9 +409,9 @@ public class RestController {
                         }
                     }
                     String ssoId = userService.getUserId();
-                    if (client.hasUserGroup(ssoId, "ADM_group")) {
-                        appLists.add(Apps.getSuggestApp(Apps.App.UNIONQUEUE));
-                    }
+//                    if (client.hasUserGroup(ssoId, "ADM_group")) {
+//                        appLists.add(Apps.getSuggestApp(Apps.App.UNIONQUEUE));
+//                    }
                     if(client.hasUserGroup(ssoId,"OCC_group")||client.hasUserGroup(ssoId,"BR_group")){
                         appLists.add(Apps.getSuggestApp(Apps.App.NONMEMBERREPORT));
                     }
@@ -523,6 +523,10 @@ public class RestController {
         if (client.hasUserGroup(ssoId, "MHD_group")) {
            appLists.add(Apps.getSuggestApp(Apps.App.HELPDESKCONSOLE));
         }
+        if (client.hasUserGroup(ssoId, "ADM_group")) {
+            appLists.add(Apps.getSuggestApp(Apps.App.UNIONQUEUE));
+        }
+
         if (appLists.size() > 0) {
             UserHelper helper = new UserHelper();
             resultArray = helper.ConvertSetToArray(appLists);

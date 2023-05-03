@@ -18,8 +18,6 @@ public class Apps {
             String webhost= (String) ctx.lookup("java:global/uft/url");
             switch (app){
                 //WFAQ
-                case UNIONQUEUE:
-                    return new SuggestMemberApp("Union Enrollment Admin Queue",host+"unionAdmin",3,"",true,false);
                 case WELFAREQUEUE:
                     return new SuggestMemberApp("Welfare Enrollment Admin Queue",host+"welfareAdmin",4,"",true,false);
                 case COSQUEUE:
@@ -62,7 +60,7 @@ public class Apps {
                     return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Purchase discounted tickets to select movie theaters.",true,false);
                     //return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Buy discounted movie tickets from the UFT.",true,false);
                 case FORMSDOCUMENTS:
-                    return new SuggestMemberApp("UFT Forms & Documents",host+"your-benefits/forms-and-documents/",19,"View or download important UFT and DOE materials.",true,false);
+                    return new SuggestMemberApp("UFT Forms & Documents","https://www.uft.org/your-benefits/forms-and-documents",19,"View or download important UFT and DOE materials.",true,false);
 
                 //comment out
                 case CHAPTERSECTION:
@@ -97,9 +95,10 @@ public class Apps {
 
                 //MHD
                 case HELPDESKCONSOLE:
-                    return new SuggestMemberApp("Verify Personal Information",host+"memberSearch/",20,"View current records and preferences on file with the UFT.",true,false);
+                    return new SuggestMemberApp("Member Dashboard",host+"memberSearch/",20,"View current records and preferences on file with the UFT.",true,false);
                     //return new SuggestMemberApp("Member Dashboard",host+"memberSearch/",20,"A tool for determining a member’s sign up, verification and mobile app eligibility status.",true,false);
-
+                case UNIONQUEUE:
+                    return new SuggestMemberApp("Union Enrollment Admin Queue",host+"unionAdmin",21,"",true,false);
 
             }
         }catch (Exception e){
