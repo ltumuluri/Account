@@ -24,7 +24,7 @@ var app = angular.module("uftApp", []);
 })();
 
 (function () {
-    app.controller("accountFormController", ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
+    app.controller("accountFormController", ['$scope', '$http', '$window', '$location','$rootScope', function ($scope, $http, $window, $location,$rootScope) {
         $scope.showPhone = false;
         $scope.isMember = false;
         $scope.updateMessage="Save";
@@ -42,6 +42,7 @@ var app = angular.module("uftApp", []);
                     $scope.showBanner = true;
                     $scope.communitylink=response.data;
                 }
+                $rootScope.chapterleadercommunity = $scope.showBanner;
             });
         }
         showCommunityBanner();
@@ -71,12 +72,15 @@ var app = angular.module("uftApp", []);
                 method: "GET"
             }).then(function (response) {
                 if(response.data!=null&&response.data['dbStatus']){
-                    var personInfo = response.data['dbObject']['user'];
-                    var memberId= response.data['dbObject']['memberId'];
+                   let personInfo = response.data['dbObject']['user'];
+                   let memberId= response.data['dbObject']['memberId'];
                     var optin=response.data['dbObject']['optin'];
                     var optInNumber=response.data['dbObject']['optInNumber'];
                     var isMember=response.data['dbObject']['member'];
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
+                   $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
+                   $rootScope.firstname=personInfo['firstname'];
+                   $rootScope.lastname=personInfo['lastname'];
                     $scope.personInfo=personInfo;
                     $scope.isMember=isMember;
                     $scope.isCCP=response.data['dbObject']['ccp'];
@@ -269,11 +273,8 @@ var app = angular.module("uftApp", []);
                     }).then(function (response) {
                         $scope.updating = true;
                         $scope.updateMessage = "Please Wait...";
-                        console.log("1");
                         if (response.data != null && response.data !== $scope.personInfo.email) {
                             var updateEmail = confirm("You have updated your email address. Please click OK to confirm. You will be logged out from the application. If you click Cancel, all other information will be updated, but the email will revert back to original email.");
-                            console.log(updateEmail);
-
                             if (updateEmail == false) {
                                 userInfo['email'] = response.data;
                                 $scope.personInfo.email = response.data;
@@ -287,7 +288,6 @@ var app = angular.module("uftApp", []);
                         dataType: 'json',
                         contentType: 'application/json;charset=uft-8'
                     }).then(function (response) {
-                    console.log(userInfo);
                         if (response.data == 'dbIssue') {
                             $window.location.href = "error";
                             $scope.updating = false;
@@ -303,7 +303,6 @@ var app = angular.module("uftApp", []);
                                 url: "getEmailUpdateStatus",
                                 method: "GET"
                             }).then(function (response) {
-                                console.log("get email update status" + response.data)
                                 if (response.data != null && response.data) {
                                     emailModal.style.display = "block";
                                 }
@@ -321,10 +320,9 @@ var app = angular.module("uftApp", []);
                     });
 });
 
-
+                }
                 }
 
-            }
         };
 
         $scope.phonefocus = function (fieldName, event) {
@@ -355,11 +353,40 @@ var app = angular.module("uftApp", []);
     });
 })();
 (function(){
-    app.controller("logoutController",['$scope','$http','$window',function($scope,$http,$window){
+    app.controller("logoutController",['$scope','$http','$window','$rootScope',function($scope,$http,$window,$rootScope){
         $scope.logout=function(){
             sessionStorage.clear();
             $window.location.href = 'logout';
         };
+        $scope.toggleDropdown = function($event){
+            if (document.getElementById("menuDropdown").classList.contains("show")){
+                document.getElementById("menuDropdown").classList.remove("show");
+            }else{
+                document.getElementById("menuDropdown").classList.toggle("show");
+            }
+        }
+        $scope.firstname = $rootScope.firstname;
+        $scope.lastname = $rootScope.lastname;
+        $scope.activeStatus = $rootScope.activeStatus;
+
+
+        $scope.chapterleadercommunity = $rootScope.chapterleadercommunity;
+        console.log("1" + $scope.activeStatus);
+        console.log("2" + $rootScope.chapterleadercommunity);
+        $window.onclick = function(event){
+//            console.log(event.target);
+            if(!event.target.matches('.showmenutag')){
+                let dropdowns = document.getElementsByClassName("dropdown-menu");
+                let i;
+                for(i=0;i<dropdowns.length;i++){
+                    let openDropdown = dropdowns[i];
+                    if(openDropdown.classList.contains("show")){
+                        openDropdown.classList.remove("show")
+                    }
+                }
+            }
+        }
+
     }]);
 })();
 (function () {
