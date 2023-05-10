@@ -158,6 +158,7 @@ var app = angular.module("uftApp", []);
                     if(response.data!=null&&response.data.length>0){
                         $scope.webList=response.data;
                         $scope.hasRetireeSection=true;
+                        $rootScope.hasRetireeSection = true;
                     }
                 });
                 $scope.hasHelpDeskSection=false;
@@ -369,12 +370,12 @@ var app = angular.module("uftApp", []);
         $scope.lastname = $rootScope.lastname;
         $scope.activeStatus = $rootScope.activeStatus;
 
-
         $scope.chapterleadercommunity = $rootScope.chapterleadercommunity;
-        console.log("1" + $scope.activeStatus);
-        console.log("2" + $rootScope.chapterleadercommunity);
+        $scope.hasRetireeSection = $rootScope.hasRetireeSection;
+
+
         $window.onclick = function(event){
-//            console.log(event.target);
+
             if(!event.target.matches('.showmenutag')){
                 let dropdowns = document.getElementsByClassName("dropdown-menu");
                 let i;

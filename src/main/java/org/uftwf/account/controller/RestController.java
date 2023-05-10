@@ -166,7 +166,7 @@ public class RestController {
                             user.isEmailOptOut());
                     if (!callResponse.isStatus()) {
                         PrintWriter out = response.getWriter();
-                        out.write("Email is not subscribe");
+                        out.write("Email is unsubscribed");
                         out.close();
                     }
                 }
@@ -423,7 +423,7 @@ public class RestController {
                             if (memberData.getCertificate_eligible() != null
                                     && memberData.getCertificate_eligible().equalsIgnoreCase("N")) {
                                 certificateApp.setStatus(false);
-                                certificateApp.setDescription("Currently, there are no available certificates .");
+                                certificateApp.setDescription("Currently, there are no available certificates.");
                             }
                             appLists.add(certificateApp);
                             appLists.add(opticalApp);

@@ -125,8 +125,7 @@
                 <!-- content -->
                 <div class="gapBetween">
                     <div class="positionLayout">
-                        <span class="title">Change username or email address</span>
-                        <span class="text-danger requiredInfo">(required)</span>
+                        <span class="title">Personal information</span>
                         <div class="editSubColor gapBetweenS">Enter new information below and click save</div>
                     </div>
 
@@ -398,13 +397,13 @@
                 <!-- left button -->
 
                 <div class="">
-                    <div class="tileSize gapBetween hubText " ng-show="isMember">
+                    <div class="tileSize gapBetween hubText " ng-show="activeStatus=='U'">
                         <a href="https://hub.uft.org" target="_blank" class="wrapperBody leftTile">
                             <span class="boldText">Member Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
-                    <div class="gapBetween hubText tileSize" ng-show="hasChpaterLeaderSection">
+                    <div class="gapBetween hubText tileSize" ng-show="chapterleadercommunity">
                         <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page" target="_blank" class="wrapperBody leftTile">
                             <span class="boldText">Chapter Leader Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -480,7 +479,7 @@
                     </div>
                 </div>
                 <div class="gapBetweenL" ng-show="hasHelpDeskSection">
-                    <div class="title gapBetween">Member Dashboard</div>
+                    <div class="title gapBetween">Administrative Tools</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
                             <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">

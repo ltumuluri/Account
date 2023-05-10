@@ -46,7 +46,7 @@ public class Apps {
                     return new SuggestMemberApp("Access Optical Benefits", host+"opticalCertificate",10,"Check your current eligibility for optical services.",true,false);
                     //return new SuggestMemberApp("Access Optical Benefits", host+"opticalCertificate",10,"Request Optical Services.",true,false);
                 case CERTIFICATE:
-                    return new SuggestMemberApp("Access Hearing Aid Benefits",host+"certificate",11,"Request a hearing aid certificate.",true,false);
+                    return new SuggestMemberApp("Access Hearing Aid Benefits",host+"certificate",11,"Check your eligibility to receive a hearing aid certificate.",true,false);
                     //return new SuggestMemberApp("Access Hearing Aid Benefits",host+"certificate",11,"Request Hearing Aid Certificate.",true,false);
                 case COURSES:
                     return new SuggestMemberApp("Enroll in a course",host+"courses/index?project=course",17,"View current UFT courses and register online.",true,false);
@@ -60,7 +60,7 @@ public class Apps {
                     return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Purchase discounted tickets to select movie theaters.",true,false);
                     //return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Buy discounted movie tickets from the UFT.",true,false);
                 case FORMSDOCUMENTS:
-                    return new SuggestMemberApp("UFT Forms & Documents","https://www.uft.org/your-benefits/forms-and-documents",19,"View or download important UFT and DOE materials.",true,false);
+                    return new SuggestMemberApp("UFT forms & documents","https://www.uft.org/your-benefits/forms-and-documents",19,"View or download important UFT and DOE materials.",true,false);
 
                 //comment out
                 case CHAPTERSECTION:

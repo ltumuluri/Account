@@ -42,7 +42,7 @@ public class ViewController {
             LOGGER.info("getAccount(): return Account page" + "\r\n");
             String ssoId = keycloakHttp.getSSOId(request);
             userService.setUserId(ssoId);
-            String memberId = keycloakHttp.getAttribute(request, "member_id");
+            String memberId = client.getAttributes(ssoId, "member_id");
             if (memberId == null) {
                 memberId = MySqlService.getInstance().getMemberIdBySSOId(ssoId);
             }

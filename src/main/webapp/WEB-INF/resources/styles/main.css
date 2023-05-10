@@ -241,11 +241,6 @@ input:disabled:hover, input:disabled:focus{
     margin-top: 10px;
 }
 
-.requiredInfo {
-    font-size: 0.9em;
-    padding: 0
-}
-
 .subscriptionPadding {
     display: inline-block;
     padding-left: 10px
