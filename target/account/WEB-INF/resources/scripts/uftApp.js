@@ -18,7 +18,7 @@ var app = angular.module("uftApp", []);
                 });
                 return promise;
             }
-        };
+        }
         return service;
     });
 })();
@@ -30,6 +30,7 @@ var app = angular.module("uftApp", []);
         $scope.updateMessage="Save";
         $scope.showBanner = false;
         $scope.communitylink='';
+        $scope.loading = false;
         function showCommunityBanner(){
             $http({
                 url:'showCommunityBanner',
@@ -51,10 +52,6 @@ var app = angular.module("uftApp", []);
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
 
-        $scope.test = function() {
-            document.getElementById("wrapper").style.color = "yellow";
-        }
-
         $scope.openEdit = function(){
             editStyle.flex = "1";
             editStyle.opacity = "1";
@@ -67,10 +64,13 @@ var app = angular.module("uftApp", []);
             wrapperAccount.height = "0";
         };
         function loadPersonInfo() {
+            $scope.loading = true;
+            $scope.$emit('apiCallStarted');
             $http({
                 url: "userInfo",
                 method: "GET"
             }).then(function (response) {
+                 console.log('2');
                 if(response.data!=null&&response.data['dbStatus']){
                    let personInfo = response.data['dbObject']['user'];
                    let memberId= response.data['dbObject']['memberId'];
@@ -181,6 +181,11 @@ var app = angular.module("uftApp", []);
                         $scope.hasStaffSection=true;
                     }
                 });
+            })
+            .finally(function () {
+                console.log('3')
+                $scope.loading = false; // Set loading state to false
+                $scope.$emit('apiCallFinished');
             });
         }
         loadPersonInfo();
@@ -199,12 +204,16 @@ var app = angular.module("uftApp", []);
             } else {
                 fixedButton.style.display = "none";
             }
-
         }
 
         $scope.isEdit = false;
         $scope.edit = "Edit";
         $scope.cancel=function(){
+            var newPasswordInput = document.getElementById("newpassword");
+            console.log(newPasswordInput.value)
+            newPasswordInput.value = "";
+            console.log(newPasswordInput.value);
+
             $scope.isEdit=false;
             $scope.errorField=false;
             loadPersonInfo();
@@ -230,6 +239,7 @@ var app = angular.module("uftApp", []);
             document.getElementById("subscribe").checked=false;
             subscribeModal.style.display ="none";
         };
+
         $scope.enableSave = function () {
             if($scope.accountForm.$valid) {
                 if (!$scope.updating) {
@@ -353,6 +363,23 @@ var app = angular.module("uftApp", []);
         }
     });
 })();
+(function(){
+    app.directive("spinner",function(){
+        return {
+            restrict: 'C',
+            link: function (scope, element) {
+                scope.$on('apiCallStarted', function () {
+                  element.css('display', 'block');
+                });
+
+                scope.$on('apiCallFinished', function () {
+                  element.css('display', 'none');
+                });
+              }
+        }
+    });
+})();
+
 (function(){
     app.controller("logoutController",['$scope','$http','$window','$rootScope',function($scope,$http,$window,$rootScope){
         $scope.logout=function(){

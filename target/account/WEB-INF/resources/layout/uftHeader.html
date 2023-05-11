@@ -11,7 +11,7 @@
         <div class="offset-lg-2 col-lg-8 d-flex flex-row-reverse">
 <!--            <label><button class="btn btn-link logout-button" ng-click="logout()">Log Out</button></label>-->
         <div class="dropdown">
-            <a ng-click="toggleDropdown()" ng-mouseover="toggleDropdown($event)"  class="link-inline showmenutag"><span class="text-underline mr-2 showmenutag" ng-click="toggleDropdown($event)">{{firstname+" "+lastname}}</span> <div class="avatarLogout mt-2 showmenutag" ><p class="pl-1 pt-3 avatar-text showmenutag" >{{firstname[0].toUpperCase()+""+lastname[0].toUpperCase()}}</p></div></a>
+            <a ng-click="toggleDropdown()" ng-mouseover="toggleDropdown($event)"  class="link-inline showmenutag"><span class="text-underline mr-2 showmenutag" ng-click="toggleDropdown($event)">{{firstname+" "+lastname}}</span> <div class="avatar mt-2 showmenutag" ><p class="pl-1 pt-3 avatar-text showmenutag" >{{firstname[0].toUpperCase()+""+lastname[0].toUpperCase()}}</p></div></a>
             <div id="menuDropdown" class="dropdown-menu dropdown-menu-right" ng-blur="removeDropdown()">
                 <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page/" ng-show="chapterleadercommunity"><img class="menu-icon" src="images/cl-hub-icon.svg" alt="Chapter Leader Hub"/>Chapter Leader hub</a>
                 <a href="https://hub.uft.org/uftselfservice/s/" ng-show="activeStatus=='U'"><img class="menu-icon" src="images/member-hub-icon.svg" alt="Member Hub"/>Member Hub</a>

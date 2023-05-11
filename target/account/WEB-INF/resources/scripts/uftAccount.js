@@ -18,18 +18,20 @@ var app = angular.module("uftApp", []);
                 });
                 return promise;
             }
-        };
+        }
         return service;
     });
 })();
 
 (function () {
-    app.controller("accountFormController", ['$scope', '$http', '$window', '$location', function ($scope, $http, $window, $location) {
+    app.controller("accountFormController", ['$scope', '$http', '$window', '$location','$rootScope', function ($scope, $http, $window, $location,$rootScope) {
         $scope.showPhone = false;
         $scope.isMember = false;
         $scope.updateMessage="Save";
         $scope.showBanner = false;
         $scope.communitylink='';
+        $scope.loading = false;
+
         function showCommunityBanner(){
             $http({
                 url:'showCommunityBanner',
@@ -42,6 +44,7 @@ var app = angular.module("uftApp", []);
                     $scope.showBanner = true;
                     $scope.communitylink=response.data;
                 }
+                $rootScope.chapterleadercommunity = $scope.showBanner;
             });
         }
         showCommunityBanner();
@@ -50,11 +53,8 @@ var app = angular.module("uftApp", []);
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
 
-        $scope.test = function() {
-            document.getElementById("wrapper").style.color = "yellow";
-        }
-
         $scope.openEdit = function(){
+            $scope.newpassword = '';
             editStyle.flex = "1";
             editStyle.opacity = "1";
             editStyle.height = "100%"
@@ -66,17 +66,23 @@ var app = angular.module("uftApp", []);
             wrapperAccount.height = "0";
         };
         function loadPersonInfo() {
+            $scope.loading = true;
+            $scope.$emit('apiCallStarted');
             $http({
                 url: "userInfo",
                 method: "GET"
             }).then(function (response) {
+                 console.log('2');
                 if(response.data!=null&&response.data['dbStatus']){
-                    var personInfo = response.data['dbObject']['user'];
-                    var memberId= response.data['dbObject']['memberId'];
+                   let personInfo = response.data['dbObject']['user'];
+                   let memberId= response.data['dbObject']['memberId'];
                     var optin=response.data['dbObject']['optin'];
                     var optInNumber=response.data['dbObject']['optInNumber'];
                     var isMember=response.data['dbObject']['member'];
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
+                   $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
+                   $rootScope.firstname=personInfo['firstname'];
+                   $rootScope.lastname=personInfo['lastname'];
                     $scope.personInfo=personInfo;
                     $scope.isMember=isMember;
                     $scope.isCCP=response.data['dbObject']['ccp'];
@@ -154,6 +160,7 @@ var app = angular.module("uftApp", []);
                     if(response.data!=null&&response.data.length>0){
                         $scope.webList=response.data;
                         $scope.hasRetireeSection=true;
+                        $rootScope.hasRetireeSection = true;
                     }
                 });
                 $scope.hasHelpDeskSection=false;
@@ -176,6 +183,11 @@ var app = angular.module("uftApp", []);
                         $scope.hasStaffSection=true;
                     }
                 });
+            })
+            .finally(function () {
+                console.log('3')
+                $scope.loading = false; // Set loading state to false
+                $scope.$emit('apiCallFinished');
             });
         }
         loadPersonInfo();
@@ -200,6 +212,11 @@ var app = angular.module("uftApp", []);
         $scope.isEdit = false;
         $scope.edit = "Edit";
         $scope.cancel=function(){
+            $scope.newpassword = '';
+            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
+            $scope.confirmpassword = '';
+            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
+            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
             $scope.isEdit=false;
             $scope.errorField=false;
             loadPersonInfo();
@@ -273,55 +290,57 @@ var app = angular.module("uftApp", []);
                             var updateEmail = confirm("You have updated your email address. Please click OK to confirm. You will be logged out from the application. If you click Cancel, all other information will be updated, but the email will revert back to original email.");
                             if (updateEmail == false) {
                                 userInfo['email'] = response.data;
-
                                 $scope.personInfo.email = response.data;
-
+                                userInfo['user']['email'] = response.data;
                             }
                         }
-                        $http({
-                            url: "updateUser",
-                            method: "POST",
-                            data: JSON.stringify(userInfo),
-                            dataType: 'json',
-                            contentType: 'application/json;charset=uft-8'
-                        }).then(function (response) {
-                            if (response.data == 'dbIssue') {
-                                $window.location.href = "error";
-                                $scope.updating = false;
-                                $scope.updateMessage = "Save";
-                            } else if (response.data == 'success') {
-                                $scope.updating = false;
-                                $scope.updateMessage = "Save";
-                                loadPersonInfo();
-                                $scope.edit = "Edit";
-                                $scope.isEdit = false;
-                                $scope.errorField = false;
-                                $http({
-                                    url: "getEmailUpdateStatus",
-                                    method: "GET"
-                                }).then(function (response) {
-                                    if (response.data != null && response.data) {
-
-                                        emailModal.style.display = "block";
-                                    }
-                                });
-                                closeEdit();
-                            } else {
-                                $scope.updating = false;
-                                $scope.updateMessage = "Save";
-                                var errorMessage = response.data;
-                                var errorArray = errorMessage.split("#");
-                                $scope.errorField = true;
-                                $scope.errors = errorArray;
-                                document.getElementById("username").focus();
-                            }
-                        });
+                    $http({
+                        url: "updateUser",
+                        method: "POST",
+                        data: JSON.stringify(userInfo),
+                        dataType: 'json',
+                        contentType: 'application/json;charset=uft-8'
+                    }).then(function (response) {
+                        if (response.data == 'dbIssue') {
+                            $window.location.href = "error";
+                            $scope.updating = false;
+                            $scope.updateMessage = "Save";
+                        } else if (response.data == 'success') {
+                            $scope.updating = false;
+                            $scope.updateMessage = "Save";
+                            loadPersonInfo();
+                            $scope.edit = "Edit";
+                            $scope.isEdit = false;
+                            $scope.errorField = false;
+                            $http({
+                                url: "getEmailUpdateStatus",
+                                method: "GET"
+                            }).then(function (response) {
+                                if (response.data != null && response.data) {
+                                    emailModal.style.display = "block";
+                                }
+                            });
+                            $scope.newpassword = '';
+                            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
+                            $scope.confirmpassword = '';
+                            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
+                            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
+                            closeEdit();
+                        } else {
+                            $scope.updating = false;
+                            $scope.updateMessage = "Save";
+                            var errorMessage = response.data;
+                            var errorArray = errorMessage.split("#");
+                            $scope.errorField = true;
+                            $scope.errors = errorArray;
+                            document.getElementById("username").focus();
+                        }
                     });
-
+                });
 
                 }
+                }
 
-            }
         };
 
         $scope.phonefocus = function (fieldName, event) {
@@ -352,11 +371,57 @@ var app = angular.module("uftApp", []);
     });
 })();
 (function(){
-    app.controller("logoutController",['$scope','$http','$window',function($scope,$http,$window){
+    app.directive("spinner",function(){
+        return {
+            restrict: 'C',
+            link: function (scope, element) {
+                scope.$on('apiCallStarted', function () {
+                  element.css('display', 'block');
+                });
+
+                scope.$on('apiCallFinished', function () {
+                  element.css('display', 'none');
+                });
+              }
+        }
+    });
+})();
+
+(function(){
+    app.controller("logoutController",['$scope','$http','$window','$rootScope',function($scope,$http,$window,$rootScope){
         $scope.logout=function(){
             sessionStorage.clear();
             $window.location.href = 'logout';
         };
+        $scope.toggleDropdown = function($event){
+            if (document.getElementById("menuDropdown").classList.contains("show")){
+                document.getElementById("menuDropdown").classList.remove("show");
+            }else{
+                document.getElementById("menuDropdown").classList.toggle("show");
+            }
+        }
+        $scope.firstname = $rootScope.firstname;
+        $scope.lastname = $rootScope.lastname;
+        $scope.activeStatus = $rootScope.activeStatus;
+
+        $scope.chapterleadercommunity = $rootScope.chapterleadercommunity;
+        $scope.hasRetireeSection = $rootScope.hasRetireeSection;
+
+
+        $window.onclick = function(event){
+
+            if(!event.target.matches('.showmenutag')){
+                let dropdowns = document.getElementsByClassName("dropdown-menu");
+                let i;
+                for(i=0;i<dropdowns.length;i++){
+                    let openDropdown = dropdowns[i];
+                    if(openDropdown.classList.contains("show")){
+                        openDropdown.classList.remove("show")
+                    }
+                }
+            }
+        }
+
     }]);
 })();
 (function () {
