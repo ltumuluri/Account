@@ -1,6 +1,6 @@
- test
+ /*test*/
 * {
-    color: yellow;
+    /*color: yellow;*/
 }
 
 /* all */
@@ -632,34 +632,54 @@ input:disabled:hover, input:disabled:focus{
     vertical-align: middle;
 }
 
-.spinner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+ .loading-text {
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     font-weight: bold;
+     z-index: 10000;
+     color: #124ec2;
+ }
+ .spinner-container {
+     position: relative;
+     display: none;
+     /* Add other styles as needed */
+ }
 
-.spinner::after {
-    content: '';
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 3px solid #ccc;
-    border-top-color: #333;
-    animation: spinnerAnimation 1s infinite linear;
-}
+ .show-spinner {
+     display: block;
+ }
 
-@keyframes spinnerAnimation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
+ .spinner {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(255, 255, 255, 0.8);
+     z-index: 9999;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .spinner::after {
+     content: '';
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     border: 3px solid #B7C9EC;
+     border-top-color: #124ec2;
+     animation: spinnerAnimation 1s infinite linear;
+ }
+
+ @keyframes spinnerAnimation {
+     0% {
+         transform: rotate(0deg);
+     }
+     100% {
+         transform: rotate(360deg);
+     }
+ }
+

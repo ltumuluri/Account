@@ -55,24 +55,17 @@ var app = angular.module("uftApp", []);
 
         $scope.openEdit = function(){
             $scope.newpassword = '';
-            editStyle.flex = "1";
-            editStyle.opacity = "1";
-            editStyle.height = "100%"
-            editStyle.width = "100%";
-
-            wrapperAccount.width = "0";
-            wrapperAccount.flex = "0";
-            wrapperAccount.opacity = "0";
-            wrapperAccount.height = "0";
+            editStyle.cssText = "flex: 1; opacity: 1; height: 100%; width: 100%;";
+            wrapperAccount.cssText = "width: 0; flex: 0; opacity: 0; height: 0;";
         };
+
         function loadPersonInfo() {
             $scope.loading = true;
-            $scope.$emit('apiCallStarted');
             $http({
                 url: "userInfo",
                 method: "GET"
             }).then(function (response) {
-                 console.log('2');
+                 console.log('5');
                 if(response.data!=null&&response.data['dbStatus']){
                    let personInfo = response.data['dbObject']['user'];
                    let memberId= response.data['dbObject']['memberId'];
@@ -80,9 +73,9 @@ var app = angular.module("uftApp", []);
                     var optInNumber=response.data['dbObject']['optInNumber'];
                     var isMember=response.data['dbObject']['member'];
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
-                   $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
-                   $rootScope.firstname=personInfo['firstname'];
-                   $rootScope.lastname=personInfo['lastname'];
+                    $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
+                    $rootScope.firstname=personInfo['firstname'];
+                    $rootScope.lastname=personInfo['lastname'];
                     $scope.personInfo=personInfo;
                     $scope.isMember=isMember;
                     $scope.isCCP=response.data['dbObject']['ccp'];
@@ -134,14 +127,6 @@ var app = angular.module("uftApp", []);
                         $scope.accessApp=false;
                     }
                 });
-                $http({
-                    url: "suggestApp",
-                    method: "GET"
-                }).then(function (response) {
-                    if(response.data!=null&&response.data.length>0){
-                        $scope.appList=response.data;
-                    }
-                });
                 $scope.hasChpaterLeaderSection=false;
                 $http({
                     url: "hasChpaterLeaderSection",
@@ -152,6 +137,15 @@ var app = angular.module("uftApp", []);
                         $scope.hasChpaterLeaderSection=true;
                     }
                 });
+                $http({
+                    url: "suggestApp",
+                    method: "GET"
+                }).then(function (response) {
+                    if(response.data!=null&&response.data.length>0){
+                        $scope.appList=response.data;
+                    }
+                });
+
                 $scope.hasRetireeSection=false;
                 $http({
                     url: "hasRetireeSection",
@@ -186,8 +180,7 @@ var app = angular.module("uftApp", []);
             })
             .finally(function () {
                 console.log('3')
-                $scope.loading = false; // Set loading state to false
-                $scope.$emit('apiCallFinished');
+                $scope.loading = false;
             });
         }
         loadPersonInfo();
@@ -219,7 +212,6 @@ var app = angular.module("uftApp", []);
             $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
             $scope.isEdit=false;
             $scope.errorField=false;
-            loadPersonInfo();
             closeEdit();
         };
         $scope.enableEdit = function () {
@@ -370,21 +362,24 @@ var app = angular.module("uftApp", []);
         }
     });
 })();
-(function(){
-    app.directive("spinner",function(){
-        return {
-            restrict: 'C',
-            link: function (scope, element) {
-                scope.$on('apiCallStarted', function () {
-                  element.css('display', 'block');
-                });
-
-                scope.$on('apiCallFinished', function () {
-                  element.css('display', 'none');
-                });
-              }
-        }
-    });
+(function() {
+  app.directive("spinner", function() {
+    return {
+      restrict: 'C',
+      scope: {
+        isLoading: '='
+      },
+      link: function(scope, element) {
+        scope.$watch('loading', function(newVal) {
+          if (newVal) {
+            element.addClass('show-spinner');
+          } else {
+            element.removeClass('show-spinner');
+          }
+        });
+      }
+    };
+  });
 })();
 
 (function(){
