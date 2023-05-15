@@ -53,10 +53,18 @@ var app = angular.module("uftApp", []);
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
 
+
+
+
         $scope.openEdit = function(){
             $scope.newpassword = '';
             editStyle.cssText = "flex: 1; opacity: 1; height: 100%; width: 100%;";
             wrapperAccount.cssText = "width: 0; flex: 0; opacity: 0; height: 0;";
+        };
+
+         function closeEdit() {
+            editStyle.cssText = "flex: 0; opacity: 0; height: 0; width: 0;";
+            wrapperAccount.cssText = "width: 100%; flex: 1; opacity: 1; height: 100%;";
         };
 
         function loadPersonInfo() {
@@ -65,7 +73,7 @@ var app = angular.module("uftApp", []);
                 url: "userInfo",
                 method: "GET"
             }).then(function (response) {
-                 console.log('5');
+                 console.log('6');
                 if(response.data!=null&&response.data['dbStatus']){
                    let personInfo = response.data['dbObject']['user'];
                    let memberId= response.data['dbObject']['memberId'];
