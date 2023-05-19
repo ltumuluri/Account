@@ -53,18 +53,16 @@ var app = angular.module("uftApp", []);
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
 
-
-
-
         $scope.openEdit = function(){
             $scope.newpassword = '';
             editStyle.cssText = "flex: 1; opacity: 1; height: 100%; width: 100%;";
             wrapperAccount.cssText = "width: 0; flex: 0; opacity: 0; height: 0;";
         };
 
-         function closeEdit() {
+        function closeEdit() {
             editStyle.cssText = "flex: 0; opacity: 0; height: 0; width: 0;";
             wrapperAccount.cssText = "width: 100%; flex: 1; opacity: 1; height: 100%;";
+            window.scrollTo({ top: 0 });
         };
 
         function loadPersonInfo() {
@@ -185,6 +183,7 @@ var app = angular.module("uftApp", []);
                         $scope.hasStaffSection=true;
                     }
                 });
+
             })
             .finally(function () {
                 console.log('3')

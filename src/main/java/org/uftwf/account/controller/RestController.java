@@ -371,6 +371,8 @@ public class RestController {
         List<UnionEnrollmentData> enrollmentDatas = new ArrayList<UnionEnrollmentData>();
         List<WelfareData> welfareDatas = new ArrayList<WelfareData>();
         appLists.add(Apps.getSuggestApp(Apps.App.COURSES));
+        appLists.add(Apps.getSuggestApp(Apps.App.DISCOUTSECTION));
+        appLists.add(Apps.getSuggestApp(Apps.App.MOVIETICKET));
         appLists.add(Apps.getSuggestApp(Apps.App.FORMSDOCUMENTS));
         if(!userService.isCCP()) {
             try {
@@ -543,6 +545,7 @@ public class RestController {
         return resultArray;
 
     }
+
 
     @RequestMapping(value = "/hasHelpDeskSection", method = RequestMethod.GET)
     public SuggestMemberApp[] hasHelpDeskSection() {
