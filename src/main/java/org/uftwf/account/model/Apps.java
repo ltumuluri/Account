@@ -46,7 +46,7 @@ public class Apps {
 //                case SALESFORCECONSELORCOMMUNITY:
 //                    return new SuggestMemberApp("College and Career Counseling Program","https://training-uftnew.cs191.force.com/login?so=00D7c000008sDpZ",17,"See your appointment schedule.",true,true);
                 case DISCOUTSECTION:
-                    return new SuggestMemberApp("Discounts", webhost+"your-benefits/discounts-and-promotions/uft-discounts/",18,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
+                    return new SuggestMemberApp("Discounts", "https://www.uft.org/your-benefits/discounts-and-promotions/uft-discounts",18,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
                 case MOVIETICKET:
                     return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Purchase movie tickets at discounted rates for UFT members.",true,false);
                 case FORMSDOCUMENTS:
