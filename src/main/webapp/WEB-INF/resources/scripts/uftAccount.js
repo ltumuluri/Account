@@ -71,7 +71,7 @@ var app = angular.module("uftApp", []);
                 url: "userInfo",
                 method: "GET"
             }).then(function (response) {
-                 console.log('6');
+
                 if(response.data!=null&&response.data['dbStatus']){
                    let personInfo = response.data['dbObject']['user'];
                    let memberId= response.data['dbObject']['memberId'];
@@ -80,6 +80,7 @@ var app = angular.module("uftApp", []);
                     var isMember=response.data['dbObject']['member'];
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
                     $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
+                    $rootScope.titleId = response.data['dbObject']['titleId'];
                     $rootScope.firstname=personInfo['firstname'];
                     $rootScope.lastname=personInfo['lastname'];
                     $scope.personInfo=personInfo;
@@ -186,7 +187,6 @@ var app = angular.module("uftApp", []);
 
             })
             .finally(function () {
-                console.log('3')
                 $scope.loading = false;
             });
         }

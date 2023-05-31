@@ -25,6 +25,8 @@ public class UserService {
     private boolean emailUpdated=false;
     private String initialEmail;
     private boolean isCCP;
+    private String titleId;
+
     public void cleanUserService(){
         this.userId=null;
         this.userService=null;
@@ -36,6 +38,15 @@ public class UserService {
         this.emailUpdated=false;
         this.initialEmail=null;
         this.isCCP=false;
+        this.titleId=null;
+    }
+
+    public String getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(String titleId) {
+        this.titleId = titleId;
     }
 
     public boolean isCCP() {

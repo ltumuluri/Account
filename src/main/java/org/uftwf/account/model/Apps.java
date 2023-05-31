@@ -8,7 +8,7 @@ import javax.naming.InitialContext;
 public class Apps {
    public static enum App{
         UNION,UNIONQUEUE,WELFARE,WELFAREQUEUE,GRIEVANCE,GRIEVANCEQUEUE,COS,COSQUEUE,UNIONQUIRY,WELFAREINQUIRY,CERTIFICATE,MOVIETICKET,FORMSDOCUMENTS,NONMEMBERREPORT,CHAPTERSECTION,
-       NURSESECTION,PEERSECTION,DISCOUTSECTION,JUSTFORFUNSECTION,UNIONCOS, COURSES,PAPERFORMREDUCTION,CONSULATIONCOMMITTEE,HELPDESKCONSOLE,OPTICAL
+       NURSESECTION,PEERSECTION,DISCOUTSECTION,JUSTFORFUNSECTION,UNIONCOS, COURSES,PAPERFORMREDUCTION,CONSULATIONCOMMITTEE,HELPDESKCONSOLE,OPTICAL, APPR
     }
 
     public static SuggestMemberApp getSuggestApp(App app){
@@ -45,12 +45,16 @@ public class Apps {
                     return new SuggestMemberApp("Enroll in a course",host+"courses/index?project=course",17,"View current UFT courses and register online.",true,false);
 //                case SALESFORCECONSELORCOMMUNITY:
 //                    return new SuggestMemberApp("College and Career Counseling Program","https://training-uftnew.cs191.force.com/login?so=00D7c000008sDpZ",17,"See your appointment schedule.",true,true);
+                case APPR:
+                    return new SuggestMemberApp("File an APPR complaint", "https://www.uft.org/teaching/teacher-evaluation/concerns-about-your-evaluation-or-your-rating/appr-complaint",18,"Ask your principal for help resolving a procedural issue with your evaluation.",true,false);
+
+
                 case DISCOUTSECTION:
-                    return new SuggestMemberApp("Discounts", "https://www.uft.org/your-benefits/discounts-and-promotions/uft-discounts",18,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
+                    return new SuggestMemberApp("Discounts", "https://www.uft.org/your-benefits/discounts-and-promotions/uft-discounts",19,"See member-only discounts on apparel, entertainment, school supplies and more.",true,false);
                 case MOVIETICKET:
-                    return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",18,"Purchase movie tickets at discounted rates for UFT members.",true,false);
+                    return new SuggestMemberApp("Buy movie tickets",host+"movieTicket/",20,"Purchase movie tickets at discounted rates for UFT members.",true,false);
                 case FORMSDOCUMENTS:
-                    return new SuggestMemberApp("UFT forms & documents","https://www.uft.org/your-benefits/forms-and-documents",19,"View or download important UFT and DOE materials.",true,false);
+                    return new SuggestMemberApp("UFT forms & documents","https://www.uft.org/your-benefits/forms-and-documents",21,"View or download important UFT and DOE materials.",true,false);
 
                 //comment out
                 case CHAPTERSECTION:

@@ -564,6 +564,7 @@ public class MySqlService {
 
     // fetch active status from member extension
     public ObjectDB getActiveStatus(String memberId) {
+
         ObjectDB output = new ObjectDB();
 
         if (MySqlConnectionFactory.canConnect()) {
@@ -575,6 +576,30 @@ public class MySqlService {
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
                         output.setDbObject(resultSet.getString("active_status"));
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return output;
+        } else {
+            output.setDbStatus(false);
+        }
+        return output;
+    }
+
+    public ObjectDB getTitleId(String memberId) {
+        ObjectDB output = new ObjectDB();
+
+        if (MySqlConnectionFactory.canConnect()) {
+            output.setDbStatus(true);
+            try (Connection connection = MySqlConnectionFactory.getConnection()) {
+                String query = "select title_id from member_ext where member_id = ? and title_id like 'TR%' and app_status = 'U';";
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setString(1, memberId);
+                    ResultSet resultSet = statement.executeQuery();
+                    if (resultSet.next()) {
+                        output.setDbObject(resultSet.getString("title_id"));
                     }
                 }
             } catch (SQLException e) {

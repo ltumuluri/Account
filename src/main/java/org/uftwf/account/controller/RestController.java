@@ -83,6 +83,10 @@ public class RestController {
                 ObjectDB activeStatus = MySqlService.getInstance().getActiveStatus(memberId);
                 userInfo.setMemberId((String) uftId.getDbObject());
                 userInfo.setUnionStatus((String) activeStatus.getDbObject());
+
+                ObjectDB titleId = MySqlService.getInstance().getTitleId(memberId);
+                userInfo.setTitleId((String) titleId.getDbObject());
+
                 if (objectDB.getDbObject() != null) {
                     userInfo.setOptin(true);
                     userInfo.setOptInNumber((String) objectDB.getDbObject());
@@ -96,6 +100,7 @@ public class RestController {
         userInfo.setUser(user);
         userService.setSelectedUser(userInfo);
         userService.setInitialEmail(user.getEmail());
+        userService.setTitleId(userInfo.getTitleId());
         ObjectDB returnObject = new ObjectDB();
         returnObject.setDbStatus(dbStatus);
         returnObject.setDbObject(userInfo);
@@ -365,6 +370,7 @@ public class RestController {
     @RequestMapping(value = "/suggestApp")
     public SuggestMemberApp[] getSuggestApp() {
         String memberId = userService.getMemberId();
+
         SuggestMemberApp[] resultArray = null;
 
         Set<SuggestMemberApp> appLists = new HashSet<SuggestMemberApp>();
@@ -374,6 +380,7 @@ public class RestController {
         appLists.add(Apps.getSuggestApp(Apps.App.DISCOUTSECTION));
         appLists.add(Apps.getSuggestApp(Apps.App.MOVIETICKET));
         appLists.add(Apps.getSuggestApp(Apps.App.FORMSDOCUMENTS));
+
         if(!userService.isCCP()) {
             try {
 
@@ -438,6 +445,10 @@ public class RestController {
                                 }
                             }
                         }
+
+                        if (userService.getTitleId() != null) {
+                            appLists.add(Apps.getSuggestApp(Apps.App.APPR));
+                        }
                     }
                     String ssoId = userService.getUserId();
 //                    if (client.hasUserGroup(ssoId, "ADM_group")) {
@@ -446,6 +457,8 @@ public class RestController {
                     if(client.hasUserGroup(ssoId,"OCC_group")||client.hasUserGroup(ssoId,"BR_group")){
                         appLists.add(Apps.getSuggestApp(Apps.App.NONMEMBERREPORT));
                     }
+
+
 //                    if(client.hasUserGroup(ssoId,"GCC_group")){
 //                        String appUrl =System.getProperty("memberCommunity");
 //                        SuggestMemberApp salesforceapp =Apps.getSuggestApp(Apps.App.SALESFORCECONSELORCOMMUNITY);

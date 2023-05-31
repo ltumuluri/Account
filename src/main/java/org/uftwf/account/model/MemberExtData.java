@@ -16,6 +16,7 @@ public class MemberExtData {
     private String certificate_eligible;
     private String wf_date;
     private String enrollment_date;
+
     public MemberExtData(String memberGroup, String lastName,String firstName,String ssn,String country,String zip,String wfCovered,String nonmember,String union_eligible,String certificate_eligible,String wf_date,String enrollment_date){
         this.memberGroup=memberGroup;
         this.lastName=lastName;

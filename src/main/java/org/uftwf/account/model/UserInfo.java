@@ -14,6 +14,7 @@ public class UserInfo {
     private boolean isCCP;
     private boolean isEmailOptOut;
     private String unionStatus;
+    private String titleId;
 
     public String getUnionStatus() {
         return unionStatus;
@@ -21,6 +22,14 @@ public class UserInfo {
 
     public void setUnionStatus(String unionStatus) {
         this.unionStatus = unionStatus;
+    }
+
+    public String getTitleId() {
+        return titleId;
+    }
+
+    public void setTitleId(String titleId) {
+        this.titleId = titleId;
     }
 
     public boolean isEmailOptOut() {
