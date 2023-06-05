@@ -55,6 +55,10 @@ var app = angular.module("uftApp", []);
 
         $scope.openEdit = function(){
             $scope.newpassword = '';
+            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
+            $scope.confirmpassword = '';
+            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
+            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
             editStyle.cssText = "flex: 1; opacity: 1; height: 100%; width: 100%;";
             wrapperAccount.cssText = "width: 0; flex: 0; opacity: 0; height: 0;";
         };
@@ -187,7 +191,6 @@ var app = angular.module("uftApp", []);
 
             })
             .finally(function () {
-                console.log('3')
                 $scope.loading = false;
             });
         }
