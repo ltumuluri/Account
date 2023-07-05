@@ -60,10 +60,10 @@
 <body ng-app="uftApp" >
 <!-- Google Tag Manager (noscript) -->
 <!-- Production -->
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFBLWL2&gtm_auth=i91GxXrplktTDko6B98qsQ&gtm_preview=env-1&gtm_cookies_win=x"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
+<!--<noscript>-->
+<!--    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFBLWL2&gtm_auth=i91GxXrplktTDko6B98qsQ&gtm_preview=env-1&gtm_cookies_win=x"-->
+<!--            height="0" width="0" style="display:none;visibility:hidden"></iframe>-->
+<!--</noscript>-->
 
 <!-- Dev -->
 <noscript>
@@ -400,11 +400,11 @@
                     </div>
                     <div class="wrapperBody tileSize" style="justify-content: space-between">
                         <a href="https://www.uft.org/your-rights/frequently-asked-questions" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile">
-                            <span class="boldText">FAQs</span>
+                            <span class="boldText accountButton" >FAQs</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                         <a href="https://www.uft.org/get-involved/events" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile">
-                            <span class="boldText">Events</span>
+                            <span class="boldText accountButton">Events</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
@@ -422,7 +422,7 @@
                         <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
                             <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
                                 <div class="tileButton">
-                                    <div>{{nonMemberApplicationList[$index].appName}}</div>
+                                    <div class="accountButton">{{nonMemberApplicationList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -437,7 +437,7 @@
                         <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
                             <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
                                 <div class="tileButton">
-                                    <div>{{accessApplicationList[$index].appName}}</div>
+                                    <div class="accountButton">{{accessApplicationList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{accessApplicationList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -453,7 +453,7 @@
                         <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
                             <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
                                 <div class="tileButton">
-                                    <div>{{welfareAdminApp[$index].appName}}</div>
+                                    <div class="accountButton">{{welfareAdminApp[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{welfareAdminApp[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -467,7 +467,7 @@
                         <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
                             <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
                                 <div class="tileButton">
-                                    <div>{{helpDeskList[$index].appName}}</div>
+                                    <div class="accountButton">{{helpDeskList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{helpDeskList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -482,7 +482,7 @@
                         <div ng-repeat ="app in webList|orderBy:'priority'">
                             <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !webList[$index].status}">
                                 <div class="tileButton">
-                                    <div>{{webList[$index].appName}}</div>
+                                    <div class="accountButton">{{webList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{webList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -497,7 +497,7 @@
                         <div ng-repeat ="app in appList|orderBy:'priority'">
                             <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
                                 <div class="tileButton">
-                                    <div>{{appList[$index].appName}}</div>
+                                    <div class="accountButton">{{appList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{appList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
