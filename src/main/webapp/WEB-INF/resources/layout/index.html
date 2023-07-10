@@ -268,10 +268,7 @@
                 </div>
 
 
-                <div class="gapBetween" ng-show="isMember" style="font-weight: 600;">
-                    * Update your mailing address or phone number with our
-                    <a href="https://services.uftwf.dev/unioncoa" class="text-primary" target="_blank" style="font-weight: 600">Change of Address/Status app</a>.
-                </div>
+
                 <!-- save/cancel button -->
                 <div class="wrapperBody buttonLayout gapBetween gapAround">
                     <div>
@@ -400,11 +397,11 @@
                     </div>
                     <div class="wrapperBody tileSize" style="justify-content: space-between">
                         <a href="https://www.uft.org/your-rights/frequently-asked-questions" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile">
-                            <span class="boldText accountButton" >FAQs</span>
+                            <span class="boldText">FAQs</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                         <a href="https://www.uft.org/get-involved/events" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile">
-                            <span class="boldText accountButton">Events</span>
+                            <span class="boldText">Events</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
@@ -422,7 +419,7 @@
                         <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
                             <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
                                 <div class="tileButton">
-                                    <div class="accountButton">{{nonMemberApplicationList[$index].appName}}</div>
+                                    <div>{{nonMemberApplicationList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{nonMemberApplicationList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -437,7 +434,7 @@
                         <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
                             <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper">
                                 <div class="tileButton">
-                                    <div class="accountButton">{{accessApplicationList[$index].appName}}</div>
+                                    <div>{{accessApplicationList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{accessApplicationList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -453,7 +450,7 @@
                         <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
                             <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !welfareAdminApp[$index].status}">
                                 <div class="tileButton">
-                                    <div class="accountButton">{{welfareAdminApp[$index].appName}}</div>
+                                    <div>{{welfareAdminApp[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{welfareAdminApp[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -467,7 +464,7 @@
                         <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
                             <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !helpDeskList[$index].status}">
                                 <div class="tileButton">
-                                    <div class="accountButton">{{helpDeskList[$index].appName}}</div>
+                                    <div>{{helpDeskList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{helpDeskList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -482,7 +479,7 @@
                         <div ng-repeat ="app in webList|orderBy:'priority'">
                             <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !webList[$index].status}">
                                 <div class="tileButton">
-                                    <div class="accountButton">{{webList[$index].appName}}</div>
+                                    <div>{{webList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{webList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -497,7 +494,7 @@
                         <div ng-repeat ="app in appList|orderBy:'priority'">
                             <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
                                 <div class="tileButton">
-                                    <div class="accountButton">{{appList[$index].appName}}</div>
+                                    <div>{{appList[$index].appName}}</div>
                                 </div>
                                 <div class="tileText">{{appList[$index].description}}</div>
                                 <span class="material-symbols-outlined arrowPosition">chevron_right</span>
@@ -530,14 +527,6 @@
 <uft-footer></uft-footer>
 
 <script>
-<!--    let editStyle = document.getElementById("asideEdit").style;-->
-<!--    let wrapperAccount = document.getElementById("wrapperAccount").style;-->
-
-<!--    function closeEdit() {-->
-<!--        editStyle.cssText = "flex: 0; opacity: 0; height: 0; width: 0;";-->
-<!--        wrapperAccount.cssText = "width: 100%; flex: 1; opacity: 1; height: 100%;";-->
-<!--    }-->
-
 </script>
 
 </body>

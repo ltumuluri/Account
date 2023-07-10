@@ -615,7 +615,7 @@ var app = angular.module("uftApp", []);
                     //     ctrl.$setValidity('newpasswordisEmpty', true);
                     // }
                     //
-                    // console.log(ctrl.$setValidity)
+
                     //
 
 
