@@ -378,29 +378,44 @@
 
                 <div class="">
                     <div class="tileSize gapBetween hubText " ng-show="activeStatus=='U'">
-                        <a href="https://hub.uft.org" target="_blank" class="wrapperBody leftTile gtm-link">
+                        <a href="https://hub.uft.org"
+                           target="_blank"
+                           class="wrapperBody leftTile gtm-link"
+                           onclick="handleClick(event, this)">
                             <span class="boldText gtm-tag">Member Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
                     <div class="gapBetween hubText tileSize" ng-show="chapterleadercommunity">
-                        <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page" target="_blank" class="wrapperBody leftTile gtm-link">
+                        <a href="https://hub.uft.org/uftselfservice/s/chapter-leader-hub-home-page"
+                           target="_blank"
+                           class="wrapperBody leftTile gtm-link"
+                           onclick="handleClick(event, this)">
                             <span class="boldText gtm-tag">Chapter Leader Hub</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
                     <div class="gapBetween hubText tileSize" ng-show="hasRetireeSection">
-                        <a href="https://hub.uft.org/uftselfservice/s/retiree-resources" target="_blank" class="wrapperBody leftTile gtm-link">
+                        <a href="https://hub.uft.org/uftselfservice/s/retiree-resources"
+                           target="_blank"
+                           class="wrapperBody leftTile gtm-link"
+                           onclick="handleClick(event, this)">
                             <span class="boldText gtm-tag">Retiree resources</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
                     </div>
                     <div class="wrapperBody tileSize" style="justify-content: space-between">
-                        <a href="https://www.uft.org/your-rights/frequently-asked-questions" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile gtm-link">
+                        <a href="https://www.uft.org/your-rights/frequently-asked-questions"
+                           target="_blank"
+                           class="wrapperBody leftWrapper leftTile gapBetween otherTile gtm-link"
+                           onclick="handleClick(event, this)">
                             <span class="boldText gtm-tag">FAQs</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
-                        <a href="https://www.uft.org/get-involved/events" target="_blank" class="wrapperBody leftWrapper leftTile gapBetween otherTile gtm-link">
+                        <a href="https://www.uft.org/get-involved/events"
+                           target="_blank"
+                           class="wrapperBody leftWrapper leftTile gapBetween otherTile gtm-link"
+                           onclick="handleClick(event, this)">
                             <span class="boldText gtm-tag">Events</span>
                             <span class="material-symbols-outlined arrowPosition">chevron_right</span>
                         </a>
@@ -417,7 +432,9 @@
                     <div class="title gapBetween">Online forms for new employees</div>
                     <div class="wrapperBody rightWrapper" style="">
                         <div ng-repeat ="nonMemberApp in nonMemberApplicationList|orderBy:'priority'">
-                            <a href="{{nonMemberApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper gtm-link">
+                            <a href="{{nonMemberApplicationList[$index].appUrl}}"
+                               class="rightTile wrapperBody rightTileWrapper gtm-link"
+                               onclick="handleClick(event)">
                                 <div class="tileButton">
                                     <div class="gtm-tag">{{nonMemberApplicationList[$index].appName}}</div>
                                 </div>
@@ -432,7 +449,9 @@
                     <div class="title gapBetween">Online forms to access the UFT website</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="nonMemberApp in accessApplicationList|orderBy:'priority'">
-                            <a href="{{accessApplicationList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper gtm-link">
+                            <a href="{{accessApplicationList[$index].appUrl}}"
+                               class="rightTile wrapperBody rightTileWrapper gtm-link"
+                               onclick="handleClick(event)">
                                 <div class="tileButton">
                                     <div class="gtm-tag">{{accessApplicationList[$index].appName}}</div>
                                 </div>
@@ -448,7 +467,10 @@
                     <div class="wrapperBody rightWrapper">
 
                         <div ng-repeat ="app in welfareAdminApp|orderBy:'priority'">
-                            <a href="{{welfareAdminApp[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper gtm-link" ng-class="{disabled: !welfareAdminApp[$index].status}">
+                            <a href="{{welfareAdminApp[$index].appUrl}}"
+                               class="rightTile wrapperBody rightTileWrapper gtm-link"
+                               ng-class="{disabled: !welfareAdminApp[$index].status}"
+                               onclick="handleClick(event)">
                                 <div class="tileButton">
                                     <div class="gtm-tag">{{welfareAdminApp[$index].appName}}</div>
                                 </div>
@@ -462,7 +484,10 @@
                     <div class="title gapBetween">Administrative Tools</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="app in helpDeskList|orderBy:'priority'">
-                            <a href="{{helpDeskList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper gtm-link" ng-class="{disabled: !helpDeskList[$index].status}">
+                            <a href="{{helpDeskList[$index].appUrl}}"
+                               class="rightTile wrapperBody rightTileWrapper gtm-link"
+                               ng-class="{disabled: !helpDeskList[$index].status}"
+                               onclick="handleClick(event)">
                                 <div class="tileButton">
                                     <div class="gtm-tag">{{helpDeskList[$index].appName}}</div>
                                 </div>
@@ -477,7 +502,10 @@
                     <div class="title gapBetween">Chapter Leader Resources</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="app in webList|orderBy:'priority'">
-                            <a href="{{webList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper gtm-link" ng-class="{disabled: !webList[$index].status}">
+                            <a href="{{webList[$index].appUrl}}"
+                               class="rightTile wrapperBody rightTileWrapper gtm-link"
+                               ng-class="{disabled: !webList[$index].status}"
+                               onclick="handleClick(event)">
                                 <div class="tileButton">
                                     <div class="gtm-tag">{{webList[$index].appName}}</div>
                                 </div>
@@ -492,7 +520,11 @@
                     <div class="title gapBetween">Member Resources</div>
                     <div class="wrapperBody rightWrapper">
                         <div ng-repeat ="app in appList|orderBy:'priority'">
-                            <a href="{{appList[$index].appUrl}}" class="rightTile wrapperBody rightTileWrapper gtm-link" ng-class="{disabled: !appList[$index].status}" ng-attr-target="{{appList[$index].external?'_blank':undefined}}">
+                            <a href="{{appList[$index].appUrl}}"
+                               class="rightTile wrapperBody rightTileWrapper gtm-link"
+                               ng-class="{disabled: !appList[$index].status}"
+                               ng-attr-target="{{appList[$index].external?'_blank':undefined}}"
+                               onclick="handleClick(event, this)">
                                 <div class="tileButton">
                                     <div class="gtm-tag">{{appList[$index].appName}}</div>
                                 </div>
@@ -526,14 +558,17 @@
 <uft-footer></uft-footer>
 
 <script>
-    const tags = document.querySelectorAll('a.gtm-link');
 
-    function handleTag() {
-        tags.forEach(a => a.classList.remove('active'));
-        this.classList.add('active');
-    }
+function handleClick(event, clickedLink) {
+  event.preventDefault();
+  const links = document.querySelectorAll('.gtm-link');
 
-    tags.forEach(a => a.addEventListener('click', handleTag));
+  links.forEach(link => link.classList.remove('active'));
+  clickedLink.classList.add('active');
+
+  const url = clickedLink.getAttribute('href');
+  window.location.href = url;
+}
 
 </script>
 
