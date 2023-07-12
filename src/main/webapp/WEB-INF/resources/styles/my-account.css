@@ -126,6 +126,7 @@ h3 {
     #aside {
         margin: 0;
         padding: 0;
+        min-width: 200px;
     }
 }
 
@@ -288,7 +289,7 @@ input:disabled:hover, input:disabled:focus{
     letter-spacing: 0.05em;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding-left: 30px;
+    padding-left: 30px !important;
 }
 
 .collapseCard {
