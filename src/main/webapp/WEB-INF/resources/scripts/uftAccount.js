@@ -24,13 +24,15 @@ var app = angular.module("uftApp", []);
 })();
 
 (function () {
-    app.controller("accountFormController", ['$scope', '$http', '$window', '$location','$rootScope', function ($scope, $http, $window, $location,$rootScope) {
+    app.controller("accountFormController", ['$scope', '$http', '$window', '$location','$rootScope','$timeout', function ($scope, $http, $window, $location, $rootScope, $timeout) {
+
         $scope.showPhone = false;
         $scope.isMember = false;
         $scope.updateMessage="Save";
         $scope.showBanner = false;
         $scope.communitylink='';
         $scope.loading = false;
+        $scope.verifiedMember = false;
 
         function showCommunityBanner(){
             $http({
@@ -53,12 +55,15 @@ var app = angular.module("uftApp", []);
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
 
-        $scope.openEdit = function(){
-            $scope.newpassword = '';
-            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
-            $scope.confirmpassword = '';
-            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
-            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
+        $rootScope.openEdit = function(){
+            $rootScope.newpassword = '';
+            $rootScope.confirmpassword = '';
+
+            if ($rootScope.accountForm) {
+                $rootScope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
+                $rootScope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
+                $rootScope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
+            }
             editStyle.cssText = "flex: 1; opacity: 1; height: 100%; width: 100%;";
             wrapperAccount.cssText = "width: 0; flex: 0; opacity: 0; height: 0;";
         };
@@ -69,13 +74,13 @@ var app = angular.module("uftApp", []);
             window.scrollTo({ top: 0 });
         };
 
+
         function loadPersonInfo() {
             $scope.loading = true;
             $http({
                 url: "userInfo",
                 method: "GET"
             }).then(function (response) {
-
                 if(response.data!=null&&response.data['dbStatus']){
                    let personInfo = response.data['dbObject']['user'];
                    let memberId= response.data['dbObject']['memberId'];
@@ -83,6 +88,8 @@ var app = angular.module("uftApp", []);
                     var optInNumber=response.data['dbObject']['optInNumber'];
                     var isMember=response.data['dbObject']['member'];
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
+
+                    $scope.verifiedMember = response.data['dbObject']['user']['userAttributes']['member_id'];
                     $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
                     $rootScope.titleId = response.data['dbObject']['titleId'];
                     $rootScope.firstname=personInfo['firstname'];
@@ -92,6 +99,7 @@ var app = angular.module("uftApp", []);
                     $scope.isCCP=response.data['dbObject']['ccp'];
                     $scope.memberId=memberId;
                     $scope.unSubscribe=unSubscribe;
+
                     //phone format xxx-xxx-xxxx
                     if(optin){
                         $scope.optin="yes";
@@ -189,12 +197,26 @@ var app = angular.module("uftApp", []);
                     }
                 });
 
+                var url = $location.absUrl();
+                if (url.indexOf('?edit') !== -1) {
+                    if($scope.verifiedMember) {
+                        $rootScope.openEdit();
+                        document.getElementById("asideEdit").style.transition = '0s';
+                        document.getElementById("wrapperAccount").style.transition = '0s';
+                    } else {
+                        var hostname = $window.location.hostname;
+                        var url = hostname + '/verify';
+                        $window.location.href = 'https://' + url;
+                    }
+                }
             })
             .finally(function () {
                 $scope.loading = false;
             });
+
         }
         loadPersonInfo();
+
 
         let fixedButton = document.getElementById("btnFixed");
         window.onscroll = function () {

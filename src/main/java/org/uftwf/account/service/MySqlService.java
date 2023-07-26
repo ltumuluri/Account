@@ -612,4 +612,29 @@ public class MySqlService {
         return output;
     }
 
+    public ObjectDB getVerify(String memberId) {
+        ObjectDB output = new ObjectDB();
+
+        if (MySqlConnectionFactory.canConnect()) {
+            output.setDbStatus(true);
+            try (Connection connection = MySqlConnectionFactory.getConnection()) {
+                String query = "select * from member_ext where member_id is not null;";
+                try (PreparedStatement statement = connection.prepareStatement(query)) {
+                    statement.setString(1, memberId);
+                    ResultSet resultSet = statement.executeQuery();
+                    if (resultSet.next()) {
+                        output.setDbObject(resultSet.getString("title_id"));
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return output;
+        } else {
+            output.setDbStatus(false);
+        }
+        return output;
+    }
+
+
 }
