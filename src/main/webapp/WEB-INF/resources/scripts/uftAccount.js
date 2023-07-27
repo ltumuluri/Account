@@ -33,6 +33,7 @@ var app = angular.module("uftApp", []);
         $scope.communitylink='';
         $scope.loading = false;
         $scope.verifiedMember = false;
+        $scope.verifiedStyle = false;
 
         function showCommunityBanner(){
             $http({
@@ -204,9 +205,8 @@ var app = angular.module("uftApp", []);
                         document.getElementById("asideEdit").style.transition = '0s';
                         document.getElementById("wrapperAccount").style.transition = '0s';
                     } else {
-                        var hostname = $window.location.hostname;
-                        var url = hostname + '/verify';
-                        $window.location.href = 'https://' + url;
+                        $scope.verifiedStyle = true;
+
                     }
                 }
             })
@@ -217,8 +217,27 @@ var app = angular.module("uftApp", []);
         }
         loadPersonInfo();
 
+        $scope.goToVerify = function() {
+            var hostname = $window.location.hostname;
+            var url = hostname + '/verify';
+            $window.location.href = 'https://' + url;
+        }
+
 
         let fixedButton = document.getElementById("btnFixed");
+
+        console.log($(document).height());
+        console.log($(window).height());
+        console.log($(window).scrollTop());
+         console.log('12');
+
+        let heightButton = $(document).height() - $(window).height() - $(window).scrollTop();;
+        console.log(heightButton + "height");
+
+        if(heightButton < 280) {
+            fixedButton.style.display = "none"
+        }
+
         window.onscroll = function () {
             scrollFunction();
         };
@@ -228,8 +247,10 @@ var app = angular.module("uftApp", []);
                 scrollBottom > 260 ||
                 scrollBottom > 260
             ) {
+             console.log(scrollBottom);
                 fixedButton.style.display = "block";
             } else {
+            console.log(scrollBottom + ' a');
                 fixedButton.style.display = "none";
             }
 
