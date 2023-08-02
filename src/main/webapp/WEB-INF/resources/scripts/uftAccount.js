@@ -226,13 +226,7 @@ var app = angular.module("uftApp", []);
 
         let fixedButton = document.getElementById("btnFixed");
 
-        console.log($(document).height());
-        console.log($(window).height());
-        console.log($(window).scrollTop());
-         console.log('12');
-
         let heightButton = $(document).height() - $(window).height() - $(window).scrollTop();;
-        console.log(heightButton + "height");
 
         if(heightButton < 280) {
             fixedButton.style.display = "none"
@@ -247,10 +241,8 @@ var app = angular.module("uftApp", []);
                 scrollBottom > 260 ||
                 scrollBottom > 260
             ) {
-             console.log(scrollBottom);
                 fixedButton.style.display = "block";
             } else {
-            console.log(scrollBottom + ' a');
                 fixedButton.style.display = "none";
             }
 
