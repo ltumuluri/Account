@@ -34,6 +34,8 @@ var app = angular.module("uftApp", []);
         $scope.loading = false;
         $scope.verifiedMember = false;
         $scope.verifiedStyle = false;
+        $scope.showNewPassword = false;
+        $scope.showConfirmPassword = false;
 
         function showCommunityBanner(){
             $http({
@@ -55,16 +57,26 @@ var app = angular.module("uftApp", []);
         var subscribeModal = document.getElementById("subscribeModal");
         var editStyle = document.getElementById("asideEdit").style;
         var wrapperAccount = document.getElementById("wrapperAccount").style;
+        var confirmEmailInput = document.getElementById('confirmemail');
+        var emailInput = document.getElementById('email');
 
         $rootScope.openEdit = function(){
-            $rootScope.newpassword = '';
-            $rootScope.confirmpassword = '';
+            $scope.newpassword = '';
+            $scope.confirmpassword = '';
 
-            if ($rootScope.accountForm) {
-                $rootScope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
-                $rootScope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
-                $rootScope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
-            }
+            $scope.email = $scope.oldEmail;
+            $scope.confirmemail = '';
+
+            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
+            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
+            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
+
+            $scope.accountForm.email.$setValidity('invalidEmail', true);
+            $scope.accountForm.email.$setValidity('invalidEmailDomain', true);
+            $scope.accountForm.confirmemail.$setValidity('invalidConfirmEmail', true);
+
+            confirmEmailInput.disabled = true;
+
             editStyle.cssText = "flex: 1; opacity: 1; height: 100%; width: 100%;";
             wrapperAccount.cssText = "width: 0; flex: 0; opacity: 0; height: 0;";
         };
@@ -100,6 +112,9 @@ var app = angular.module("uftApp", []);
                     $scope.isCCP=response.data['dbObject']['ccp'];
                     $scope.memberId=memberId;
                     $scope.unSubscribe=unSubscribe;
+
+                    $scope.email = personInfo.email;
+                    $scope.oldEmail = personInfo.email;
 
                     //phone format xxx-xxx-xxxx
                     if(optin){
@@ -251,13 +266,11 @@ var app = angular.module("uftApp", []);
         $scope.isEdit = false;
         $scope.edit = "Edit";
         $scope.cancel=function(){
-            $scope.newpassword = '';
-            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
-            $scope.confirmpassword = '';
-            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
-            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
+
             $scope.isEdit=false;
             $scope.errorField=false;
+
+            loadPersonInfo();
             closeEdit();
         };
         $scope.enableEdit = function () {
@@ -280,6 +293,17 @@ var app = angular.module("uftApp", []);
             document.getElementById("subscribe").checked=false;
             subscribeModal.style.display ="none";
         };
+
+        window.disableEmail = function() {
+          if (emailInput.value === $scope.oldEmail) {
+            $scope.confirmemail = "";
+            confirmEmailInput.disabled = true;
+          } else {
+            confirmEmailInput.disabled = false;
+          }
+        }
+        emailInput.addEventListener('input', disableEmail);
+
         $scope.enableSave = function () {
             if($scope.accountForm.$valid) {
                 if (!$scope.updating) {
@@ -288,7 +312,7 @@ var app = angular.module("uftApp", []);
                     personInfo['username'] = $scope.personInfo.username;
                     personInfo['lastname'] = $scope.personInfo.lastname;
                     personInfo['firstname'] = $scope.personInfo.firstname;
-                    personInfo['email'] = $scope.personInfo.email;
+                    personInfo['email'] = $scope.email;
                     if (personInfo.userAttributes != null && personInfo.userAttributes.zipCode) {
                         personInfo['zipCode'] = personInfo.userAttributes.zipCode;
                     } else {
@@ -319,20 +343,6 @@ var app = angular.module("uftApp", []);
                     };
 
                     $http({
-                        url: "old_email",
-                        method: "GET"
-                    }).then(function (response) {
-                        $scope.updating = true;
-                        $scope.updateMessage = "Please Wait...";
-                        if (response.data != null && response.data !== $scope.personInfo.email) {
-                            var updateEmail = confirm("You have updated your email address. Please click OK to confirm. You will be logged out from the application. If you click Cancel, all other information will be updated, but the email will revert back to original email.");
-                            if (updateEmail == false) {
-                                userInfo['email'] = response.data;
-                                $scope.personInfo.email = response.data;
-                                userInfo['user']['email'] = response.data;
-                            }
-                        }
-                    $http({
                         url: "updateUser",
                         method: "POST",
                         data: JSON.stringify(userInfo),
@@ -358,11 +368,6 @@ var app = angular.module("uftApp", []);
                                     emailModal.style.display = "block";
                                 }
                             });
-                            $scope.newpassword = '';
-                            $scope.accountForm.newpassword.$setValidity('invalidPasswordFormat', true);
-                            $scope.confirmpassword = '';
-                            $scope.accountForm.confirmpassword.$setValidity('newpasswordisEmpty', true);
-                            $scope.accountForm.confirmpassword.$setValidity('invalidconfirmPassword', true);
                             closeEdit();
                         } else {
                             $scope.updating = false;
@@ -374,7 +379,6 @@ var app = angular.module("uftApp", []);
                             document.getElementById("username").focus();
                         }
                     });
-                });
 
                 }
                 }
@@ -627,13 +631,6 @@ var app = angular.module("uftApp", []);
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (value) {
-                    /*if(scope.password==null||scope.password.length==0){
-                     if(value){
-                     valid=false;
-                     ctrl.$setValidity('passwordisEmpty',valid);
-                     }
-                     }*/
-                    // else{
                     var valid = /^(?=.*\d)(?=.*[A-Z])[a-zA-Z0-9\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{8,}$/.test(value);
                     ctrl.$setValidity('invalidPasswordFormat', valid);
                     if (scope.confirmpassword != null) {
@@ -643,19 +640,6 @@ var app = angular.module("uftApp", []);
                         ctrl.$setValidity('invalidPasswordFormat', true);
 
                     }
-
-                    // if(scope.confirmpassword !== value) {
-                    //     ctrl.$setValidity('newpasswordisEmpty', false);
-                    // } else {
-                    //     ctrl.$setValidity('newpasswordisEmpty', true);
-                    // }
-                    //
-
-                    //
-
-
-
-
                     return value;
 
                 })
@@ -670,26 +654,6 @@ var app = angular.module("uftApp", []);
             require: 'ngModel',
             link: function (scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function (value) {
-
-                    // if (scope.newpassword == null || scope.newpassword.length == 0) {
-                    //     if (value) {
-                    //         var valid = false;
-                    //         ctrl.$setValidity('newpasswordisEmpty', valid);
-                    //     }
-                    // }
-                    // else {
-                    //     var valid = false;
-                    //     if (value == scope.newpassword) {
-                    //         valid = true;
-                    //     }
-                    //     ctrl.$setValidity('invalidconfirmPassword', valid);
-                    // }
-                    // if((value==null||value=="")&&(scope.newpassword == null || scope.newpassword.length == 0)){
-                    //     ctrl.$setValidity('invalidconfirmPassword', true);
-                    //     ctrl.$setValidity('newpasswordisEmpty', true
-                    //     );
-                    // }
-
 
                     if(value == null || value === "") {
                         var valid = true;
@@ -747,6 +711,38 @@ var app = angular.module("uftApp", []);
                     var valid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
                     ctrl.$setValidity('invalidEmail', valid);
 
+                    if (scope.confirmemail != null) {
+                        scope.confirmemail = "";
+                    }
+
+                   if (value === scope.oldEmail) {
+                    scope.accountForm.confirmemail.$setValidity('invalidConfirmEmail', true);
+                   }
+
+                    return value;
+                });
+            }
+        }
+    });
+})();
+(function () {
+    app.directive("confirmemailVerify", function ($http, invalidDomainService) {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            link: function (scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function (value) {
+                    if (value == null || value === "" ) {
+                        ctrl.$setValidity('invalidConfirmEmail', false);
+                        if(scope.email === scope.oldEmail) {
+                            ctrl.$setValidity('invalidConfirmEmail', true);
+                        }
+                    } else {
+                        ctrl.$setValidity('invalidConfirmEmail', false);
+                        if (value === scope.email) {
+                        ctrl.$setValidity('invalidConfirmEmail', true);
+                        }
+                    }
                     return value;
                 });
             }
