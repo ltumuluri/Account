@@ -153,7 +153,7 @@
                     <div class="editSubColor">If you update your email address, you will be logged out from the UFT website and must validate your new email address</div>
                     <div class="editSubColor gapBetweenS">Current email: {{oldEmail}}</div>
                     <div class="editTile">
-                        <div class="col-md-5" style="display: inline-block;">
+                        <div class="col-md-5 inlineBlockGap" style="display: inline-block;">
                             <label for="email" style="display: block">Email:</label>
                             <input type="text" class="inputBox col-md-10" id="email" maxlength="250"
                                    name="email" ng-model="email" required email-verify
@@ -182,16 +182,14 @@
                     <div class="editTile">
                         <div class="col-md-5 inlineBlockGap" style="display: inline-block;">
                             <label for="newpassword">Change Password:</label>
-                            <div style="position: relative;">
-                                <input type="{{ showNewPassword ? 'text' : 'password' }}" class="inputBox col-md-10" id="newpassword"
-                                       maxlength="25" name="newpassword" ng-model="newpassword"
-                                       newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
-                                <span class="password-toggle" ng-click="showNewPassword = !showNewPassword">
-                                    <span class="material-symbols-outlined iconButton" style="color: gray; font-size: 18px">
-                                        {{ showNewPassword ? 'visibility_off' : 'visibility' }}
-                                    </span>
+                            <input type="{{ showNewPassword ? 'text' : 'password' }}" class="inputBox col-md-10" id="newpassword"
+                                   maxlength="25" name="newpassword" ng-model="newpassword"
+                                   newpassword-valid ng-model-options="{ updateOn: 'blur' }"/>
+                            <span ng-click="showNewPassword = !showNewPassword">
+                                <span class="material-symbols-outlined iconButton" style="color: gray; font-size: 18px">
+                                    {{ showNewPassword ? 'visibility_off' : 'visibility' }}
                                 </span>
-                            </div>
+                            </span>
                             <div class="errorMessage">
                                 <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Passwords must be at least 8 characters and contain a minimum of one uppercase, one lowercase and one digit</span>
                                 <span class="invalid" ng-show="accountForm.newpassword.$error.invalidPasswordFormat">Passwords must be at least 8 characters and contain a minimum of one uppercase, one lowercase and one digit</span>
@@ -200,17 +198,15 @@
                         </div>
                         <div class="col-md-5" style="display: inline-block;">
                             <label for="confirmpassword">Confirm Password:</label>
-                            <div style="position: relative;">
-                                <input type="{{ showConfirmPassword ? 'text' : 'password' }}" class="inputBox col-md-10" id="confirmpassword" maxlength="25"
-                                       name="confirmpassword" ng-model="confirmpassword" confirmpassword-valid
-                                       ng-model-options="{ updateOn: 'blur' }"/>
-                                <span class="password-toggle" ng-click="showConfirmPassword = !showConfirmPassword">
-                                    <span class="material-symbols-outlined iconButton" style="color: gray; font-size: 18px">
-                                        {{ showNewPassword ? 'visibility_off' : 'visibility' }}
-                                    </span>
+                            <input type="{{ showConfirmPassword ? 'text' : 'password' }}" class="inputBox col-md-10" id="confirmpassword" maxlength="25"
+                                   name="confirmpassword" ng-model="confirmpassword" confirmpassword-valid
+                                   ng-model-options="{ updateOn: 'blur' }"/>
+                            <span ng-click="showConfirmPassword = !showConfirmPassword" style="cursor: pointer">
+                                <span class="material-symbols-outlined iconButton" style="color: gray; font-size: 18px">
+                                    {{ showNewPassword ? 'visibility_off' : 'visibility' }}
                                 </span>
+                            </span>
 
-                            </div>
                             <div class="errorMessage">
                                 <span class="invalid" ng-show="accountForm.confirmpassword.$error.newpasswordisEmpty">Change password field is empty</span>
                                 <span class="invalid" ng-show="accountForm.confirmpassword.$error.invalidconfirmPassword">Password does not match</span>

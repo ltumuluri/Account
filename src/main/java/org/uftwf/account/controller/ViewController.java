@@ -84,8 +84,7 @@ public class ViewController {
             response.sendRedirect(absoluteUrl);
 
         } catch (Exception e) {
-            LOGGER.error("An error occurred:", e);
-            // Handle the exception gracefully
+            e.printStackTrace();
         }
     }
 
