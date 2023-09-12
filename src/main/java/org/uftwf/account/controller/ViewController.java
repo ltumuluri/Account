@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.uft.plunkit.ChangeOfStatus;
+import org.uftwf.account.model.MemberExtData;
 import org.uftwf.account.service.MySqlService;
 import org.uftwf.account.service.UserService;
 import org.uftwf.account.util.MySqlConnectionFactory;
@@ -69,6 +70,19 @@ public class ViewController {
         LOGGER.info("getDefault: direct to login page" + "\r\n");
         try {
             response.sendRedirect("index");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping(value = "/updateCoa", method = RequestMethod.GET)
+    public void updateCoa(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String currentHost = request.getHeader("host");
+            String scheme = request.getScheme();
+            String absoluteUrl = scheme + "://" + currentHost + "/unioncoa";
+            response.sendRedirect(absoluteUrl);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
