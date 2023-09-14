@@ -90,7 +90,7 @@ var app = angular.module("uftApp", []);
                     var isMember=response.data['dbObject']['member'];
                     var unSubscribe = response.data['dbObject']['emailOptOut'];
 
-                    $scope.verifiedMember = response.data['dbObject']['user']['userAttributes']['member_id'];
+                    $scope.verifiedMember = response.data['dbObject']['user']['userAttributes']??['member_id'];
                     $rootScope.activeStatus = response.data['dbObject']['unionStatus'];
                     $rootScope.titleId = response.data['dbObject']['titleId'];
                     $rootScope.firstname=personInfo['firstname'];
