@@ -155,10 +155,7 @@ public class RestController {
                         client);
                 update = statusMessage.isStatus();
                 if (statusMessage.getMessage() != null && statusMessage.getMessage().length() > 0) {
-                    PrintWriter out = response.getWriter();
-                    out.write(statusMessage.getMessage());
-                    out.close();
-                    return;
+                    errorMessage = errorMessage + statusMessage.getMessage();
                 }
                 if (user.getNewpassword() != null && user.getConfirmpassword() != null) {
                     if (user.getNewpassword().equalsIgnoreCase(user.getConfirmpassword())) {

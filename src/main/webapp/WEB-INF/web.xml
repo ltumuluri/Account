@@ -10,7 +10,7 @@
             <web-resource-name>All Access</web-resource-name>
             <url-pattern>/index</url-pattern>
             <url-pattern>/updateUser</url-pattern>
-            <url-pattern>/updateCoa</url-pattern>
+            <url-pattern>/enrollment</url-pattern>
             <url-pattern>/userInfo</url-pattern>
             <url-pattern>/forbidden_domain</url-pattern>
             <url-pattern>/verifylink</url-pattern>
