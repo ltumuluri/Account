@@ -74,20 +74,6 @@ public class ViewController {
         }
     }
 
-    @RequestMapping(value = "/enrollment", method = RequestMethod.GET)
-    public void enrollment(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            String currentHost = request.getHeader("host");
-            String scheme = request.getScheme();
-            String absoluteUrl = scheme + "://" + currentHost + "/enrollment";
-            response.sendRedirect(absoluteUrl);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error(HttpServletResponse response) {
         return "error";
